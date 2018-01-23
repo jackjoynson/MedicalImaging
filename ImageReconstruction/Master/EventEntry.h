@@ -1,5 +1,3 @@
-using namespace std;
-
 class EventEntry
 {
 
@@ -9,14 +7,7 @@ class EventEntry
 	int _Detector;
 
 	public: 
-	EventEntry(int timeStamp, int energy, int detector)
-	{
-		_TimeStamp = timeStamp;
-
-		_Energy = energy;
-
-		_Detector = detector;
-	}
+		EventEntry(int timeStamp, int energy, int detector);
 	 
 	int GetTimeStamp()
 	{
