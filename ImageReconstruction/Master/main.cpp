@@ -1,3 +1,7 @@
-using namespace std;
+#include "stdafx.h"
 
-#include "GetUserInputs.h";
+
+int main()
+{
+	return 0;
+}
