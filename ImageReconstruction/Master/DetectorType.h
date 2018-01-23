@@ -11,12 +11,12 @@
 #include <stdio.h>
 using namespace std;
 
-class DetectorType{
+class DetectorType
+{
 public:
     DetectorType();
     DetectorType(int x, int y, bool scatter);
     ~DetectorType();
-    
     
     void setDetectorXCord(double x){
         detectorXCord = x;
@@ -47,7 +47,7 @@ private:
     
     
     
-}
+};
 
 
 

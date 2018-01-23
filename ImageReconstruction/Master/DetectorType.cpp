@@ -17,7 +17,7 @@ DetectorType::DetectorType(int x, int y, bool scatter){
     isScatter = scatter;
 }
 
-~DetectorType::DetectorType(){
+DetectorType::~DetectorType(){
     
 }
 

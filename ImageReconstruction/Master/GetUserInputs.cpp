@@ -4,7 +4,7 @@
 using namespace std;
 
 
-GetUserInput::GetUserInput()
+GetUserInputs::GetUserInputs()
 {
 
     int detectorNumber;
@@ -22,7 +22,7 @@ GetUserInput::GetUserInput()
         
         cout << "Please enter the file path of detector " << i << endl;
         cin >> path;
-        FilePath.push_back(path);
+        filePath.push_back(path);
         cout << "Please enter that detector's x coordinate (see reference) in meters" << endl;
         cin >> x;
         detector.setDetectorXCord(x);

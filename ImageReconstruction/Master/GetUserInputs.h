@@ -12,6 +12,7 @@
 #include "DetectorType.h"
 #include <string>
 #include <iostream>
+#include <vector>
 using namespace std;
 
 class GetUserInputs
@@ -30,7 +31,7 @@ public:
 private:
     vector<string> filePath;
     vector<DetectorType> detectors;
-}
+};
 
 
 #endif /* GetUserInputs_h */
