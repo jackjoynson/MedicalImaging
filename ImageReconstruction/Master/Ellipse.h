@@ -6,6 +6,16 @@ private:
 	double _CenterX, _CenterY, _XAxisRadius, _YAxisRadius;
 
 public:
+
+	Ellipse(double centerX, double centerY, double xRadius, double yRadius)
+	{
+		SetCenterX(centerX);
+		SetCenterY(centerY);
+		SetXRadius(xRadius);
+		SetYRadius(yRadius);
+	}
+
+
 	double GetCenterX()
 	{
 		return _CenterX;
