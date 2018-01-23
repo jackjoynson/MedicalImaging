@@ -5,7 +5,7 @@
 //  Created by ziyue wang on 23/01/2018.
 //
 
-#include "DetectorType.hpp"
+#include "DetectorType.h"
 
 DetectorType::DetectorType(){
     
