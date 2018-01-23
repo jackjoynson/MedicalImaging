@@ -1,4 +1,5 @@
-
+#ifndef Cone_h
+#define Cone_h
 class Cone
 {
 
@@ -87,3 +88,5 @@ public:
 		_HalfAngle = halfAngle;
 	}
 };
+
+#endif

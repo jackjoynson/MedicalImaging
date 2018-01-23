@@ -1,14 +1,17 @@
+#ifndef EventEntry_h
+#define EventEntry_h
+
 class EventEntry
 {
 
-	private:
+private:
 	int _TimeStamp;
 	int _Energy;
 	int _Detector;
 
-	public: 
-		EventEntry(int timeStamp, int energy, int detector);
-	 
+public:
+	EventEntry(int timeStamp, int energy, int detector);
+
 	int GetTimeStamp()
 	{
 		return _TimeStamp;
@@ -37,3 +40,5 @@ class EventEntry
 		_Detector = detector;
 	}
 };
+
+#endif

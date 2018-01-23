@@ -8,6 +8,12 @@
 
 using namespace std;
 
+FileToData::FileToData() 
+{
+
+}
+
+
 vector<EventEntry> FileToData::GetData(vector<string> files, vector<DetectorType> detectors, bool scatter)
 {
 	vector<EventEntry> eventList;

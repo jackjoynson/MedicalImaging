@@ -1,4 +1,5 @@
 //Gets the user inputs of the file and detector e.t.c.
+#include <stdio.h>
 
 #include "GetUserInputs.h"
 using namespace std;

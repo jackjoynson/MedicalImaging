@@ -1,4 +1,7 @@
-using namespace std;
+
+#ifndef Ellipse_h
+#define Ellipse_h
+
 
 class Ellipse
 {
@@ -46,3 +49,5 @@ public:
 		_YAxisRadius = yRadius;
 	}
 };
+
+#endif
