@@ -2,36 +2,30 @@
 #include <string>
 #include <fstream>
 
-#include "Detector.cpp"
-#include "EventEntry.cpp"
+#include "FileToData.h"
+#include "Detector.h"
+#include "EventEntry.h"
 
 using namespace std;
 
-class FileToData
+FileToData::GetData(vector<string> files, vector<Detector> detectors, bool scatter)
 {
+	vector<EventEntry> eventList;
 
-	//Need to add the files and detector list input somehow
-	public vector<EventEntry> GetData(vector<string> files, vector<Detector> detectors, bool scatter) 
+	for (int fileIndex = 0; fileIndex < files.size(); fileIndex++)
 	{
-		vector<EventEntry> eventList;
-
-		for (int fileIndex = 0; fileIndex < files.size(); fileIndex++)
+		if (detectors[fileIndex] == scatter)
 		{
-			if (detectors[fileIndex] == scatter)
+			ifstream infile(files[fileIndex]);
+			int time, energy;
+			while (infile >> time >> energy)
 			{
-				ifstream infile(files[fileIndex]);
-				int time, energy;
-				while (infile >> time >> energy)
-				{
-					EventEntry newEventEntry(time, energy);
-					eventList.push_back(newEventEntry);
-				}
+				EventEntry newEventEntry(time, energy);
+				eventList.push_back(newEventEntry);
 			}
-
 		}
 
-		return eventList;
 	}
 
-
-};
+	return eventList;
+}
