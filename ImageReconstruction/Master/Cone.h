@@ -8,6 +8,8 @@ private:
 	double _HalfAngle;
 
 public:
+
+	Cone(double startX, double startY, double startZ, double directionX, double directionY, double directionZ, double halfAngle);
 	
 	double GetStartX()
 	{
@@ -84,4 +86,4 @@ public:
 	{
 		_HalfAngle = halfAngle;
 	}
-}
+};

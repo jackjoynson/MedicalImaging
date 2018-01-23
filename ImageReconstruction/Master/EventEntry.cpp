@@ -1,53 +1,11 @@
-using namespace std;
+#include "EventEntry.h"
 
-class EventEntry
+EventEntry::EventEntry(int timeStamp, int energy, int detector)
 {
+	_TimeStamp = timeStamp;
 
-	private int _TimeStamp;
-	
-	private int _Energy;
+	_Energy = energy;
 
-	private int _Detector;
-
-	public EventEntry(int timeStamp, int energy, int detector)
-	{
-		_TimeStamp = timeStamp;
-
-		_Energy = energy;
-
-		_Detector = detector;
-	}
-	
-
-	
-	public int GetTimeStamp()
-	{
-		return _TimeStamp;
-	}
-
-	public int GetEnergy()
-	{
-		return _Energy;
-	}
-
-	public int GetDetector()
-	{
-		return _Detector;
-	}
-
-	
-	public void SetTimeStamp(int timeStamp)
-	{
-		_TimeStamp = timeStamp;
-	}
-	public void SetEnergy(int energy)
-	{
-		_Energy = energy;
-	}
-	public void SetDetector(int detector)
-	{
-		_Detector = detector;
-	}
-};
-
+	_Detector = detector;
+}
 	
