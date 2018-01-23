@@ -1,0 +1,14 @@
+#include <iostream>
+#include <cmath>
+#include <fstream>
+#include <cstdlib>
+using namespace std;
+
+int main()
+{
+int numbdetectors
+	cout << "Please enter the number of detectors" << endl;
+	cin << numbdetectors;
+	cout << numbdetectors << endl;
+return 0;
+}
