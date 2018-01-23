@@ -18,10 +18,10 @@ public:
     ~DetectorType();
     
     
-    void setDetectorXCord(int x){
+    void setDetectorXCord(double x){
         detectorXCord = x;
     }
-    void setDetectorYCord(int y){
+    void setDetectorYCord(double y){
         detectorYCord = y;
     }
     double getDetectorXCord(){
