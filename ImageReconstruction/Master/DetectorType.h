@@ -5,8 +5,8 @@
 //  Created by ziyue wang on 23/01/2018.
 //
 
-#ifndef DetectorType_hpp
-#define DetectorType_hpp
+#ifndef DetectorType_h
+#define DetectorType_h
 
 #include <stdio.h>
 using namespace std;
@@ -16,7 +16,6 @@ class DetectorType
 public:
     DetectorType();
     DetectorType(int x, int y, bool scatter);
-    ~DetectorType();
     
     void setDetectorXCord(double x){
         detectorXCord = x;

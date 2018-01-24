@@ -3,7 +3,7 @@
 
 int main()
 {
-	GetUserInputs GUI;
+    GetUserInputs GUI;
 
 
 	return 0;
