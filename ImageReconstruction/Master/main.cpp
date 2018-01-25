@@ -19,6 +19,9 @@ int main()
 	GenerateCones coneGenerator;
 	vector<Cone> cones = coneGenerator.GetCones(scatteringEvents, absorbEvents, detectors);
 
+
+
+
 	std::string close;
 	cout << "Program complete. Enter something to close.." << endl;
 	cin >> close;
