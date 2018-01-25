@@ -12,7 +12,7 @@ class GenerateCones
 {
 public:
 	GenerateCones();
-	vector<Cone> GetCones(vector<EventEntry> scatteringEvents, vector<EventEntry> absorpionEvents, vector<DetectorType> detectors);
+	vector<Cone> GetCones(vector<EventEntry> scatteringEvents, vector<EventEntry> absorpionEvents, vector<DetectorType> detectors, double sourceEnergy, double imageHeight);
 
 };
 
