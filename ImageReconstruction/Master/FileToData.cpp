@@ -1,5 +1,6 @@
 #include <vector>
 #include <string>
+#include <sstream>
 #include <fstream>
 
 #include "FileToData.h"
@@ -23,12 +24,27 @@ vector<EventEntry> FileToData::GetData(vector<string> files, vector<DetectorType
 		if (detectors[fileIndex].getIsScatter() == scatter)
 		{
 			ifstream infile(files[fileIndex]);
-			int time, energy;
-			while (infile >> time >> energy)
+
+			bool passedHeader = false;
+			std::string line;
+			while (std::getline(infile, line))
 			{
-				EventEntry newEventEntry(time, energy, fileIndex);
-				eventList.push_back(newEventEntry);
-			}
+				if (passedHeader)
+				{
+					//Not a header so split and create entry.
+					unsigned int time, energy;
+
+					std::istringstream iss(line);
+					iss >> time >> energy;
+
+					EventEntry newEventEntry(time, energy, fileIndex);
+					eventList.push_back(newEventEntry);	
+				}
+				else
+				{
+					//HEADER3 IS THE END OF THE HEADER DATA SO SET PASSED TRUE.
+					if (line.find("HEADER3:") == 0) passedHeader = true;				
+				}
 		}
 
 	}
