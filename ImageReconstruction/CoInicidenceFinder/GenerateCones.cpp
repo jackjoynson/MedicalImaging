@@ -12,15 +12,6 @@ GenerateCones::GenerateCones()
 
 
 
-Cone CalculateCone(EventEntry scatterEvent, EventEntry absorbEvent, vector<DetectorType> detectors)
-{
-	double fineEnergy = absorbEvent.GetEnergy();
-
-
-	Cone newCone();
-
-	return newCone;
-}
 
 
 
@@ -30,7 +21,7 @@ Cone CalculateCone(EventEntry scatterEvent, EventEntry absorbEvent, vector<Detec
 
 
 
-vector<Cone> GenerateCones::GetCones(vector<EventEntry> scatteringEvents, vector<EventEntry> absorpionEvents, vector<DetectorType> detectors)
+vector<Cone> GenerateCones::GetCones(vector<EventEntry> scatteringEvents, vector<EventEntry> absorpionEvents, vector<DetectorType> detectors, int tolerance)
 {
 	vector<Cone> cones;
 
@@ -43,10 +34,12 @@ vector<Cone> GenerateCones::GetCones(vector<EventEntry> scatteringEvents, vector
 		//Find absorpion event timestamp that matches scatter event timestamp.
 		for (int j = 0; j < absorpionEvents.size(); j++)
 		{
-			if (absorpionEvents[j].GetTimeStamp() == scatteringEvents[i].GetTimeStamp())
+			unsigned int upperLim = scatteringEvents[i].GetTimeStamp() + tolerance;
+			unsigned int lowerLim = scatteringEvents[i].GetTimeStamp() - tolerance;
+
+			if (absorpionEvents[j].GetTimeStamp() < upperLim && absorpionEvents[j].GetTimeStamp() > lowerLim)
 			{
-				//We have a pair so calculate the cone. 
-				Cone newCone = CalculateCone(scatteringEvents[i], absorpionEvents[j], detectors);
+				
 				cones.push_back(newCone);
 
 				break; //Break to new absorpion event.
