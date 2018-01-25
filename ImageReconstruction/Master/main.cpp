@@ -5,12 +5,9 @@
 
 int main()
 {
-<<<<<<< HEAD
     GetUserInputs GUI;
-=======
-	GetUserInputs GUI;
-	
->>>>>>> 77a82310e15b26192e4b691d7c1191b9d95f77fb
+	vector<std::string> files = GUI.getFilePaths();
+	vector<DetectorType> detectors = GUI.getDetectors();
 
 	std::string close;
 	cout << "Program complete. Enter something to close.." << endl;
