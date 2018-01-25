@@ -14,7 +14,7 @@ FileToData::FileToData()
 
 }
 
-
+///The boolean scatter should be set to true if scattering data is required. Otherwise it will return absorbion.
 vector<EventEntry> FileToData::GetData(vector<string> files, vector<DetectorType> detectors, bool scatter)
 {
 	vector<EventEntry> eventList;
@@ -38,13 +38,14 @@ vector<EventEntry> FileToData::GetData(vector<string> files, vector<DetectorType
 					iss >> time >> energy;
 
 					EventEntry newEventEntry(time, energy, fileIndex);
-					eventList.push_back(newEventEntry);	
+					eventList.push_back(newEventEntry);
 				}
 				else
 				{
 					//HEADER3 IS THE END OF THE HEADER DATA SO SET PASSED TRUE.
-					if (line.find("HEADER3:") == 0) passedHeader = true;				
+					if (line.find("HEADER3:") == 0) passedHeader = true;
 				}
+			}
 		}
 
 	}
