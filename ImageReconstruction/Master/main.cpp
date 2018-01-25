@@ -1,5 +1,6 @@
 #include "GetUserInputs.h"
 #include "FileToData.h"
+#include "GenerateCones.h"
 
 #include <string>
 
@@ -15,6 +16,8 @@ int main()
 	vector<EventEntry> absorbEvents = FTD.GetData(files, detectors, false);
 
 
+	GenerateCones coneGenerator;
+	vector<Cone> cones = coneGenerator.GetCones(scatteringEvents, absorbEvents);
 
 	std::string close;
 	cout << "Program complete. Enter something to close.." << endl;
