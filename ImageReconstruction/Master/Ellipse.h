@@ -2,51 +2,63 @@
 #ifndef Ellipse_h
 #define Ellipse_h
 
+#include "Vector3D.h"
 
 class Ellipse
 {
 private:
-	double _CenterX, _CenterY, _XAxisRadius, _YAxisRadius;
+	Vector3D _Center, _MajorAxis, _MinorAxis;
+	double _MinorRadius, _MajorRadius;
 
 public:
 
-	Ellipse(double centerX, double centerY, double xRadius, double yRadius);
+	Ellipse(Vector3D center, Vector3D majorAxis, Vector3D minorAxis, double majorRadius, double minorRadius);
 
 
-	double GetCenterX()
+	Vector3D GetCenter()
 	{
-		return _CenterX;
+		return _Center;
 	}
-	double GetCenterY()
+	Vector3D GetMajorAxis()
 	{
-		return _CenterY;
+		return _MajorAxis;
 	}
-
-	double GetXRadius()
+	Vector3D GetMinorAxis()
 	{
-		return _XAxisRadius;
-	}
-	double GetYRadius()
-	{
-		return _YAxisRadius;
+		return _MinorAxis;
 	}
 
 
-	void SetCenterX(double centerX)
+	double GetMinorRadius()
 	{
-		_CenterX = centerX;
+		return _MinorRadius;
 	}
-	void SetCenterY(double centerY)
+	double GetMajorRadius()
 	{
-		_CenterY = centerY;
+		return _MajorRadius;
 	}
-	void SetXRadius(double xRadius)
+
+
+	void SetCenter(Vector3D center)
 	{
-		_XAxisRadius = xRadius;
+		_Center = center;
 	}
-	void SetYRadius(double yRadius)
+	void SetMajorAxis(Vector3D axis)
 	{
-		_YAxisRadius = yRadius;
+		_MajorAxis = axis;
+	}
+	void SetMinorAxis(Vector3D axis)
+	{
+		_MinorAxis = axis;
+	}
+
+	void SetMajorRadius(double radius)
+	{
+		_MajorRadius = radius;
+	}
+	void SetMinorRadius(double radius)
+	{
+		_MinorRadius = radius;
 	}
 };
 

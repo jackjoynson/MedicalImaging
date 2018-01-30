@@ -1,6 +1,7 @@
 #include "GetUserInputs.h"
 #include "FileToData.h"
 #include "GenerateCones.h"
+#include "GenerateMatrix.h"
 
 #include <string>
 
@@ -19,6 +20,15 @@ int main()
 
 	GenerateCones coneGenerator;
 	vector<Cone> cones = coneGenerator.GetCones(scatteringEvents, absorbEvents, detectors, sourceEnergy, imageHeight);
+
+
+	//ADD GENERATE ELLIPSE LOGIC
+	vector<Ellipse> ellipses;
+
+
+	GenerateMatrix matrixGenerator;
+	vector<vector<int> > matrix = matrixGenerator.GetValues(ellipses);
+
 
 
 

@@ -35,7 +35,7 @@ public:
         _Z = Z;
     }
 
-    double Dot(const ThreeVector &) const;
+    double Dot(const Vector3D &) const;
 
 private:
     double _X, _Y, _Z;

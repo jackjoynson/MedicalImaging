@@ -1,10 +1,11 @@
 #include "Ellipse.h"
 
 
-Ellipse::Ellipse(double centerX, double centerY, double xRadius, double yRadius)
+Ellipse::Ellipse(Vector3D center, Vector3D majorAxis, Vector3D minorAxis, double majorRadius, double minorRadius)
 {
-	SetCenterX(centerX);
-	SetCenterY(centerY);
-	SetXRadius(xRadius);
-	SetYRadius(yRadius);
+	SetCenter(center);
+	SetMajorAxis(majorAxis);
+	SetMinorAxis(minorAxis);
+	SetMajorRadius(majorRadius);
+	SetMinorRadius(minorRadius);
 }
