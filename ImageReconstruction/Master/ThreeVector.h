@@ -39,19 +39,27 @@ public:
         directionZ = Z;
     }
     
-    const ThreeVector operator+ ()
+    double Dot(const ThreeVector &) const;
+    void Cross(const ThreeVector &) const;
+    void Norm(const ThreeVector &) const;
     
+    ThreeVector & operator += (const ThreeVector & p){
+        directionX += p.directionX;
+        directionZ += p.directionZ;
+        directionY += p.directionY;
+    }
     
-    
-    
-    
+    ThreeVector & operator -= (const ThreeVector & p){
+        directionX -= p.directionX;
+        directionZ -= p.directionZ;
+        directionY -= p.directionY;
+    }
     
     
     
     
 private:
     double directionX, directionY, directionZ;
-    double X,Y,Z;
     
 }
 
