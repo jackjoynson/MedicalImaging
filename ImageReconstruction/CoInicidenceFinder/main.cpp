@@ -34,10 +34,31 @@ int main()
 
 
 	GetCoinc GC(scatteringEvents, tolerance);
-	GC.Find(0,1,2);
-	GC.Find(0,1,3);
-	GC.Find(0,2,3);
-	GC.Find(1,2,3);
+
+	if (files.size() == 2)
+	{
+		files.push_back("fake");
+		vector<EventEntry> events;
+		scatteringEvents.push_back(events);
+
+		GC.UpdateEvents(scatteringEvents);
+		GC.Find(0,1,2);
+	}
+	else if(files.size() == 3)
+	{
+		GC.Find(0, 1, 2);
+	}
+	else if (files.size() == 4)
+	{
+		GC.Find(0, 1, 2);
+		GC.Find(0, 1, 3);
+		GC.Find(0, 2, 3);
+		GC.Find(1, 2, 3);
+	}
+	else {
+		cout << "INVALID NUMBER OF FILES SELECTED..." << endl;
+	}
+
 
 
 

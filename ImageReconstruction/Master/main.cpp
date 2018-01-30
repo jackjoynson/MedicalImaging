@@ -2,8 +2,10 @@
 #include "FileToData.h"
 #include "GenerateCones.h"
 #include "GenerateMatrix.h"
+#include "MatrixToFile.h"
 
 #include <string>
+#include <vector>
 
 int main()
 {
@@ -30,7 +32,9 @@ int main()
 	vector<vector<int> > matrix = matrixGenerator.GetValues(ellipses);
 
 
-
+	MatrixToFile matrixSaver;
+	string fileName = matrixSaver.Save(matrix);
+	cout << "Results saved to " << fileName << endl;
 
 
 	std::string close;

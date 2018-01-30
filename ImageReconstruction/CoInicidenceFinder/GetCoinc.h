@@ -14,6 +14,10 @@ public:
 	GetCoinc(vector<vector<EventEntry> > events, unsigned int tolerance);
 	~GetCoinc();
 	void Find(int set1, int set2, int set3);
+	void UpdateEvents(vector<vector<EventEntry> > events)
+	{
+		_Events = events;
+	}
 
 	int GetDoubles() 
 	{

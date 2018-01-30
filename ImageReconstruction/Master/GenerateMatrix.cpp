@@ -36,7 +36,7 @@ vector<vector<int> > GenerateMatrix::GetValues(vector<Ellipse> ellipses)
 
 
 	//Loop through each Ellipse
-	for (size_t ellipseIndex; ellipseIndex < ellipses.size(); ellipseIndex++)
+	for (size_t ellipseIndex = 0; ellipseIndex < ellipses.size(); ellipseIndex++)
 	{
 
 		//ANGLE TAKEN CLOCKWISE FROM TOP
@@ -71,7 +71,9 @@ vector<vector<int> > GenerateMatrix::GetValues(vector<Ellipse> ellipses)
 			//ELSE NOT WITHIN GRID.
 		}
 
-
 	}
 
+
+
+	return matrix;
 }
