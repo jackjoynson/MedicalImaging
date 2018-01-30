@@ -4,13 +4,13 @@ class Cone
 {
 
 private:
-	double _StartX, _StartY, _StartZ;
-	double _DirectionX, _DirectionY, _DirectionZ;
+	double _StartX, _StartY;
+	double _XImagePlane;
 	double _HalfAngle;
 
 public:
 
-	Cone(double startX, double startY, double startZ, double directionX, double directionY, double directionZ, double halfAngle);
+	Cone(double startX, double startY, double xImagePlane, double halfAngle);
 	
 	double GetStartX()
 	{
@@ -22,28 +22,14 @@ public:
 		return _StartY;
 	}
 
-	double GetStartZ()
+
+
+
+	double GetXImagePlane()
 	{
-		return _StartZ;
+		return _XImagePlane;
 	}
 
-
-
-
-	double GetDirectionX()
-	{
-		return _DirectionX;
-	}
-
-	double GetDirectionY()
-	{
-		return _DirectionY;
-	}
-
-	double GetDirectionZ()
-	{
-		return _DirectionZ;
-	}
 
 
 	double GetHalfAngle()
@@ -63,23 +49,11 @@ public:
 	{
 		_StartY = startY;
 	}
-	void SetStartZ(double startZ)
-	{
-		_StartZ = startZ;
-	}
 
 
-	void SetDirectionX(double dirX)
+	void SetXImagePlane(double xPos)
 	{
-		_DirectionX = dirX;
-	}
-	void SetDirectionY(double dirY)
-	{
-		_DirectionY = dirY;
-	}
-	void SetDirectionZ(double dirZ)
-	{
-		_DirectionZ = dirZ;
+		_XImagePlane = xPos;
 	}
 
 

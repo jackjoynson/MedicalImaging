@@ -28,11 +28,22 @@ public:
     vector<DetectorType> getDetectors(){
         return detectors;
     }
+
+	double GetEnergy()
+	{
+		return energy;
+	}
     
-    
+	double GetImageHeight()
+	{
+		return imageHeight;
+	}
+
 private:
     vector<string> filePath;
     vector<DetectorType> detectors;
+	double energy; //in keV.
+	double imageHeight;
 };
 
 

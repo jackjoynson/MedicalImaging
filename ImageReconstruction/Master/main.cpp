@@ -9,7 +9,8 @@ int main()
     GetUserInputs GUI;
 	vector<std::string> files = GUI.getFilePaths();
 	vector<DetectorType> detectors = GUI.getDetectors();
-
+	double sourceEnergy = GUI.GetEnergy();
+	double imageHeight = GUI.GetImageHeight();
 
 	FileToData FTD;
 	vector<EventEntry> scatteringEvents = FTD.GetData(files, detectors, true);
@@ -17,7 +18,7 @@ int main()
 
 
 	GenerateCones coneGenerator;
-	vector<Cone> cones = coneGenerator.GetCones(scatteringEvents, absorbEvents, detectors);
+	vector<Cone> cones = coneGenerator.GetCones(scatteringEvents, absorbEvents, detectors, sourceEnergy, imageHeight);
 
 
 

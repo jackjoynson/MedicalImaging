@@ -7,9 +7,14 @@ using namespace std;
 
 GetUserInputs::GetUserInputs()
 {
+	cout << "Please enter the gamma ray energy in keV:" << endl;
+	cin >> energy;
+
+	cout << "Enter the image slice height:" << endl;
+	cin >> imageHeight;
 
     int detectorNumber;
-    cout << "Please enter the number of detectors" << endl;
+    cout << "Please enter the number of detectors:" << endl;
     cin >> detectorNumber;
     
     
