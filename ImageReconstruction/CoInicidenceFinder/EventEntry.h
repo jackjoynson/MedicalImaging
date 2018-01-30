@@ -1,6 +1,8 @@
 #ifndef EventEntry_h
 #define EventEntry_h
 
+#include <vector>
+
 class EventEntry
 {
 
@@ -8,6 +10,7 @@ private:
 	unsigned int _TimeStamp;
 	unsigned int _Energy;
 	int _Detector;
+
 
 public:
 	EventEntry(unsigned int timeStamp, unsigned int energy, int detector);

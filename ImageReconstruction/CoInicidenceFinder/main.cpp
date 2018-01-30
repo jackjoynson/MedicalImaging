@@ -1,10 +1,13 @@
 #include "GetUserInputs.h"
 #include "FileToData.h"
 #include "GenerateCones.h"
+#include "GetCoinc.h"
 
 #include <string>
 
 using namespace std;
+
+
 
 int main()
 {
@@ -20,47 +23,25 @@ int main()
 	cin >> tolerance;
 
 	FileToData FTD;
-	vector<EventEntry> scatteringEvents = FTD.GetData(files, true);
 
-
-	int numberDoubles = 0;
-	int numberTriples = 0;
-
-	//i is the scattering event list index. Loop through each scattering event. 
-	for (size_t i = 0; i < scatteringEvents.size(); i++)
+	vector<vector<EventEntry> > scatteringEvents;
+	for (size_t i = 0; i < files.size(); i++)
 	{
-		bool foundOne = false;
-
-		//Find absorpion event timestamp that matches scatter event timestamp.
-		for (size_t j = 0; j < scatteringEvents.size(); j++)
-		{
-			if (i != j)
-			{
-				unsigned int upperLim = scatteringEvents[i].GetTimeStamp() + tolerance;
-				unsigned int lowerLim = scatteringEvents[i].GetTimeStamp() - tolerance;
-
-				if (scatteringEvents[j].GetTimeStamp() < upperLim && scatteringEvents[j].GetTimeStamp() > lowerLim)
-				{
-					if (foundOne)
-					{
-						numberTriples++;
-					}
-					else 
-					{
-						foundOne = true;
-						numberDoubles++;
-					}
-
-
-				}
-			}
-		}
-
+		vector<EventEntry> events = FTD.GetData(files, true, i);
+		scatteringEvents.push_back(events);
 	}
 
 
-	cout << "Found " << numberDoubles << " coincident pairs." << endl
-		<< "Found " << numberTriples << " coincident triplets." << endl;
+	GetCoinc GC(scatteringEvents, tolerance);
+	GC.Find(0,1,2);
+	GC.Find(0,1,3);
+	GC.Find(0,2,3);
+	GC.Find(1,2,3);
+
+
+
+	cout << "Found " << GC.GetDoubles() << " coincident pairs." << endl
+		<< "Found " << GC.GetTriples() << " coincident triplets." << endl;
 
 
 

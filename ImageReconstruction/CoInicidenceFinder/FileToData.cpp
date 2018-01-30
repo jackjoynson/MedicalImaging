@@ -15,39 +15,36 @@ FileToData::FileToData()
 }
 
 ///The boolean scatter should be set to true if scattering data is required. Otherwise it will return absorbion.
-vector<EventEntry> FileToData::GetData(vector<string> files, bool scatter)
+vector<EventEntry> FileToData::GetData(vector<string> files, bool scatter, int fileIndex)
 {
 	vector<EventEntry> eventList;
 
-	for (int fileIndex = 0; fileIndex < files.size(); fileIndex++)
+
+
+	ifstream infile(files[fileIndex]);
+
+	bool passedHeader = false;
+	std::string line;
+	while (std::getline(infile, line))
 	{
-
-		ifstream infile(files[fileIndex]);
-
-		bool passedHeader = false;
-		std::string line;
-		while (std::getline(infile, line))
+		if (passedHeader)
 		{
-			if (passedHeader)
-			{
-				//Not a header so split and create entry.
-				unsigned int time, energy;
+			//Not a header so split and create entry.
+			unsigned int time, energy;
 
-				std::istringstream iss(line);
-				iss >> time >> energy;
+			std::istringstream iss(line);
+			iss >> time >> energy;
 
-				EventEntry newEventEntry(time, energy, fileIndex);
-				eventList.push_back(newEventEntry);
-			}
-			else
-			{
-				//HEADER3 IS THE END OF THE HEADER DATA SO SET PASSED TRUE.
-				if (line.find("HEADER3:") == 0) passedHeader = true;
-			}
+			EventEntry newEventEntry(time, energy, fileIndex);
+			eventList.push_back(newEventEntry);
 		}
-
-
+		else
+		{
+			//HEADER3 IS THE END OF THE HEADER DATA SO SET PASSED TRUE.
+			if (line.find("HEADER3:") == 0) passedHeader = true;
+		}
 	}
+
 
 	return eventList;
 }
