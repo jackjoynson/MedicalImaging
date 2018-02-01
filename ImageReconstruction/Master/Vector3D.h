@@ -7,6 +7,8 @@
 
 #ifndef Vector3D_h
 #define Vector3D_h
+
+
 #include <cmath>
 
 class Vector3D
@@ -58,37 +60,43 @@ Vector3D operator - ( Vector3D &, Vector3D &);
 
 Vector3D operator * (double a, Vector3D &);
 
-Vector3D & Vector3D::operator = (const Vector3D & p){
-    _X = p._X;
-    _Y = p._Y;
-    _Z = p._Z;
-    return *this;
-}
+Vector3D cross (Vector3D &, Vector3D &);
 
-Vector3D & Vector3D::operator += (const Vector3D & p){
-    _X += p._X;
-    _Y += p._Y;
-    _Z += p._Z;
-    return *this;
-}
+Vector3D normalize (Vector3D &);
 
-Vector3D & Vector3D::operator -=(const Vector3D & p){
-    _X -= p._X;
-    _Y -= p._Y;
-    _Z -= p._Z;
-    return *this;
-}
+///Dodgy, fix this later.
 
-Vector3D Vector3D::operator -() const{
-    return Vector3D(-_X,-_Y,-_Z);
-}
+//Vector3D & Vector3D::operator = (const Vector3D & p){
+//    _X = p._X;
+//    _Y = p._Y;
+//    _Z = p._Z;
+//    return this;
+//}
 
-Vector3D& Vector3D::operator *=(double a){
-    _X *= a;
-    _Y *= a;
-    _Z *= a;
-    return *this;
-}
+//Vector3D & Vector3D::operator += (const Vector3D & p){
+//    _X += p._X;
+//    _Y += p._Y;
+//    _Z += p._Z;
+//    return *this;
+//}
+
+//Vector3D & Vector3D::operator -=(const Vector3D & p){
+//    _X -= p._X;
+//    _Y -= p._Y;
+//    _Z -= p._Z;
+//    return *this;
+//}
+
+//Vector3D Vector3D::operator -() const{
+//    return Vector3D(-_X,-_Y,-_Z);
+//}
+
+//Vector3D& Vector3D::operator *=(double a){
+//    _X *= a;
+//    _Y *= a;
+//    _Z *= a;
+//    return *this;
+//}
 
 
 

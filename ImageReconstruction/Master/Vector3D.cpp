@@ -30,4 +30,26 @@ Vector3D operator * (double a,  Vector3D & p){
     return Vector3D(a*p.getX(), a*p.getY(), a*p.getZ());
 }
 
+Vector3D cross (Vector3D & a, Vector3D & b){
+    double x = a.getY()*b.getZ()-a.getZ()*b.getY();
+    double y = a.getZ()*b.getX()-a.getX()*b.getZ();
+    double z = a.getX()*b.getY()-a.getY()*b.getX();
+    return Vector3D(x,y,z);
+}
+
+Vector3D normalize (Vector3D & a){
+    double sum = a.getX()*a.getX() + a.getY()*a.getY() + a.getZ()*a.getZ();
+    double sqrtSum = sqrt(sum);
+    return Vector3D(a.getX()/sqrtSum,a.getY()/sqrtSum,a.getZ()/sqrtSum);
+}
+
+
+
+
+
+
+
+
+
+
 
