@@ -71,7 +71,7 @@ ConesToEllipse::ConesToEllipse(Vector3D plane, vector<Cone> cones):
         double majorRadius = fabs(h) * sinAlpha*cosAlpha;
         double minorRadius = t*sinAlpha/sqrt(fabs(b));
 
-        if(cosTheta > sinAlpha){
+        if(cosTheta > sinAlpha || cosTheta == 0){
             //Ellipse
             Ellipse thisEllipse(center,majorAxis,minorAxis,majorRadius,minorRadius);
             _ellipses.push_back(thisEllipse);
