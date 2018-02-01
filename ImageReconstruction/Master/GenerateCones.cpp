@@ -18,8 +18,8 @@ Cone CalculateCone(EventEntry scatterEvent, EventEntry absorbEvent, vector<Detec
 	double finalEnergy = absorbEvent.GetEnergy();
 
 
-	const double ME = 9.10938e-31;
-	const double C = 299792458.0;
+	const double ME = 511.0;
+	const double C = 1.0;
 
 
 	double scatterAngle = acos(1.0 - (ME*C*C*((1.0 / finalEnergy) - (1.0 / sourceEnergy))));
@@ -38,7 +38,11 @@ Cone CalculateCone(EventEntry scatterEvent, EventEntry absorbEvent, vector<Detec
 	double lineX = lineY / tan(detectorAngle);
 	double xImagePlane = absorbDetector.getDetectorXCord() - lineX;
 
-	Cone newCone(startX, startY, xImagePlane, scatterAngle);
+
+	//IMPLEMENT YIMAGEPLANE
+	double yImagePlane = 0;
+
+	Cone newCone(startX, startY, xImagePlane, yImagePlane, scatterAngle);
 	return newCone;
 }
 
