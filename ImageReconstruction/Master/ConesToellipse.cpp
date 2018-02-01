@@ -37,7 +37,7 @@ ConesToEllipse::ConesToEllipse(Vector3D plane, vector<Cone> cones):
 
 
         //Angles for calculating
-        double cosTheta = planeNormal.Dot(coneAxis);
+        double cosTheta = planeNormal.Dot(coneAxis)/(norm(planeNormal)*norm(coneAxis));
         double cosThetaSq = cosTheta*cosTheta;
         double sinAlpha = sin(thisCone.GetHalfAngle());
         double sinAlphaSq = sinAlpha*sinAlpha;
