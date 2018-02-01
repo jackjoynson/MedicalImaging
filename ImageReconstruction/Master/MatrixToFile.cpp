@@ -1,8 +1,10 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include "MatrixToFile.h"
 
 #include <ctime>
 #include <fstream>
 #include <iterator>
+#include <sstream>
 
 
 MatrixToFile::MatrixToFile(){}
@@ -14,8 +16,12 @@ string MatrixToFile::Save(vector<vector<int> > matrix)
 	char buffer[80];
 	time(&rawtime);
 	timeinfo = localtime(&rawtime);
-	strftime(buffer, sizeof(buffer), "%d-%m-%Y %I:%M:%S", timeinfo);
-	string fileName(buffer);
+	strftime(buffer, sizeof(buffer), "%d%m%Y_%I%M%S", timeinfo);
+
+	stringstream fileNameSS;
+	fileNameSS << string(buffer) << ".txt";
+
+	string fileName = fileNameSS.str();
 
 
 	ofstream outFile(fileName);

@@ -2,6 +2,7 @@
 #define _USE_MATH_DEFINES
 #include <cmath>  
 #include <vector>
+#include <algorithm>
 
 #include "GenerateMatrix.h"
 
@@ -10,6 +11,11 @@ using namespace std;
 GenerateMatrix::GenerateMatrix()
 {}
 
+
+bool InList(vector<int> v, int value)
+{
+	return (find(v.begin(), v.end(), value) != v.end());
+}
 
 vector<vector<int> > GenerateMatrix::GetValues(vector<Ellipse> ellipses)
 {
@@ -31,7 +37,7 @@ vector<vector<int> > GenerateMatrix::GetValues(vector<Ellipse> ellipses)
 	//Allocate to size
 	matrix.resize(matrixIntervals);
 	for (int i = 0; i < matrixIntervals; i++)
-		matrix.resize(matrixIntervals);
+		matrix[i].resize(matrixIntervals);
 	
 
 
@@ -40,6 +46,9 @@ vector<vector<int> > GenerateMatrix::GetValues(vector<Ellipse> ellipses)
 	{
 
 		//ANGLE TAKEN CLOCKWISE FROM TOP
+
+		vector<int> xIndexes;
+		vector<int> yIndexes;
 
 
 		Ellipse ellipse = ellipses[ellipseIndex];
@@ -61,12 +70,22 @@ vector<vector<int> > GenerateMatrix::GetValues(vector<Ellipse> ellipses)
 			double x = center.getX() + sin(theta)*radius;
 			double y = center.getY() + cos(theta)*radius;
 
-			int xIndex = round((x + xOffset)*matrixIntervals);
-			int yIndex = round((y + yOffset)*matrixIntervals);
+			int xIndex = round((1.0 / (x + xOffset))*matrixIntervals);
+			int yIndex = round((1.0 / (y + yOffset))*matrixIntervals);
 
+			//Check within image plane
 			if (xIndex > 0 && xIndex < matrixIntervals && yIndex > 0 && yIndex < matrixIntervals)
 			{
-				matrix[xIndex][yIndex]++;
+				bool inX = InList(xIndexes, xIndex);
+				bool inY = InList(yIndexes, yIndex);
+
+				//Check not counted this point before - keeps density equal
+				if (!(inX && inY))
+				{
+					matrix[xIndex][yIndex]++;
+					xIndexes.push_back(xIndex);
+					yIndexes.push_back(yIndex);
+				}
 			}
 			//ELSE NOT WITHIN GRID.
 		}
