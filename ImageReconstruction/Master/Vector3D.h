@@ -43,11 +43,11 @@ public:
 
 
     //Operators
-    Vector3D & operator = (const Vector3D &);
-    Vector3D & operator += (const Vector3D &);
-    Vector3D & operator -= (const Vector3D &);
-    Vector3D operator - () const;
-    Vector3D & operator *= (double);
+//    Vector3D & operator = (const Vector3D &);
+//    Vector3D & operator += (const Vector3D &);
+//    Vector3D & operator -= (const Vector3D &);
+//    Vector3D operator - () const;
+//    Vector3D & operator *= (double);
 
 
 private:
@@ -55,14 +55,19 @@ private:
     
 };
 
-Vector3D operator + ( Vector3D &, Vector3D &);
-Vector3D operator - ( Vector3D &, Vector3D &);
+Vector3D operator + ( Vector3D &,  Vector3D &);
+Vector3D operator - ( Vector3D &,  Vector3D &);
 
 Vector3D operator * (double a, Vector3D &);
+Vector3D operator * (Vector3D &, double a);
+Vector3D operator / (double a, Vector3D &);
+Vector3D operator / (Vector3D &, double a);
 
 Vector3D cross (Vector3D &, Vector3D &);
 
 Vector3D normalize (Vector3D &);
+
+double norm (Vector3D &);
 
 ///Dodgy, fix this later.
 

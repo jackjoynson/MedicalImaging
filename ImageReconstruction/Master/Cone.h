@@ -5,12 +5,12 @@ class Cone
 
 private:
 	double _StartX, _StartY;
-	double _XImagePlane;
+    double _XImagePlane, _YImagePlane;
 	double _HalfAngle;
 
 public:
 
-	Cone(double startX, double startY, double xImagePlane, double halfAngle);
+    Cone(double startX, double startY, double xImagePlane, double yImagePlane ,double halfAngle);
 	
 	double GetStartX()
 	{
@@ -29,6 +29,11 @@ public:
 	{
 		return _XImagePlane;
 	}
+
+    double GetYImagePlane()
+    {
+        return _YImagePlane;
+    }
 
 
 
@@ -55,6 +60,11 @@ public:
 	{
 		_XImagePlane = xPos;
 	}
+
+    void SetYImagePlane(double yPos)
+    {
+        _YImagePlane = yPos;
+    }
 
 
 	void SetHalfAngle(double halfAngle)
