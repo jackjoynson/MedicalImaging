@@ -3,31 +3,33 @@
 #include "GenerateCones.h"
 #include "GenerateMatrix.h"
 #include "MatrixToFile.h"
+#include "ConesToEllipse.h"
 
 #include <string>
 #include <vector>
 
 int main()
 {
- //   GetUserInputs GUI;
-	//vector<std::string> files = GUI.getFilePaths();
-	//vector<DetectorType> detectors = GUI.getDetectors();
-	//double sourceEnergy = GUI.GetEnergy();
-	//double imageHeight = GUI.GetImageHeight();
+    GetUserInputs GUI;
+	vector<std::string> files = GUI.getFilePaths();
+	vector<DetectorType> detectors = GUI.getDetectors();
+	double sourceEnergy = GUI.GetEnergy();
+	double imageHeight = GUI.GetImageHeight();
 
-	//FileToData FTD;
-	//vector<EventEntry> scatteringEvents = FTD.GetData(files, detectors, true);
-	//vector<EventEntry> absorbEvents = FTD.GetData(files, detectors, false);
-
-
-	//GenerateCones coneGenerator;
-	//vector<Cone> cones = coneGenerator.GetCones(scatteringEvents, absorbEvents, detectors, sourceEnergy, imageHeight);
+	FileToData FTD;
+	vector<EventEntry> scatteringEvents = FTD.GetData(files, detectors, true);
+	vector<EventEntry> absorbEvents = FTD.GetData(files, detectors, false);
 
 
-	////ADD GENERATE ELLIPSE LOGIC
-	vector<Ellipse> ellipses;
-	Ellipse ellipse1(Vector3D(0.4, 0.4, 0), Vector3D(1, 0, 0), Vector3D(0, 1, 0), 0.2, 0.2);
-	ellipses.push_back(ellipse1);
+	GenerateCones coneGenerator;
+	vector<Cone> cones = coneGenerator.GetCones(scatteringEvents, absorbEvents, detectors, sourceEnergy, imageHeight);
+
+
+	Vector3D pointOnPlane(0, 0, imageHeight);
+
+	ConesToEllipse ellipseGenerator(pointOnPlane, cones);
+	vector<Ellipse> ellipses = ellipseGenerator.getEllipses();
+	
 
 	GenerateMatrix matrixGenerator;
 	vector<vector<int> > matrix = matrixGenerator.GetValues(ellipses);
