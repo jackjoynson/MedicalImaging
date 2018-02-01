@@ -12,9 +12,13 @@ GenerateMatrix::GenerateMatrix()
 {}
 
 
-bool InList(vector<int> v, int value)
+bool BeenPoint(vector<int> xV, vector<int> yV, int x, int y)
 {
-	return (find(v.begin(), v.end(), value) != v.end());
+	for (int i = 0; i < xV.size(); i++)
+	{
+		return (xV[i] == x && yV[i] == y);
+	}
+
 }
 
 vector<vector<int> > GenerateMatrix::GetValues(vector<Ellipse> ellipses)
@@ -76,15 +80,13 @@ vector<vector<int> > GenerateMatrix::GetValues(vector<Ellipse> ellipses)
 			//Check within image plane
 			if (xIndex > 0 && xIndex < matrixIntervals && yIndex > 0 && yIndex < matrixIntervals)
 			{
-				bool inX = InList(xIndexes, xIndex);
-				bool inY = InList(yIndexes, yIndex);
+				xIndexes.push_back(xIndex);
+				yIndexes.push_back(yIndex);
 
 				//Check not counted this point before - keeps density equal
-				if (!(inX && inY))
+				if (!BeenPoint(xIndexes,yIndexes,xIndex,yIndex))
 				{
 					matrix[xIndex][yIndex]++;
-					xIndexes.push_back(xIndex);
-					yIndexes.push_back(yIndex);
 				}
 			}
 			//ELSE NOT WITHIN GRID.
