@@ -43,7 +43,7 @@ int main()
 		scatteringEvents.push_back(events);
 
 		GC.UpdateEvents(scatteringEvents);
-		GC.Find(0,1,2);
+		GC.Find(0, 1, 2);
 	}
 	else if(files.size() == 3)
 	{
