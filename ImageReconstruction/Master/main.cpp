@@ -25,17 +25,17 @@ int main()
 
 	GenerateCones coneGenerator;
 	vector<Cone> cones = coneGenerator.GetCones(scatteringEvents, absorbEvents, detectors, sourceEnergy, imageDistanceHeight);
-
+	cout << "Generated " << cones.size() << " cones." << endl;
 
 	Vector3D pointOnPlane(0, 0, imageDistanceHeight);
 
 	ConesToEllipse ellipseGenerator(pointOnPlane, cones);
 	vector<Ellipse> ellipses = ellipseGenerator.getEllipses();
-	
+	cout << "Generated " << ellipses.size() << " ellipses." << endl;
 
 	GenerateMatrix matrixGenerator;
 	vector<vector<int> > matrix = matrixGenerator.GetValues(ellipses,imageSizeWidth, imageSizeWidth, imageSizePixels);
-
+	cout << "Matrix generated. Saving..." << endl;
 
 	MatrixToFile matrixSaver;
 	string fileName = matrixSaver.Save(matrix);
