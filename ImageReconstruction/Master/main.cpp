@@ -17,6 +17,7 @@ int main()
 	double imageDistanceHeight = GUI.GetImageHeight();
 	double imageSizeWidth = GUI.GetImageSizeWidth();
 	double imageSizePixels = GUI.GetPixels();
+	int tolerance = GUI.GetTolerance();
 
 	FileToData FTD;
 	vector<EventEntry> scatteringEvents = FTD.GetData(files, detectors, true);
@@ -24,7 +25,7 @@ int main()
 
 
 	GenerateCones coneGenerator;
-	vector<Cone> cones = coneGenerator.GetCones(scatteringEvents, absorbEvents, detectors, sourceEnergy, imageDistanceHeight);
+	vector<Cone> cones = coneGenerator.GetCones(scatteringEvents, absorbEvents, detectors, sourceEnergy, imageDistanceHeight, tolerance);
 	cout << "Generated " << cones.size() << " cones." << endl;
 
 	Vector3D pointOnPlane(0, 0, imageDistanceHeight);

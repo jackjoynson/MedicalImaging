@@ -19,6 +19,9 @@ GetUserInputs::GetUserInputs()
 	cout << "Enter the number of pixels per side (100?):" << endl;
 	cin >> _Pixels;
 
+	cout << "Enter the tolerance on the time:" << endl;
+	cin >> _Tolerance;
+
     int detectorNumber;
     cout << "Please enter the number of detectors:" << endl;
     cin >> detectorNumber;

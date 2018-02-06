@@ -59,7 +59,7 @@ Cone CalculateCone(EventEntry scatterEvent, EventEntry absorbEvent, vector<Detec
 
 
 
-vector<Cone> GenerateCones::GetCones(vector<EventEntry> scatteringEvents, vector<EventEntry> absorpionEvents, vector<DetectorType> detectors, double sourceEnergy, double imageHeight)
+vector<Cone> GenerateCones::GetCones(vector<EventEntry> scatteringEvents, vector<EventEntry> absorpionEvents, vector<DetectorType> detectors, double sourceEnergy, double imageHeight, int tolerance)
 {
 	vector<Cone> cones;
 
@@ -73,8 +73,10 @@ vector<Cone> GenerateCones::GetCones(vector<EventEntry> scatteringEvents, vector
 		for (int j = 0; j < absorpionEvents.size(); j++)
 		{
 
-			//MAY NEED TO ADD TOLERANCE HERE
-			if (absorpionEvents[j].GetTimeStamp() == scatteringEvents[i].GetTimeStamp())
+			int upperLimit = absorpionEvents[j].GetTimeStamp() + tolerance;
+			int lowerLimit = absorpionEvents[j].GetTimeStamp() - tolerance;
+			
+			if (scatteringEvents[i].GetTimeStamp() < upperLimit && scatteringEvents[i].GetTimeStamp() > lowerLimit)
 			{
 				//We have a pair so calculate the cone. 
 				Cone newCone = CalculateCone(scatteringEvents[i], absorpionEvents[j], detectors, sourceEnergy, imageHeight);

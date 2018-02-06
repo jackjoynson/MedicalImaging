@@ -49,13 +49,18 @@ public:
 		return _Pixels;
 	}
 
+	int GetTolerance()
+	{
+		return _Tolerance;
+	}
+
 private:
     vector<string> _FilePaths;
     vector<DetectorType> _Detectors;
 	double _Energy; //in keV.
 	double _ImageHeight;
 	double _ImageSizeWidth;
-	int _Pixels;
+	int _Pixels, _Tolerance;
 };
 
 
