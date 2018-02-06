@@ -19,7 +19,7 @@ int main()
 	double imageSizePixels = GUI.GetPixels();
 	int tolerance = GUI.GetTolerance();
 
-	FileToData FTD(GUI.IsSimulation);
+	FileToData FTD(GUI.IsSimulation());
 	vector<EventEntry> scatteringEvents = FTD.GetData(files, detectors, true);
 	vector<EventEntry> absorbEvents = FTD.GetData(files, detectors, false);
 
