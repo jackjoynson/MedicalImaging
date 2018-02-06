@@ -8,10 +8,16 @@ using namespace std;
 GetUserInputs::GetUserInputs()
 {
 	cout << "Please enter the gamma ray energy in keV:" << endl;
-	cin >> energy;
+	cin >> _Energy;
 
 	cout << "Enter the image slice height:" << endl;
-	cin >> imageHeight;
+	cin >> _ImageHeight;
+
+	cout << "Enter the image size in meters (1m?):" << endl;
+	cin >> _ImageSizeWidth;
+
+	cout << "Enter the number of pixels per side (100?):" << endl;
+	cin >> _Pixels;
 
     int detectorNumber;
     cout << "Please enter the number of detectors:" << endl;
@@ -22,19 +28,19 @@ GetUserInputs::GetUserInputs()
         string path;
         DetectorType detector;
         double x;
-        double y;
+        double z;
         int scatter;
         
         
         cout << "Please enter the file path of detector " << i << endl;
         cin >> path;
-        filePath.push_back(path);
+        _FilePaths.push_back(path);
         cout << "Please enter that detector's x coordinate (see reference) in meters" << endl;
         cin >> x;
         detector.setDetectorXCord(x);
-        cout << "Please enter that detector's y coordinate (see reference) in meters" << endl;
-        cin >> y;
-        detector.setDetectorYCord(y);
+        cout << "Please enter that detector's z coordinate (see reference) in meters" << endl;
+        cin >> z;
+        detector.setDetectorZCord(z);
         cout << "Is the detector of type absorption or scattering (1 for scatter, 0 for absorption)." << endl;
         cin >> scatter;
         
@@ -45,7 +51,7 @@ GetUserInputs::GetUserInputs()
         else{
             detector.setIsScatter(false);
         }
-        detectors.push_back(detector);
+        _Detectors.push_back(detector);
  
     
 }

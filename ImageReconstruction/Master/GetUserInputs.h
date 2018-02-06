@@ -22,28 +22,40 @@ class GetUserInputs
 public:
     GetUserInputs();
     
-    vector<string> getFilePaths(){
-        return filePath;
+    vector<string> GetFilePaths(){
+        return _FilePaths;
     }
-    vector<DetectorType> getDetectors(){
-        return detectors;
+    vector<DetectorType> GetDetectors(){
+        return _Detectors;
     }
 
 	double GetEnergy()
 	{
-		return energy;
+		return _Energy;
 	}
     
 	double GetImageHeight()
 	{
-		return imageHeight;
+		return _ImageHeight;
+	}
+
+	double GetImageSizeWidth()
+	{
+		return _ImageSizeWidth;
+	}
+
+	int GetPixels()
+	{
+		return _Pixels;
 	}
 
 private:
-    vector<string> filePath;
-    vector<DetectorType> detectors;
-	double energy; //in keV.
-	double imageHeight;
+    vector<string> _FilePaths;
+    vector<DetectorType> _Detectors;
+	double _Energy; //in keV.
+	double _ImageHeight;
+	double _ImageSizeWidth;
+	int _Pixels;
 };
 
 

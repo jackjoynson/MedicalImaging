@@ -27,22 +27,27 @@ Cone CalculateCone(EventEntry scatterEvent, EventEntry absorbEvent, vector<Detec
 	DetectorType scatterDetector = detectors[scatterEvent.GetDetector()];
 	DetectorType absorbDetector = detectors[absorbEvent.GetDetector()];
 	double startX = scatterDetector.getDetectorXCord();
-	double startY = scatterDetector.getDetectorYCord();
+	double startZ = scatterDetector.getDetectorZCord();
 
-	//Work out xImagePlane value
+
+
+
 	double dx = absorbDetector.getDetectorXCord() - scatterDetector.getDetectorXCord();
-	double dy = absorbDetector.getDetectorYCord() - scatterDetector.getDetectorYCord();
-	double detectorAngle = atan(dy / dx);
-
-	double lineY = imageHeight - absorbDetector.getDetectorYCord();
-	double lineX = lineY / tan(detectorAngle);
-	double xImagePlane = absorbDetector.getDetectorXCord() - lineX;
+	double dz = absorbDetector.getDetectorZCord() - scatterDetector.getDetectorZCord();
+	double detectorAngle = atan2(dx,dz);
 
 
-	//IMPLEMENT YIMAGEPLANE
+
+	//double xzAngle = (scatterAngle / 2.0) - detectorAngle;
+	double zDist = imageHeight + scatterDetector.getDetectorZCord();
+
+	double xPointImagePlane = startX + (zDist*tan(-detectorAngle));
+
+
+	//THIS WILL ALWAYS BE ZERO IF DETECTORS HAVE NO Y.
 	double yImagePlane = 0;
 
-	Cone newCone(startX, startY, xImagePlane, yImagePlane, scatterAngle);
+	Cone newCone(startX, startZ, xPointImagePlane, yImagePlane, scatterAngle);
 	return newCone;
 }
 

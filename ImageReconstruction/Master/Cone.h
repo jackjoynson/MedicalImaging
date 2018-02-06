@@ -4,13 +4,13 @@ class Cone
 {
 
 private:
-	double _StartX, _StartY;
+	double _StartX, _StartZ;
     double _XImagePlane, _YImagePlane;
 	double _HalfAngle;
 
 public:
 
-    Cone(double startX, double startY, double xImagePlane, double yImagePlane ,double halfAngle);
+    Cone(double startX, double startZ, double xImagePlane, double yImagePlane ,double halfAngle);
 	
 	double GetStartX()
 	{
@@ -19,7 +19,7 @@ public:
 
 	double GetStartY()
 	{
-		return _StartY;
+		return _StartZ;
 	}
 
 
@@ -50,9 +50,9 @@ public:
 	{
 		_StartX = startX;
 	}
-	void SetStartY(double startY)
+	void SetStartZ(double startZ)
 	{
-		_StartY = startY;
+		_StartZ = startZ;
 	}
 
 

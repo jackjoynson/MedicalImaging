@@ -16,23 +16,17 @@ bool BeenPoint(vector<int> xV, vector<int> yV, int x, int y)
 {
 	for (int i = 0; i < xV.size(); i++)
 	{
-		if (xV[i] == x && yV[i] == y)
-		{
-			return true;
-		}
+		if (xV[i] == x && yV[i] == y)	
+			return true;		
 	}
 	return false;
 }
 
-vector<vector<int> > GenerateMatrix::GetValues(vector<Ellipse> ellipses)
+vector<vector<int> > GenerateMatrix::GetValues(vector<Ellipse> ellipses, double width, double height, int matrixIntervals)
 {
-	double width = 1; //meter
-	double height = 1; //meter
-	int matrixIntervals = 100; //Matrix intervals
-
 	//Any offset. Currently centered around (0,0)
-	double xOffset = 0.5;
-	double yOffset = 0.5;
+	double xOffset = width / 2.0;
+	double yOffset = height / 2.0;
 
 
 	int thetaIntervals = 1000;
@@ -87,10 +81,9 @@ vector<vector<int> > GenerateMatrix::GetValues(vector<Ellipse> ellipses)
 				if (!BeenPoint(xIndexes,yIndexes,xIndex,yIndex))
 				{
 					matrix[xIndex][yIndex]++;
+					xIndexes.push_back(xIndex);
+					yIndexes.push_back(yIndex);
 				}
-
-				xIndexes.push_back(xIndex);
-				yIndexes.push_back(yIndex);
 			}
 			//ELSE NOT WITHIN GRID.
 		}

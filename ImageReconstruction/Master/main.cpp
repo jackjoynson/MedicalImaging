@@ -11,10 +11,12 @@
 int main()
 {
     GetUserInputs GUI;
-	vector<std::string> files = GUI.getFilePaths();
-	vector<DetectorType> detectors = GUI.getDetectors();
+	vector<std::string> files = GUI.GetFilePaths();
+	vector<DetectorType> detectors = GUI.GetDetectors();
 	double sourceEnergy = GUI.GetEnergy();
-	double imageHeight = GUI.GetImageHeight();
+	double imageDistanceHeight = GUI.GetImageHeight();
+	double imageSizeWidth = GUI.GetImageSizeWidth();
+	double imageSizePixels = GUI.GetPixels();
 
 	FileToData FTD;
 	vector<EventEntry> scatteringEvents = FTD.GetData(files, detectors, true);
@@ -22,17 +24,17 @@ int main()
 
 
 	GenerateCones coneGenerator;
-	vector<Cone> cones = coneGenerator.GetCones(scatteringEvents, absorbEvents, detectors, sourceEnergy, imageHeight);
+	vector<Cone> cones = coneGenerator.GetCones(scatteringEvents, absorbEvents, detectors, sourceEnergy, imageDistanceHeight);
 
 
-	Vector3D pointOnPlane(0, 0, imageHeight);
+	Vector3D pointOnPlane(0, 0, imageDistanceHeight);
 
 	ConesToEllipse ellipseGenerator(pointOnPlane, cones);
 	vector<Ellipse> ellipses = ellipseGenerator.getEllipses();
 	
 
 	GenerateMatrix matrixGenerator;
-	vector<vector<int> > matrix = matrixGenerator.GetValues(ellipses);
+	vector<vector<int> > matrix = matrixGenerator.GetValues(ellipses,imageSizeWidth, imageSizeWidth, imageSizePixels);
 
 
 	MatrixToFile matrixSaver;

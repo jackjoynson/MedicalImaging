@@ -15,19 +15,19 @@ class DetectorType
 {
 public:
     DetectorType();
-    DetectorType(int x, int y, bool scatter);
+    DetectorType(double x, double y, bool scatter);
     
     void setDetectorXCord(double x){
         detectorXCord = x;
     }
-    void setDetectorYCord(double y){
-        detectorYCord = y;
+    void setDetectorZCord(double z){
+        detectorZCord = z;
     }
     double getDetectorXCord(){
         return detectorXCord;
     }
-    double getDetectorYCord(){
-        return detectorYCord;
+    double getDetectorZCord(){
+        return detectorZCord;
     }
     
     void setIsScatter(bool x){
@@ -41,7 +41,7 @@ public:
 private:
 
     double detectorXCord;
-    double detectorYCord;
+    double detectorZCord;
     bool isScatter;         //if not scatter, is absorber by default.
     
     

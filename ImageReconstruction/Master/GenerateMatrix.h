@@ -12,7 +12,7 @@ class GenerateMatrix
 {
 public:
 	GenerateMatrix();
-	vector<vector<int> > GetValues(vector<Ellipse> ellipses);
+	vector<vector<int> > GetValues(vector<Ellipse> ellipses, double width, double height, int matrixIntervals);
 };
 
 #endif
