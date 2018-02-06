@@ -1,0 +1,28 @@
+# Macro file for the initialization of example B1
+# in interactive session
+#
+# Set some default verbose
+/control/verbose 2
+/control/saveHistory
+/run/verbose 2
+#
+# Change the default number of threads (in multi-threaded mode)
+#/run/numberOfThreads 4
+#
+# Initialize kernel
+/run/initialize
+#
+# Visualization setting
+/control/execute vis.mac
+
+/gps/verbose 2
+/gps/particle gamma
+/gps/pos/type Surface
+/gps/pos/shape Sphere
+/gps/pos/centre 0. 0. 0. mm
+/gps/pos/radius 1. mm
+/gps/ang/type cos
+/gps/ene/type Gauss
+/gps/ene/mono 662 keV
+/gps/ene/sigma 2 keV
+/run/beamOn 100
