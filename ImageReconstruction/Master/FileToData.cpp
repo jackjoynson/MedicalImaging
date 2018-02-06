@@ -9,9 +9,9 @@
 
 using namespace std;
 
-FileToData::FileToData() 
+FileToData::FileToData(bool isSimulation) 
 {
-
+	_IsSimulation = isSimulation;
 }
 
 ///The boolean scatter should be set to true if scattering data is required. Otherwise it will return absorbion.
@@ -25,7 +25,9 @@ vector<EventEntry> FileToData::GetData(vector<string> files, vector<DetectorType
 		{
 			ifstream infile(files[fileIndex]);
 
-			bool passedHeader = false;
+			//Set false if experimental and waits till finds header. True just gets data.
+			bool passedHeader = _IsSimulation;
+
 			std::string line;
 			while (std::getline(infile, line))
 			{

@@ -7,6 +7,12 @@ using namespace std;
 
 GetUserInputs::GetUserInputs()
 {
+	cout << "Enter 1 if the data is simulation, enter 0 if its real:" << endl;
+	int tempIsSim;
+	cin >> tempIsSim;
+	if (tempIsSim > 0) _IsSimulation = true;
+	else _IsSimulation = false;
+
 	cout << "Please enter the gamma ray energy in keV:" << endl;
 	cin >> _Energy;
 

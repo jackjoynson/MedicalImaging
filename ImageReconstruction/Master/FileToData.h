@@ -10,8 +10,10 @@
 class FileToData
 {
 public:
-	FileToData();
+	FileToData(bool IsSimulation);
 	vector<EventEntry> GetData(vector<string> files, vector<DetectorType> detectors, bool scatter);
+private:
+	bool _IsSimulation;
 };
 
 #endif

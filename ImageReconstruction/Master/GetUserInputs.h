@@ -54,6 +54,11 @@ public:
 		return _Tolerance;
 	}
 
+	bool IsSimulation()
+	{
+		return _IsSimulation;
+	}
+
 private:
     vector<string> _FilePaths;
     vector<DetectorType> _Detectors;
@@ -61,6 +66,7 @@ private:
 	double _ImageHeight;
 	double _ImageSizeWidth;
 	int _Pixels, _Tolerance;
+	bool _IsSimulation;
 };
 
 
