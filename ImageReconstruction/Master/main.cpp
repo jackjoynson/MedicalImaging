@@ -13,11 +13,8 @@ int main()
     GetUserInputs GUI;
 	vector<std::string> files = GUI.GetFilePaths();
 	vector<DetectorType> detectors = GUI.GetDetectors();
-	double sourceEnergy = GUI.GetEnergy();
 	double imageDistanceHeight = GUI.GetImageHeight();
 	double imageSizeWidth = GUI.GetImageSizeWidth();
-	double imageSizePixels = GUI.GetPixels();
-	int tolerance = GUI.GetTolerance();
 
 	FileToData FTD(GUI.IsSimulation());
 	vector<EventEntry> scatteringEvents = FTD.GetData(files, detectors, true);
@@ -25,7 +22,7 @@ int main()
 
 
 	GenerateCones coneGenerator;
-	vector<Cone> cones = coneGenerator.GetCones(scatteringEvents, absorbEvents, detectors, sourceEnergy, imageDistanceHeight, tolerance);
+	vector<Cone> cones = coneGenerator.GetCones(scatteringEvents, absorbEvents, detectors, GUI.GetEnergy(), imageDistanceHeight, GUI.GetTolerance());
 	cout << "Generated " << cones.size() << " cones." << endl;
 
 	Vector3D pointOnPlane(0, 0, imageDistanceHeight);
@@ -35,7 +32,7 @@ int main()
 	cout << "Generated " << ellipses.size() << " ellipses." << endl;
 
 	GenerateMatrix matrixGenerator;
-	vector<vector<int> > matrix = matrixGenerator.GetValues(ellipses,imageSizeWidth, imageSizeWidth, imageSizePixels);
+	vector<vector<int> > matrix = matrixGenerator.GetValues(ellipses, imageSizeWidth, imageSizeWidth, GUI.GetPixels());
 	cout << "Matrix generated. Saving..." << endl;
 
 	MatrixToFile matrixSaver;
