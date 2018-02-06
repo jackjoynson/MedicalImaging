@@ -76,8 +76,9 @@ ConesToEllipse::ConesToEllipse(Vector3D plane, vector<Cone> cones):
             Ellipse thisEllipse(center,majorAxis,minorAxis,majorRadius,minorRadius);
             _ellipses.push_back(thisEllipse);
         }
-        else{
-            cout << "Ellipse " << i << "is invalid" << endl;
+        else
+		{
+            cout << "Ellipse " << i << " is invalid" << endl;
         }
 
     }
