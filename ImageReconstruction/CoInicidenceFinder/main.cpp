@@ -30,6 +30,7 @@ int main()
 	{
 		vector<EventEntry> events = FTD.GetData(files, true, i);
 		scatteringEvents.push_back(events);
+		cout << "File " << i + 1 << " has " << events.size() << " events" << endl;
 	}
 
 
