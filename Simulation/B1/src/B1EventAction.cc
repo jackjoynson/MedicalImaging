@@ -23,80 +23,56 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: B1SteppingAction.cc 74483 2013-10-09 13:37:06Z gcosmo $
+// $Id: B1EventAction.cc 93886 2015-11-03 08:28:26Z gcosmo $
 //
-/// \file B1SteppingAction.cc
-/// \brief Implementation of the B1SteppingAction class
+/// \file B1EventAction.cc
+/// \brief Implementation of the B1EventAction class
 
-#include <fstream>
-#include <iostream>
-
-#include "B1SteppingAction.hh"
 #include "B1EventAction.hh"
-#include "B1DetectorConstruction.hh"
+#include "B1RunAction.hh"
 
-#include "G4Step.hh"
 #include "G4Event.hh"
 #include "G4RunManager.hh"
-#include "G4VPhysicalVolume.hh"
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-B1SteppingAction::B1SteppingAction(B1EventAction* eventAction)
-: G4UserSteppingAction(),
-  fEventAction(eventAction),
-  fScoringVolume(0)
+B1EventAction::B1EventAction(B1RunAction* runAction)
+: G4UserEventAction(),
+  fRunAction(runAction),
+  fEdep(0.), fEdepAbs(0.), fEdepScat(0.)
+{} 
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+B1EventAction::~B1EventAction()
 {}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-B1SteppingAction::~B1SteppingAction()
-{}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-void B1SteppingAction::UserSteppingAction(const G4Step* step)
-{
-
-  // get volume of the current step
-  G4VPhysicalVolume* volume
-    = step->GetPreStepPoint()->GetTouchableHandle()
-      ->GetVolume();
-
-  G4StepPoint* point1 = step->GetPreStepPoint();
-  G4ThreeVector pos1 = point1->GetPosition();
-
-  G4Track* track = step->GetTrack();
-  G4int trackID = track->GetTrackID();
-      
-  // check if we are in scoring volume
-  //if (volume != fScoringVolume) return;
-
-  // collect energy deposited in this step
-  G4double edepStep = step->GetTotalEnergyDeposit();
-  G4double edepStepAbsorber = step->GetTotalEnergyDeposit();
-  G4double edepStepScatter = step->GetTotalEnergyDeposit();
-
-  const G4VProcess* whichProcess = step->GetPostStepPoint()->GetProcessDefinedStep();
-  G4String process = whichProcess->GetProcessName();
-
-  if(volume->GetName() == "Detector1" || volume->GetName() == "Detector2"
-          || volume->GetName() == "ScatterCrystal1" || volume->GetName() == "ScatterCrystal2"){
-
-  G4cout << "Energy deposited in volume " << volume->GetName() << " is: " << edepStep
-         << "... Through the process: " << process << " AT THE POINT " << pos1 << G4endl;
-
-  fEventAction->AddEdep(edepStep);
-
-  std::ofstream myfile;
-  myfile.open ("results.txt", std::ios_base::app);
-  myfile << trackID << "  " << edepStep << step->GetTrack() <<std::endl;
-  myfile.close();
-
-  }
-
-
+void B1EventAction::BeginOfEventAction(const G4Event*)
+{    
+  fEdep = 0.;
+  fEdepAbs = 0.;
+  fEdepScat = 0.;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
+void B1EventAction::EndOfEventAction(const G4Event*)
+{   
+  // accumulate statistics in run action
+  fRunAction->AddEdep(fEdep);
+  if(fEdepAbs > 0 || fEdepScat > 0){
+      G4cout << "Energy deposited by this photon: " << fEdep << "MeV" << G4endl;
+      std::ofstream myfile;
+      myfile.open ("results.txt", std::ios_base::app);
+      myfile << "Energy deposited by this photon: " << fEdep << "MeV" << std::endl;
+      myfile << "Absorbing energy deposited by this photon: " << fEdepAbs << "MeV" << std::endl;
+      myfile << "Scattering energy deposited by this photon: " << fEdepScat << "MeV" << std::endl;
+      myfile.close();
+
+  }
+
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
