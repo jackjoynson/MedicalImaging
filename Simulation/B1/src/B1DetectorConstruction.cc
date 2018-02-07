@@ -139,15 +139,21 @@ G4VPhysicalVolume* B1DetectorConstruction::Construct()
   G4double Detector_SizeXY = 50*cm;
   G4double Detector_SizeZ = 10*cm;
 
-  G4Box* NaIDetector =
-          new G4Box("Detector", 0.5*Detector_SizeXY, 0.5*Detector_SizeXY, 0.5*Detector_SizeZ);
+  G4Box* ScatterCrystal =
+          new G4Box("Detector", 0.75*Detector_SizeXY, 0.75*Detector_SizeXY, 0.25*Detector_SizeZ);
 
-  G4LogicalVolume* logicDet =
-          new G4LogicalVolume(NaIDetector, detector_mat, "Detector1");
+  G4Box* Absorber =
+          new G4Box("Detector", 0.5*Detector_SizeXY, 0.5*Detector_SizeXY, Detector_SizeZ);
+
+  G4LogicalVolume* logicAbs =
+          new G4LogicalVolume(Absorber, detector_mat, "LogAbs");
+
+  G4LogicalVolume* logicScat =
+          new G4LogicalVolume(ScatterCrystal, detector_mat, "LogScatter");
 
   new G4PVPlacement(rotm1Inv,
                     pos1,
-                    logicDet,
+                    logicScat,
                     "ScatterCrystal1",
                     logicEnv,
                     false,
@@ -156,7 +162,7 @@ G4VPhysicalVolume* B1DetectorConstruction::Construct()
 
   new G4PVPlacement(rotm1Inv,
                     pos2,
-                    logicDet,
+                    logicScat,
                     "ScatterCrystal2",
                     logicEnv,
                     false,
@@ -165,7 +171,7 @@ G4VPhysicalVolume* B1DetectorConstruction::Construct()
 
   new G4PVPlacement(rotm1Inv,
                     pos3,
-                    logicDet,
+                    logicAbs,
                     "Detector1",
                     logicEnv,
                     false,
@@ -174,7 +180,7 @@ G4VPhysicalVolume* B1DetectorConstruction::Construct()
 
   new G4PVPlacement(rotm1Inv,
                     pos4,
-                    logicDet,
+                    logicAbs,
                     "Detector2",
                     logicEnv,
                     false,

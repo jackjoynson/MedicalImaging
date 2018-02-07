@@ -86,7 +86,6 @@ int main(int argc,char** argv)
   G4VModularPhysicsList* physicsList = new HadrontherapyPhysicsList;
   physicsList->SetVerboseLevel(1);
   runManager->SetUserInitialization(physicsList);
-//    runManager->SetUserInitialization(new PhysicsList());
     
   // User action initialization
   runManager->SetUserInitialization(new B1ActionInitialization());
