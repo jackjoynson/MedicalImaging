@@ -66,7 +66,8 @@ private:
 	double _ImageHeight;
 	double _ImageSizeWidth;
 	int _Pixels, _Tolerance;
-	bool _IsSimulation;
+    bool _IsSimulation;
+    void fromFile();
 };
 
 
