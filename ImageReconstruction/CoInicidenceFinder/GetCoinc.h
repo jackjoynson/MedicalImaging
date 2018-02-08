@@ -11,9 +11,9 @@
 class GetCoinc
 {
 public:
-	GetCoinc(vector<vector<EventEntry> > events, unsigned int tolerance);
+	GetCoinc(vector<vector<EventEntry> > events, double tolerance, double timeOffset);
 	~GetCoinc();
-	void Find(int set1, int set2, int set3);
+	void Find(int set1, int set2);
 	void UpdateEvents(vector<vector<EventEntry> > events)
 	{
 		_Events = events;
@@ -33,7 +33,7 @@ private:
 
 	int _Doubles, _Triples;
 	vector<vector<EventEntry> > _Events;
-	unsigned int _Tolerance;
+	double _Tolerance, _TimeOffset;
 };
 
 #endif

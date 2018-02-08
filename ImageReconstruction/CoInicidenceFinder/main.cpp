@@ -6,7 +6,6 @@
 #include <string>
 using namespace std;
 
-using namespace std;
 
 
 
@@ -19,9 +18,22 @@ int main()
 	vector<std::string> files = GUI.getFilePaths();
 
 
-	cout << "Enter the time tolerance:" << endl;
-	unsigned int tolerance;
+	cout << "Enter the time tolerance window size:" << endl;
+	double tolerance;
 	cin >> tolerance;
+	tolerance = tolerance / 2.0;
+
+	//cout << "Enter 0 to output to a file:" << endl;
+	//int temp;
+	//cin >> temp;
+
+	//bool output = (temp == 0) ? false : true;
+
+
+	cout << "Enter a time offset to be applied to file 2 (For random event checking):" << endl;
+	double timeOffset;
+	cin >> timeOffset;
+
 
 	FileToData FTD;
 
@@ -34,27 +46,32 @@ int main()
 	}
 
 
-	GetCoinc GC(scatteringEvents, tolerance);
+	GetCoinc GC(scatteringEvents, tolerance, timeOffset);
 
 	if (files.size() == 2)
 	{
-		files.push_back("fake");
-		vector<EventEntry> events;
-		scatteringEvents.push_back(events);
+		//files.push_back("fake");
+		//vector<EventEntry> events;
+		//scatteringEvents.push_back(events);
 
-		GC.UpdateEvents(scatteringEvents);
-		GC.Find(0, 1, 2);
+		//GC.UpdateEvents(scatteringEvents);
+		GC.Find(0, 1);
 	}
 	else if(files.size() == 3)
 	{
-		GC.Find(0, 1, 2);
+		GC.Find(0, 1);
+		GC.Find(0, 2);
+		GC.Find(1, 2);
+
 	}
 	else if (files.size() == 4)
 	{
-		GC.Find(0, 1, 2);
-		GC.Find(0, 1, 3);
-		GC.Find(0, 2, 3);
-		GC.Find(1, 2, 3);
+		GC.Find(0, 1);
+		GC.Find(0, 2);
+		GC.Find(0, 3);
+		GC.Find(1, 2);
+		GC.Find(1, 3);
+		GC.Find(2, 3);
 	}
 	else {
 		cout << "INVALID NUMBER OF FILES SELECTED..." << endl;
@@ -64,7 +81,8 @@ int main()
 
 
 	cout << "Found " << GC.GetDoubles() << " coincident pairs." << endl
-		<< "Found " << GC.GetTriples() << " coincident triplets." << endl;
+		//<< "Found " << GC.GetTriples() << " coincident triplets." << endl
+		;
 
 
 

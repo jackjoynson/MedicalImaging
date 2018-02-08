@@ -18,7 +18,9 @@ int main()
 
 	FileToData FTD(GUI.IsSimulation());
 	vector<EventEntry> scatteringEvents = FTD.GetData(files, detectors, true);
+	cout << "Found " << scatteringEvents.size() << " scatter events.." << endl;
 	vector<EventEntry> absorbEvents = FTD.GetData(files, detectors, false);
+	cout << "Found " << absorbEvents.size() << " absorb events.." << endl;
 
 
 	GenerateCones coneGenerator;

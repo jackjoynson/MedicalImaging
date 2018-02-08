@@ -46,7 +46,6 @@ Cone CalculateCone(EventEntry scatterEvent, EventEntry absorbEvent, vector<Detec
 
 	//THIS WILL ALWAYS BE ZERO IF DETECTORS HAVE NO Y.
 	double yImagePlane = 0;
-
 	Cone newCone(startX, startZ, xPointImagePlane, yImagePlane, scatterAngle);
 	return newCone;
 }
