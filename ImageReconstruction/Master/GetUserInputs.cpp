@@ -92,11 +92,16 @@ void GetUserInputs::fromFile(){
         int _imageSize;
         int _imageHeight;
         int _pixelCount;
-        double _detectorx[100];
-        double _detectorz[100];
-        string _detectorPath[100];
-        int _detectorType[100];
+        //double _detectorx[100];
+        //double _detectorz[100];
+        //string _detectorPath[100];
+        //int _detectorType[100];
 
+        vector<double> _detectorx;
+        vector<double> _detectorz;
+        vector<string> _detectorPath;
+        vector<int> _detectorType;
+        
 
         while ( myfile.good() )
         {
@@ -147,25 +152,25 @@ void GetUserInputs::fromFile(){
                 string thisDetectorx =detector0x.replace(8,1,to_string(i));
                 found = line.find(thisDetectorx);
                 if(found != string::npos){
-                    _detectorx[i] = stod(line.substr(found+thisDetectorx.length()+1));
+                    _detectorx.push_back(stod(line.substr(found+thisDetectorx.length()+1)));
                 }
 
                 string thisDetectorz =detector0z.replace(8,1,to_string(i));
                 found = line.find(thisDetectorz);
                 if(found != string::npos){
-                    _detectorz[i] = stod(line.substr(found+thisDetectorz.length()+1));
+                    _detectorz.push_back(stod(line.substr(found+thisDetectorz.length()+1)));
                 }
 
                 string thisDetectorfp =detectorfp0.replace(10,1,to_string(i));
                 found = line.find(thisDetectorfp);
                 if(found != string::npos){
-                    _detectorPath[i] = line.substr(found+thisDetectorfp.length()+1);
+                    _detectorPath.push_back(line.substr(found+thisDetectorfp.length()+1));
                 }
 
                 string thisDetectorType = detector0type.replace(8,1,to_string(i));
                 found = line.find(thisDetectorType);
                 if(found != string::npos){
-                    _detectorType[i] = stoi(line.substr(found+thisDetectorType.length()+1));
+                    _detectorType.push_back(stoi(line.substr(found+thisDetectorType.length()+1)));
                 }
 
             }
@@ -178,12 +183,17 @@ void GetUserInputs::fromFile(){
         _Pixels = _pixelCount;
 
         for(int i = 0; i < _detectorCount; i++){
-            _FilePaths.push_back(_detectorPath[i]);
+            _FilePaths.push_back(_detectorPath.front());
+            _detectorPath.erase(_detectorPath.begin());
             DetectorType dec;
-            dec.setDetectorXCord(_detectorx[i]);
-            dec.setDetectorZCord(_detectorz[i]);
-            dec.setIsScatter(_detectorType[i]);
+            dec.setDetectorXCord(_detectorx.front());
+            _detectorx.erase(_detectorx.begin());
+            dec.setDetectorZCord(_detectorz.front());
+            _detectorz.erase(_detectorz.begin());
+            dec.setIsScatter(_detectorType.front());
+            _detectorType.erase(_detectorType.begin());
             _Detectors.push_back(dec);
+            
         }
 
     }

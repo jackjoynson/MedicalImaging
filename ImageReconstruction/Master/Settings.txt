@@ -27,5 +27,5 @@ Detectorfp5 filePath
 Tolerance 20
 ImageSize 1
 ImageHeight 1 
-Pixelcount 250 
+PixelCount 250 
 
