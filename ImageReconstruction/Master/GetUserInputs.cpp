@@ -119,19 +119,19 @@ void GetUserInputs::fromFile(){
                 _tolerance = stoi(line.substr(found+tolerance.length()+1));
             }
 
-            string imageSize = "imageSize";
+            string imageSize = "ImageSize";
             found = line.find(imageSize);
             if(found != string::npos){
                 _imageSize = stoi(line.substr(found+imageSize.length()+1));
             }
 
-            string imageHeight = "imageHeight";
+            string imageHeight = "ImageHeight";
             found = line.find(imageHeight);
             if(found != string::npos){
                 _imageHeight = stoi(line.substr(found+imageHeight.length()+1));
             }
 
-            string pixelCount = "pixelCount";
+            string pixelCount = "PixelCount";
             found = line.find(pixelCount);
             if(found != string::npos){
                 _pixelCount = stoi(line.substr(found+pixelCount.length()+1));
