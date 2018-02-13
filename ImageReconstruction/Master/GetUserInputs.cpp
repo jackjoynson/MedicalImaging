@@ -87,10 +87,10 @@ void GetUserInputs::fromFile(){
     if (myfile.is_open())
     {
         int _detectorCount;
-        int _initialEnergy;
-        int _tolerance;
-        int _imageSize;
-        int _imageHeight;
+        double _initialEnergy;
+        double _tolerance;
+        double _imageSize;
+        double _imageHeight;
         int _pixelCount;
         //double _detectorx[100];
         //double _detectorz[100];
@@ -115,25 +115,25 @@ void GetUserInputs::fromFile(){
             string initialEnergy = "InitialEnergy";
             found = line.find(initialEnergy);
             if(found != string::npos){
-                _initialEnergy = stoi(line.substr(found+initialEnergy.length()+1));
+                _initialEnergy = stod(line.substr(found+initialEnergy.length()+1));
             }
 
             string tolerance = "Tolerance";
             found = line.find(tolerance);
             if(found != string::npos){
-                _tolerance = stoi(line.substr(found+tolerance.length()+1));
+                _tolerance = stod(line.substr(found+tolerance.length()+1));
             }
 
             string imageSize = "ImageSize";
             found = line.find(imageSize);
             if(found != string::npos){
-                _imageSize = stoi(line.substr(found+imageSize.length()+1));
+                _imageSize = stod(line.substr(found+imageSize.length()+1));
             }
 
             string imageHeight = "ImageHeight";
             found = line.find(imageHeight);
             if(found != string::npos){
-                _imageHeight = stoi(line.substr(found+imageHeight.length()+1));
+                _imageHeight = stod(line.substr(found+imageHeight.length()+1));
             }
 
             string pixelCount = "PixelCount";
