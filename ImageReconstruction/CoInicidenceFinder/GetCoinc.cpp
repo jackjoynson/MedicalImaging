@@ -20,6 +20,8 @@ void GetCoinc::Find(int set1, int set2)
 			double upperLim = _Events[set1][set1Line].GetTimeStamp() + _Tolerance;
 			double lowerLim = _Events[set1][set1Line].GetTimeStamp() - _Tolerance;
 
+			double breakLim = upperLim + 10000;
+
 			//Loop set2
 			for (size_t set2Line = 0; set2Line < _Events[set2].size(); set2Line++)
 			{
@@ -31,8 +33,13 @@ void GetCoinc::Find(int set1, int set2)
 					{
 						doubles++;
 						Output(set1, set2, set1Line, set2Line, saveFile);
+						break;
 					}
-					break; //AS ABOVE ANYWAY
+					//else if (set2Time > breakLim)
+					//{
+					//	//above the limit
+					//	break;
+					//}
 				}
 			}
 		}

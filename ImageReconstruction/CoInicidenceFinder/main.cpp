@@ -24,7 +24,7 @@ int main()
 	cin >> tolerance;
 	tolerance = tolerance / 2.0;
 
-	cout << "Enter a valid file name with extension if you would like to output to file otherwise enter nothing:" << endl;
+	cout << "Enter a valid file name to output to:" << endl;
 	string fileName;
 	cin >> fileName;
 
