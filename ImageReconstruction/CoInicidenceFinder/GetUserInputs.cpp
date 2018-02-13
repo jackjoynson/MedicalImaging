@@ -21,7 +21,14 @@ GetUserInputs::GetUserInputs()
 
 		cout << "Please enter the file path of the detector file. Must be very short (I.e. put on C drive) " << i << endl;
 		cin >> path;
-		filePath.push_back(path);
+		cout << "Enter 1 if scatter, 0 if absorber:" << endl;
+		int temp;
+		cin >> temp;
+
+		bool isScatter = (temp == 1) ? true : false;
+
+		_FilePaths.push_back(path);
+		_IsScatter.push_back(isScatter);
 
 	}
 }

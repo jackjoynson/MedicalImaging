@@ -15,7 +15,7 @@ FileToData::FileToData()
 }
 
 ///The boolean scatter should be set to true if scattering data is required. Otherwise it will return absorbion.
-vector<EventEntry> FileToData::GetData(vector<string> files, bool scatter, int fileIndex)
+vector<EventEntry> FileToData::GetData(vector<string> files, int fileIndex)
 {
 	vector<EventEntry> eventList;
 

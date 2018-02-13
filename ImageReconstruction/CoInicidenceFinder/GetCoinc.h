@@ -7,12 +7,14 @@
 
 #include <string>
 #include <vector>
+#include <fstream>
 
 class GetCoinc
 {
 public:
-	GetCoinc(vector<vector<EventEntry> > events, double tolerance, double timeOffset);
+	GetCoinc(vector<vector<EventEntry> > events, double tolerance, double timeOffset, vector<bool> isScatter, string fileName);
 	~GetCoinc();
+	void Output(int set1, int set2, size_t line1, size_t line2, ofstream& stream);
 	void Find(int set1, int set2);
 	void UpdateEvents(vector<vector<EventEntry> > events)
 	{
@@ -34,6 +36,9 @@ private:
 	int _Doubles, _Triples;
 	vector<vector<EventEntry> > _Events;
 	double _Tolerance, _TimeOffset;
+	vector<bool> _IsScatters;
+	string _FileName;
+	bool _IsOutputting;
 };
 
 #endif

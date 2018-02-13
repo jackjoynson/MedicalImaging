@@ -24,12 +24,17 @@ public:
     
     vector<string> getFilePaths()
 	{
-        return filePath;
+        return _FilePaths;
     }
     
+	vector<bool> getIsScatters()
+	{
+		return _IsScatter;
+	}
     
 private:
-    vector<string> filePath;
+    vector<string> _FilePaths;
+	vector<bool> _IsScatter;
 };
 
 

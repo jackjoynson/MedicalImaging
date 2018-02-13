@@ -12,10 +12,11 @@ using namespace std;
 int main()
 {
 
-	cout << "Conincident pair/triplet finder" << endl;
+	cout << "Conincident pair finder" << endl;
 
     GetUserInputs GUI;
 	vector<std::string> files = GUI.getFilePaths();
+	vector<bool> isScatters = GUI.getIsScatters();
 
 
 	cout << "Enter the time tolerance window size:" << endl;
@@ -23,11 +24,9 @@ int main()
 	cin >> tolerance;
 	tolerance = tolerance / 2.0;
 
-	//cout << "Enter 0 to output to a file:" << endl;
-	//int temp;
-	//cin >> temp;
-
-	//bool output = (temp == 0) ? false : true;
+	cout << "Enter a valid file name with extension if you would like to output to file otherwise enter nothing:" << endl;
+	string fileName;
+	cin >> fileName;
 
 
 	cout << "Enter a time offset to be applied to file 2 (For random event checking):" << endl;
@@ -37,16 +36,16 @@ int main()
 
 	FileToData FTD;
 
-	vector<vector<EventEntry> > scatteringEvents;
+	vector<vector<EventEntry> > events;
 	for (size_t i = 0; i < files.size(); i++)
 	{
-		vector<EventEntry> events = FTD.GetData(files, true, i);
-		scatteringEvents.push_back(events);
-		cout << "File " << i + 1 << " has " << events.size() << " events" << endl;
+		vector<EventEntry> newEvents = FTD.GetData(files, i);
+		events.push_back(newEvents);
+		cout << "File " << i + 1 << " has " << newEvents.size() << " events" << endl;
 	}
 
 
-	GetCoinc GC(scatteringEvents, tolerance, timeOffset);
+	GetCoinc GC(events, tolerance, timeOffset, isScatters, fileName);
 
 	if (files.size() == 2)
 	{
@@ -80,8 +79,7 @@ int main()
 
 
 
-	cout << "Found " << GC.GetDoubles() << " coincident pairs." << endl
-		//<< "Found " << GC.GetTriples() << " coincident triplets." << endl
+	cout << "Found " << GC.GetDoubles() << " total coincident pairs." << endl
 		;
 
 
