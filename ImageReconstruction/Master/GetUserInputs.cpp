@@ -9,8 +9,9 @@ GetUserInputs::GetUserInputs()
 {
     int x;
     cout << "Would you like to use the preset file? 1 for yes, 0 for no." << endl;
-    cin >> x;
+    //cin >> x;
 
+    x = 1;
     if(x == 1){
         fromFile();
     }
@@ -83,6 +84,7 @@ void GetUserInputs::fromFile(){
     cout << "Input a file" << endl;
     cin >> file;
 
+   // file = 'Users/ziyuewang/Desktop/Settings.txt';
     ifstream myfile (file);
     if (myfile.is_open())
     {
