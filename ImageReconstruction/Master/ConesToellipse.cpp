@@ -100,19 +100,35 @@ ConesToEllipse::ConesToEllipse(Vector3D plane, vector<Cone> cones):
         Cone thisCone = _cones[i];
         double theta = thisCone.GetHalfAngle();
 
+        double a = plane.getZ();
+        double phi2 = atan(fabs(thisCone.GetXImagePlane()/a));
+        double phi1 = theta - phi2;
+        double u = a*tan(phi1);
+        double v = a*tan(phi2);
+        double rmin = u+v;
+        double rmax;
+        double majorRadius;
+        double minorRadius;
+
+
         if(theta > PI/2){
         }
+        else if(phi2 > theta || phi2 == theta){
+            double alpha = phi2-theta;
+            double extraBit = a*tan(alpha);
+            rmin = v-extraBit;
+            rmax = a*tan(phi2+theta) - extraBit-v;
+            majorRadius = (rmax+rmin)/2.0;           //These are the SEMI major and MINOR axis radiuses;
+            minorRadius = sqrt(rmax*rmin);
 
-        else      //Change this later
+            Vector3D center(extraBit+majorRadius,0,a);
+            Ellipse thisEllipse(center,Vector3D(1,0,0),Vector3D(1,0,0),majorRadius,minorRadius);
+            _ellipses.push_back(thisEllipse);
+
+        }
+
+        else if(phi2 < theta)      //Change this later
         {
-            double a = planeNormal.getZ();
-            double phi2 = atan(thisCone.GetXImagePlane()/a);
-            double phi1 = theta - phi2;
-            double u = a*tan(phi1);
-            double v = a*tan(phi2);
-            double rmin = u+v;
-            double rmax;
-
             if(phi2+theta > PI/2 || phi2+theta == PI/2){
                 //rmax = 0;           //Rmax doesn't exist, hyerbola.
                 cout << "Ellipse " << i << " is invalid" << endl;
@@ -121,9 +137,9 @@ ConesToEllipse::ConesToEllipse(Vector3D plane, vector<Cone> cones):
                 double vPlusT = a*tan(phi2+theta);
                 rmax = vPlusT - v;
 
-            double majorRadius = (rmax+rmin)/2.0;           //These are the SEMI major and MINOR axis radiuses;
-            double minorRadius = sqrt(rmax*rmin);
-            Vector3D center(majorRadius,0,a);
+            majorRadius = (rmax+rmin)/2.0;           //These are the SEMI major and MINOR axis radiuses;
+            minorRadius = sqrt(rmax*rmin);
+            Vector3D center(majorRadius,0,a);           //Need to write in center, as well as major + minor axis directions from vector algebra later.
             Ellipse thisEllipse(center,Vector3D(1,0,0),Vector3D(0,1,0),majorRadius,minorRadius);
             _ellipses.push_back(thisEllipse);
         }

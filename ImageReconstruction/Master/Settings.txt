@@ -18,14 +18,14 @@ Detector4type 1
 Detector5x 0
 Detector5z 0
 Detector6type 1
-Detectorfp0 /Users/ziyuewang/Desktop/08.02Cs137.3Ddata1.5_ch000.txt 
-Detectorfp1 /Users/ziyuewang/Desktop/08.02Cs137.3Ddata1.5_ch001.txt 
-Detectorfp2 /Users/ziyuewang/Desktop/08.02Cs137.3Ddata1.5_ch002.txt 
+Detectorfp0 C:\Users\wangz\Desktop\Testfiles\test0.txt
+Detectorfp1 C:\Users\wangz\Desktop\Testfiles\test1.txt 
+Detectorfp2 C:\Users\wangz\Desktop\Testfiles\test2.txt 
 Detectorfp3 filePath
 Detectorfp4 filePath
 Detectorfp5 filePath
 Tolerance 20
 ImageSize 1
-ImageHeight 1 
+ImageHeight 0.13 
 PixelCount 250 
 
