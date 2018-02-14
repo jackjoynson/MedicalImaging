@@ -57,6 +57,7 @@ class B1EventAction : public G4UserEventAction
     G4double     fEdep;
     G4double     fEdepAbs;
     G4double     fEdepScat;
+    G4double     feID;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

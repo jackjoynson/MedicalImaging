@@ -55,14 +55,26 @@
 int main(int argc,char** argv)
 {
 
+    G4String macro ="";
+    G4double angle;
+
+    for ( G4int i=1; i<argc; i=i+2 ) {
+
+      if      ( G4String(argv[i]) == "-m" ) macro = argv[i+1];
+
+      else if ( G4String(argv[i]) == "-t" ) angle = atof(argv[i+1]);
+    }
+
     std::ofstream myfile;
-    myfile.open ("results.txt", std::ofstream::trunc);
+    myfile.open ("resultsabsorber.txt", std::ofstream::trunc);
+    myfile.close();
+    myfile.open ("resultsscatter.txt", std::ofstream::trunc);
     myfile.close();
 
   // Detect interactive mode (if no arguments) and define UI session
   //
   G4UIExecutive* ui = 0;
-  if ( argc == 1 ) {
+  if ( macro == "" ) {
     ui = new G4UIExecutive(argc, argv);
   }
 
@@ -80,7 +92,7 @@ int main(int argc,char** argv)
   // Set mandatory initialization classes
   //
   // Detector construction
-  runManager->SetUserInitialization(new B1DetectorConstruction());
+  runManager->SetUserInitialization(new B1DetectorConstruction(angle));
 
   // Physics list
   G4VModularPhysicsList* physicsList = new HadrontherapyPhysicsList;
@@ -102,17 +114,14 @@ int main(int argc,char** argv)
 
   // Process macro or start UI session
   //
-  if ( ! ui ) { 
-    // batch mode
-    G4String command = "/control/execute ";
-    G4String fileName = argv[1];
-    UImanager->ApplyCommand(command+fileName);
+  if ( ui ) {
+      UImanager->ApplyCommand("/control/execute init_vis.mac");
+      ui->SessionStart();
+      delete ui;
   }
   else { 
-    // interactive mode
-    UImanager->ApplyCommand("/control/execute init_vis.mac");
-    ui->SessionStart();
-    delete ui;
+      G4String command = "/control/execute ";
+      UImanager->ApplyCommand(command+macro);
   }
 
   // Job termination

@@ -60,17 +60,32 @@ void B1EventAction::BeginOfEventAction(const G4Event*)
 
 void B1EventAction::EndOfEventAction(const G4Event*)
 {   
+         std::ofstream myfile;
   // accumulate statistics in run action
   fRunAction->AddEdep(fEdep);
-  if(fEdepAbs > 0 || fEdepScat > 0){
-      G4cout << "Energy deposited by this photon: " << fEdep << "MeV" << G4endl;
-      std::ofstream myfile;
-      myfile.open ("results.txt", std::ios_base::app);
-      myfile << "Energy deposited by this photon: " << fEdep << "MeV" << std::endl;
-      myfile << "Absorbing energy deposited by this photon: " << fEdepAbs << "MeV" << std::endl;
-      myfile << "Scattering energy deposited by this photon: " << fEdepScat << "MeV" << std::endl;
-      myfile.close();
+  if(fEdepScat > 0){
 
+        G4int eID = 0;
+        const G4Event* evt = G4RunManager::GetRunManager()->GetCurrentEvent();
+          eID = evt->GetEventID();
+
+        G4cout << "Energy deposited by this photon: " << fEdep << "MeV" << G4endl;
+
+        myfile.open ("resultsscatter.txt", std::ios_base::app);
+        myfile << eID << " " << fEdepScat*1000 << std::endl;
+        myfile.close();
+
+  }
+
+  if(fEdepAbs > 0){
+
+      G4int eID = 0;
+      const G4Event* evt = G4RunManager::GetRunManager()->GetCurrentEvent();
+          eID = evt->GetEventID();
+
+        myfile.open ("resultsabsorber.txt", std::ios_base::app);
+        myfile << eID << " " << fEdepAbs*1000 << std::endl;
+        myfile.close();
   }
 
 }

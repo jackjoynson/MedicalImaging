@@ -42,7 +42,7 @@ class G4LogicalVolume;
 class B1DetectorConstruction : public G4VUserDetectorConstruction
 {
   public:
-    B1DetectorConstruction();
+    B1DetectorConstruction(double theta);
     virtual ~B1DetectorConstruction();
 
     virtual G4VPhysicalVolume* Construct();
@@ -51,6 +51,7 @@ class B1DetectorConstruction : public G4VUserDetectorConstruction
 
   protected:
     G4LogicalVolume*  fScoringVolume;
+    G4double newAngle;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

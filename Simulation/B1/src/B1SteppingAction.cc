@@ -63,47 +63,42 @@ void B1SteppingAction::UserSteppingAction(const G4Step* step)
     = step->GetPreStepPoint()->GetTouchableHandle()
       ->GetVolume();
 
-  G4StepPoint* point1 = step->GetPreStepPoint();
-  G4ThreeVector pos1 = point1->GetPosition();
+//  G4StepPoint* point1 = step->GetPostStepPoint();
+//  G4ThreeVector pos1 = point1->GetPosition();
 
-  G4Track* track = step->GetTrack();
-  G4int trackID = track->GetTrackID();
-      
+  //  G4Track* track = step->GetTrack();
+  //  G4int trackID = track->GetTrackID();
+
   // check if we are in scoring volume
   //if (volume != fScoringVolume) return;
 
   // collect energy deposited in this step
-  G4double edepStep = step->GetTotalEnergyDeposit();
   G4double edepStepAbsorber = step->GetTotalEnergyDeposit();
   G4double edepStepScatter = step->GetTotalEnergyDeposit();
 
-  const G4VProcess* whichProcess = step->GetPostStepPoint()->GetProcessDefinedStep();
-  G4String process = whichProcess->GetProcessName();
+//  const G4VProcess* whichProcess = step->GetPostStepPoint()->GetProcessDefinedStep();
+//  G4String process = whichProcess->GetProcessName();
 
-  if(volume->GetName() == "Detector1" || volume->GetName() == "Detector2"){
+  if(volume->GetName() == "AbsorptionDetector"){
+//  G4cout << "Energy deposited in volume " << volume->GetName() << " is: " << edepStep
+//         << "... Through the process: " << process << " AT THE POINT " << pos1 << G4endl;
 
+      fEventAction->AddEdepAbsorb(edepStepAbsorber);
 
-  G4cout << "Energy deposited in volume " << volume->GetName() << " is: " << edepStep
-         << "... Through the process: " << process << " AT THE POINT " << pos1 << G4endl;
-
-  fEventAction->AddEdepAbsorb(edepStepAbsorber);
-  fEventAction->AddEdep(edepStepAbsorber);
-
-  std::ofstream myfile;
-  myfile.open ("results.txt", std::ios_base::app);
-  myfile << "This is the volume" << volume->GetName() << "  trackID" << trackID << "  " << edepStepAbsorber <<std::endl;
-  myfile.close();
+//  std::ofstream myfile;
+//  myfile.open ("results.txt", std::ios_base::app);
+//  myfile << "This is the volume" << volume->GetName() << "  trackID" << trackID << "  " << edepStepAbsorber <<std::endl;
+//  myfile.close();
   }
 
-  if(volume->GetName() == "ScatterCrystal1" || volume->GetName() == "ScatterCrystal2"){
+  if(volume->GetName() == "ScatterDetector"){
 
       fEventAction->AddEdepScatter(edepStepScatter);
-      fEventAction->AddEdep(edepStepScatter);
 
-      std::ofstream myfile;
-      myfile.open ("results.txt", std::ios_base::app);
-      myfile << "This is the volume" << volume->GetName() << "  track ID" << trackID << "  " << edepStepScatter <<std::endl;
-      myfile.close();
+//      std::ofstream myfile;
+//      myfile.open ("results.txt", std::ios_base::app);
+//      myfile << "This is the volume" << volume->GetName() << "  track ID" << trackID << "  " << edepStepScatter <<std::endl;
+//      myfile.close();
   }
 
 
