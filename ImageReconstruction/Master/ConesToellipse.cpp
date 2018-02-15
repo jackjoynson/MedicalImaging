@@ -118,27 +118,27 @@ ConesToEllipse::ConesToEllipse(Vector3D plane, vector<Cone> cones):
         double coneAxisY = thisCone.GetYImagePlane() - thisCone.GetStartY();
         Vector3D coneAxis(coneAxisX,coneAxisY,plane.getZ());            //Vector of the cone axis
 
-        double cosTheta = planeNormal.Dot(coneAxis)/(norm(planeNormal)*norm(coneAxis));
-        double diffX = coneAxis.getX()-cosTheta*planeNormal.getX();
-        double diffY = coneAxis.getY()-cosTheta*planeNormal.getY();
-        double diffZ = coneAxis.getZ()-cosTheta*planeNormal.getZ();
-        Vector3D diff(diffX,diffY,diffZ);
+//        double cosTheta = planeNormal.Dot(coneAxis)/(norm(planeNormal)*norm(coneAxis));
+//        double diffX = coneAxis.getX()-cosTheta*planeNormal.getX();
+//        double diffY = coneAxis.getY()-cosTheta*planeNormal.getY();
+//        double diffZ = coneAxis.getZ()-cosTheta*planeNormal.getZ();
+//        Vector3D diff(diffX,diffY,diffZ);
 
-        Vector3D ellipseU = diff/norm(diff);
+//        Vector3D ellipseU = diff/norm(diff);
 
-        Vector3D j(coneAxis.getX()-cosTheta*planeNormal.getX(),
-                    coneAxis.getY()-cosTheta*planeNormal.getY(),
-                    coneAxis.getZ()-cosTheta*planeNormal.getZ());
-
-
-        Vector3D majorAxis = normalize(j);
-        Vector3D minorAxis = cross(planeNormal,ellipseU);
+//        Vector3D j(coneAxis.getX()-cosTheta*planeNormal.getX(),
+//                    coneAxis.getY()-cosTheta*planeNormal.getY(),
+//                    coneAxis.getZ()-cosTheta*planeNormal.getZ());
 
 
+//        Vector3D majorAxis = normalize(j);
+//        Vector3D minorAxis = cross(planeNormal,ellipseU);
 
-        if(theta > PI/2){
-        }
-        else if(phi2 > theta || phi2 == theta){
+
+        Vector3D majorAxis(1,0,plane.getZ());
+        Vector3D minorAxis(0,1,plane.getZ());
+
+        if(phi2 > theta || phi2 == theta){
             double alpha = phi2-theta;
             double extraBit = a*tan(alpha);
             rmin = v-extraBit;
