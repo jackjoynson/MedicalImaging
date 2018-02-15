@@ -15,7 +15,7 @@ FileToData::FileToData()
 }
 
 ///The boolean scatter should be set to true if scattering data is required. Otherwise it will return absorbion.
-vector<EventEntry> FileToData::GetData(vector<string> files, int fileIndex)
+vector<EventEntry> FileToData::GetData(vector<string> files, int fileIndex, bool lookForHeader)
 {
 	vector<EventEntry> eventList;
 
@@ -23,7 +23,7 @@ vector<EventEntry> FileToData::GetData(vector<string> files, int fileIndex)
 
 	ifstream infile(files[fileIndex]);
 
-	bool passedHeader = false;
+	bool passedHeader = !lookForHeader;
 	std::string line;
 	while (std::getline(infile, line))
 	{

@@ -39,7 +39,7 @@
 B1EventAction::B1EventAction(B1RunAction* runAction)
 : G4UserEventAction(),
   fRunAction(runAction),
-  fEdep(0.), fEdepAbs(0.), fEdepScat(0.)
+  fEdep(0.), fEdepAbs1(0.), fEdepAbs2(0.), fEdepScat(0.)
 {} 
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -52,7 +52,8 @@ B1EventAction::~B1EventAction()
 void B1EventAction::BeginOfEventAction(const G4Event*)
 {    
   fEdep = 0.;
-  fEdepAbs = 0.;
+  fEdepAbs1 = 0.;
+  fEdepAbs2 = 0.;
   fEdepScat = 0.;
 }
 
@@ -77,14 +78,25 @@ void B1EventAction::EndOfEventAction(const G4Event*)
 
   }
 
-  if(fEdepAbs > 0){
+  if(fEdepAbs1 > 0 && fEdepAbs1 < 0.661){
 
       G4int eID = 0;
       const G4Event* evt = G4RunManager::GetRunManager()->GetCurrentEvent();
           eID = evt->GetEventID();
 
-        myfile.open ("resultsabsorber.txt", std::ios_base::app);
-        myfile << eID << " " << fEdepAbs*1000 << std::endl;
+        myfile.open ("resultsabsorber1.txt", std::ios_base::app);
+        myfile << eID << " " << fEdepAbs1*1000 << std::endl;
+        myfile.close();
+  }
+
+  if(fEdepAbs2 > 0 && fEdepAbs2 < 0.661){
+
+      G4int eID = 0;
+      const G4Event* evt = G4RunManager::GetRunManager()->GetCurrentEvent();
+          eID = evt->GetEventID();
+
+        myfile.open ("resultsabsorber2.txt", std::ios_base::app);
+        myfile << eID << " " << fEdepAbs2*1000 << std::endl;
         myfile.close();
   }
 

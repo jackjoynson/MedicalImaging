@@ -56,7 +56,7 @@ int main(int argc,char** argv)
 {
 
     G4String macro ="";
-    G4double angle;
+    G4double angle = 0;
 
     for ( G4int i=1; i<argc; i=i+2 ) {
 
@@ -66,7 +66,9 @@ int main(int argc,char** argv)
     }
 
     std::ofstream myfile;
-    myfile.open ("resultsabsorber.txt", std::ofstream::trunc);
+    myfile.open ("resultsabsorber1.txt", std::ofstream::trunc);
+    myfile.close();
+    myfile.open ("resultsabsorber2.txt", std::ofstream::trunc);
     myfile.close();
     myfile.open ("resultsscatter.txt", std::ofstream::trunc);
     myfile.close();

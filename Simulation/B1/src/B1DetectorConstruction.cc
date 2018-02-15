@@ -48,7 +48,7 @@ B1DetectorConstruction::B1DetectorConstruction(G4double theta)
 : G4VUserDetectorConstruction(),
   fScoringVolume(0)
 {
-newAngle = theta;
+fAngle = theta;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -138,7 +138,7 @@ G4VPhysicalVolume* B1DetectorConstruction::Construct()
   LaBr3->AddElement(elLa, 1);
   LaBr3->AddElement(elBr, 3);
 
-  G4double phi = -(newAngle + 90)*deg;
+  G4double phi = -(fAngle + 90)*deg;
   // u, v, w are the daughter axes, projected on the mother frame
   G4ThreeVector u = G4ThreeVector(0, 0, -1*cm);
   G4ThreeVector v = G4ThreeVector(std::sin(phi), 0, -std::cos(phi));
@@ -146,8 +146,16 @@ G4VPhysicalVolume* B1DetectorConstruction::Construct()
   G4RotationMatrix rotm1 = G4RotationMatrix(u, v, w);
   G4RotationMatrix* rotm1Inv = new G4RotationMatrix(rotm1.inverse());
 
+  G4double phi1 = (fAngle + 90)*deg;
+  // u, v, w are the daughter axes, projected on the mother frame
+  G4ThreeVector u1 = G4ThreeVector(0, 0, -1*cm);
+  G4ThreeVector v1 = G4ThreeVector(std::sin(phi1), 0, -std::cos(phi1));
+  G4ThreeVector w1 = G4ThreeVector( std::cos(phi1), 0, std::sin(phi1));
+  G4RotationMatrix rotm4 = G4RotationMatrix(u1, v1, w1);
+  G4RotationMatrix* rotm4Inv = new G4RotationMatrix(rotm4.inverse());
+
   //Rotation of absorption detector
-  G4double theta = newAngle*deg;
+  G4double theta = fAngle*deg;
   // u, v, w are the daughter axes, projected on the mother frame
   G4ThreeVector r = G4ThreeVector(0, 0, -1*cm);
   G4ThreeVector f = G4ThreeVector(std::sin(theta), 0,-std::cos(theta));
@@ -165,13 +173,13 @@ G4VPhysicalVolume* B1DetectorConstruction::Construct()
   G4RotationMatrix rotm3 = G4RotationMatrix(r2, f2, g2);
   G4RotationMatrix* rotm3Inv = new G4RotationMatrix(rotm3.inverse());
 
-  G4double absorberz = (22.445)*std::cos(theta) + 11;
-  G4double absorberx = (22.445)*std::sin(theta);
+  G4double absorberz = (38.089)*std::cos(theta) + 16.8;
+  G4double absorberx = (38.089)*std::sin(theta);
 
-  G4ThreeVector pos1 = G4ThreeVector(0*cm, 0*cm, 13.64*cm);
+  G4ThreeVector pos1 = G4ThreeVector(0*cm, 0*cm, 16.8*cm);
   //G4ThreeVector pos2 = G4ThreeVector(0*cm, 0*cm, 13.28*cm); //7.54cm + 2.54 cm + 3.20 cm... strange
   G4ThreeVector pos3 = G4ThreeVector(absorberx*cm, 0*cm, absorberz*cm);
-  //G4ThreeVector pos4= G4ThreeVector(0*cm, 0*cm, 65.435*cm);
+  G4ThreeVector pos4= G4ThreeVector(-absorberx*cm, 0*cm, absorberz*cm);
 
   //Placement of NaI crystal for the scatterer.
   G4double innerRadiusScat=0.*cm;
@@ -244,18 +252,25 @@ G4VPhysicalVolume* B1DetectorConstruction::Construct()
                      spanningAngleAbs);
 
   G4LogicalVolume* logicAbs =
-        new G4LogicalVolume(Absorber, LaBr3, "LogAbs");
+        new G4LogicalVolume(Absorber, scatterer_mat, "LogAbs");
 
-  new G4PVPlacement(rotm1Inv,
+  new G4PVPlacement(rotm3Inv,
                   pos3,
                   logicAbs,
-                  "AbsorptionDetector",
+                  "AbsorptionDetector1",
                   logicEnv,
                   false,
                   2,
                   checkOverlaps);
 
-
+//  new G4PVPlacement(rotm3Inv,
+//                  pos4,
+//                  logicAbs,
+//                  "AbsorptionDetector2",
+//                  logicEnv,
+//                  false,
+//                  3,
+//                  checkOverlaps);
 
   fScoringVolume = logicEnv;
 

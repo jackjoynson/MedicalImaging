@@ -80,7 +80,7 @@ ConesToEllipse::ConesToEllipse()
 //            _ellipses.push_back(thisEllipse);
 //        }
 //        else
-//		{
+//        {
 //            cout << "Ellipse " << i << " is invalid" << endl;
 //        }
 
@@ -111,9 +111,34 @@ ConesToEllipse::ConesToEllipse(Vector3D plane, vector<Cone> cones):
         double minorRadius;
 
 
-        if(theta > PI/2){
-        }
-        else if(phi2 > theta || phi2 == theta){
+
+
+        //For calculating the major and minor axis
+        double coneAxisX = thisCone.GetXImagePlane() - thisCone.GetStartX();
+        double coneAxisY = thisCone.GetYImagePlane() - thisCone.GetStartY();
+        Vector3D coneAxis(coneAxisX,coneAxisY,plane.getZ());            //Vector of the cone axis
+
+//        double cosTheta = planeNormal.Dot(coneAxis)/(norm(planeNormal)*norm(coneAxis));
+//        double diffX = coneAxis.getX()-cosTheta*planeNormal.getX();
+//        double diffY = coneAxis.getY()-cosTheta*planeNormal.getY();
+//        double diffZ = coneAxis.getZ()-cosTheta*planeNormal.getZ();
+//        Vector3D diff(diffX,diffY,diffZ);
+
+//        Vector3D ellipseU = diff/norm(diff);
+
+//        Vector3D j(coneAxis.getX()-cosTheta*planeNormal.getX(),
+//                    coneAxis.getY()-cosTheta*planeNormal.getY(),
+//                    coneAxis.getZ()-cosTheta*planeNormal.getZ());
+
+
+//        Vector3D majorAxis = normalize(j);
+//        Vector3D minorAxis = cross(planeNormal,ellipseU);
+
+
+        Vector3D majorAxis(1,0,plane.getZ());
+        Vector3D minorAxis(0,1,plane.getZ());
+
+        if(phi2 > theta || phi2 == theta){
             double alpha = phi2-theta;
             double extraBit = a*tan(alpha);
             rmin = v-extraBit;
@@ -121,8 +146,7 @@ ConesToEllipse::ConesToEllipse(Vector3D plane, vector<Cone> cones):
             majorRadius = (rmax+rmin)/2.0;           //These are the SEMI major and MINOR axis radiuses;
             minorRadius = sqrt(rmax*rmin);
 
-            Vector3D center(extraBit+majorRadius,0,a);
-            Ellipse thisEllipse(center,Vector3D(1,0,0),Vector3D(1,0,0),majorRadius,minorRadius);
+            Ellipse thisEllipse(FindCenter(rmin,majorRadius,coneAxis,thisCone,plane),majorAxis,minorAxis,majorRadius,minorRadius);
             _ellipses.push_back(thisEllipse);
 
         }
@@ -139,8 +163,7 @@ ConesToEllipse::ConesToEllipse(Vector3D plane, vector<Cone> cones):
 
             majorRadius = (rmax+rmin)/2.0;           //These are the SEMI major and MINOR axis radiuses;
             minorRadius = sqrt(rmax*rmin);
-            Vector3D center(majorRadius,0,a);           //Need to write in center, as well as major + minor axis directions from vector algebra later.
-            Ellipse thisEllipse(center,Vector3D(1,0,0),Vector3D(0,1,0),majorRadius,minorRadius);
+            Ellipse thisEllipse(FindCenter(rmin,majorRadius,coneAxis,thisCone,plane),majorAxis,minorAxis,majorRadius,minorRadius);
             _ellipses.push_back(thisEllipse);
         }
 
@@ -150,4 +173,21 @@ ConesToEllipse::ConesToEllipse(Vector3D plane, vector<Cone> cones):
 
 
 }
+}
+
+Vector3D ConesToEllipse::FindCenter(double rmin,double majorRadius ,Vector3D coneAxis, Cone thisCone,Vector3D plane){
+
+    double xPos;
+    if(coneAxis.getX() < 0.0){
+        xPos = thisCone.GetXImagePlane()+rmin-majorRadius;
+    }
+    else if(coneAxis.getX() > 0.0){
+        xPos = thisCone.GetXImagePlane()-rmin+majorRadius;
+    }
+    else{
+        cout << "This case is physically impossible, you've done something wrong" << endl;
+    }
+
+    return Vector3D(xPos,thisCone.GetYImagePlane(),plane.getZ());
+
 }

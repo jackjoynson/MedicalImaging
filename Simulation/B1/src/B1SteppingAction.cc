@@ -79,16 +79,16 @@ void B1SteppingAction::UserSteppingAction(const G4Step* step)
 //  const G4VProcess* whichProcess = step->GetPostStepPoint()->GetProcessDefinedStep();
 //  G4String process = whichProcess->GetProcessName();
 
-  if(volume->GetName() == "AbsorptionDetector"){
-//  G4cout << "Energy deposited in volume " << volume->GetName() << " is: " << edepStep
-//         << "... Through the process: " << process << " AT THE POINT " << pos1 << G4endl;
+  if(volume->GetName() == "AbsorptionDetector1"){
 
-      fEventAction->AddEdepAbsorb(edepStepAbsorber);
+      fEventAction->AddEdepAbsorb1(edepStepAbsorber);
+      
+  }
 
-//  std::ofstream myfile;
-//  myfile.open ("results.txt", std::ios_base::app);
-//  myfile << "This is the volume" << volume->GetName() << "  trackID" << trackID << "  " << edepStepAbsorber <<std::endl;
-//  myfile.close();
+  if(volume->GetName() == "AbsorptionDetector2"){
+
+      fEventAction->AddEdepAbsorb2(edepStepAbsorber);
+
   }
 
   if(volume->GetName() == "ScatterDetector"){

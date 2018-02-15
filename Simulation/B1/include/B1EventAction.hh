@@ -49,15 +49,16 @@ class B1EventAction : public G4UserEventAction
     virtual void EndOfEventAction(const G4Event* event);
 
     void AddEdep(G4double edep) { fEdep += edep; }
-    void AddEdepAbsorb(G4double edep) { fEdepAbs += edep; }
+    void AddEdepAbsorb1(G4double edep) { fEdepAbs1 += edep; }
+    void AddEdepAbsorb2(G4double edep) { fEdepAbs2 += edep; }
     void AddEdepScatter(G4double edep) { fEdepScat += edep; }
 
   private:
     B1RunAction* fRunAction;
     G4double     fEdep;
-    G4double     fEdepAbs;
+    G4double     fEdepAbs1;
+    G4double     fEdepAbs2;
     G4double     fEdepScat;
-    G4double     feID;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

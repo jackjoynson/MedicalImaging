@@ -18,10 +18,10 @@
 /gps/particle gamma
 /gps/pos/type Surface
 /gps/pos/shape Sphere
-/gps/pos/centre 0. 0. 0. mm
+/gps/pos/centre 0. 0. 0. cm
 /gps/pos/radius 1. mm
 /gps/ang/type cos
 /gps/ene/type Gauss
 /gps/ene/mono 662 keV
 /gps/ene/sigma 0 keV
-/run/beamOn 100000
+/run/beamOn 50000
