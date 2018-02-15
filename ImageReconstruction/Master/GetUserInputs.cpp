@@ -7,76 +7,76 @@ using namespace std;
 
 GetUserInputs::GetUserInputs()
 {
-    int x;
-    cout << "Would you like to use the preset file? 1 for yes, 0 for no." << endl;
-    //cin >> x;
+	int x;
+	cout << "Would you like to use the preset file? 1 for yes, 0 for no." << endl;
+	cin >> x;
 
-    x = 1;
-    if(x == 1){
-        fromFile();
-    }
-    else{
+	if (x == 1)
+	{
+		fromFile();
+	}
+	else {
+
+		cout << "Enter 1 if the data is simulation, enter 0 if its real:" << endl;
+		int tempIsSim;
+		cin >> tempIsSim;
+		if (tempIsSim > 0) _IsSimulation = true;
+		else _IsSimulation = false;
+
+		cout << "Please enter the gamma ray energy in keV:" << endl;
+		cin >> _Energy;
+
+		cout << "Enter the image slice height:" << endl;
+		cin >> _ImageHeight;
+
+		cout << "Enter the image size in meters (1m?):" << endl;
+		cin >> _ImageSizeWidth;
+
+		cout << "Enter the number of pixels per side (100?):" << endl;
+		cin >> _Pixels;
+
+		cout << "Enter the tolerance on the time:" << endl;
+		cin >> _Tolerance;
+
+		int detectorNumber;
+		cout << "Please enter the number of detectors:" << endl;
+		cin >> detectorNumber;
 
 
-	cout << "Enter 1 if the data is simulation, enter 0 if its real:" << endl;
-	int tempIsSim;
-	cin >> tempIsSim;
-	if (tempIsSim > 0) _IsSimulation = true;
-	else _IsSimulation = false;
+		for (int i = 1; i <= detectorNumber; i++) {
+			string path;
+			DetectorType detector;
+			double x;
+			double z;
+			int scatter;
 
-	cout << "Please enter the gamma ray energy in keV:" << endl;
-	cin >> _Energy;
 
-	cout << "Enter the image slice height:" << endl;
-	cin >> _ImageHeight;
+			cout << "Please enter the file path of detector " << i << endl;
+			cin >> path;
+			_FilePaths.push_back(path);
+			cout << "Please enter that detector's x coordinate (see reference) in meters" << endl;
+			cin >> x;
+			detector.setDetectorXCord(x);
+			cout << "Please enter that detector's z coordinate (see reference) in meters" << endl;
+			cin >> z;
+			detector.setDetectorZCord(z);
+			cout << "Is the detector of type absorption or scattering (1 for scatter, 0 for absorption)." << endl;
+			cin >> scatter;
 
-	cout << "Enter the image size in meters (1m?):" << endl;
-	cin >> _ImageSizeWidth;
 
-	cout << "Enter the number of pixels per side (100?):" << endl;
-	cin >> _Pixels;
+			if (scatter == 1) {
+				detector.setIsScatter(true);
+			}
+			else {
+				detector.setIsScatter(false);
+			}
+			_Detectors.push_back(detector);
 
-	cout << "Enter the tolerance on the time:" << endl;
-	cin >> _Tolerance;
 
-    int detectorNumber;
-    cout << "Please enter the number of detectors:" << endl;
-    cin >> detectorNumber;
-    
-    
-    for(int i = 1; i <= detectorNumber; i++){
-        string path;
-        DetectorType detector;
-        double x;
-        double z;
-        int scatter;
-        
-        
-        cout << "Please enter the file path of detector " << i << endl;
-        cin >> path;
-        _FilePaths.push_back(path);
-        cout << "Please enter that detector's x coordinate (see reference) in meters" << endl;
-        cin >> x;
-        detector.setDetectorXCord(x);
-        cout << "Please enter that detector's z coordinate (see reference) in meters" << endl;
-        cin >> z;
-        detector.setDetectorZCord(z);
-        cout << "Is the detector of type absorption or scattering (1 for scatter, 0 for absorption)." << endl;
-        cin >> scatter;
-        
-        
-        if(scatter == 1){
-            detector.setIsScatter(true);
-        }
-        else{
-            detector.setIsScatter(false);
-        }
-        _Detectors.push_back(detector);
- 
-    
+		}
+	}
 }
-    }
-}
+
 
 void GetUserInputs::fromFile(){
     string line;
@@ -88,12 +88,13 @@ void GetUserInputs::fromFile(){
     ifstream myfile (file);
     if (myfile.is_open())
     {
-        int _detectorCount;
-        double _initialEnergy;
-        double _tolerance;
-        double _imageSize;
-        double _imageHeight;
-        int _pixelCount;
+        int detectorCount;
+        double initialEnergy;
+        double tolerance;
+        double imageSize;
+        double imageHeight;
+        int pixelCount;
+		bool isSimualtionData = false;
         //double _detectorx[100];
         //double _detectorz[100];
         //string _detectorPath[100];
@@ -108,83 +109,91 @@ void GetUserInputs::fromFile(){
         while ( myfile.good() )
         {
             getline (myfile,line);
-            string detectorCount = "DetectorCount";
-            size_t found = line.find(detectorCount);
+            string detectorCountStr = "DetectorCount";
+            size_t found = line.find(detectorCountStr);
             if (found != string::npos ){
-                _detectorCount = stoi(line.substr(found+detectorCount.length() + 1));
+                detectorCount = stoi(line.substr(found+detectorCountStr.length() + 1));
             }
 
-            string initialEnergy = "InitialEnergy";
-            found = line.find(initialEnergy);
+            string initialEnergyStr = "InitialEnergy";
+            found = line.find(initialEnergyStr);
             if(found != string::npos){
-                _initialEnergy = stod(line.substr(found+initialEnergy.length()+1));
+                initialEnergy = stod(line.substr(found+initialEnergyStr.length()+1));
             }
 
-            string tolerance = "Tolerance";
-            found = line.find(tolerance);
+			string isSimStr = "IsSimulationData";
+			found = line.find(isSimStr);
+			if (found != string::npos) {
+				string isSimResult = line.substr(found + isSimStr.length() + 1);
+				isSimualtionData = (isSimResult == "True" || isSimResult == "true") ? true : false;
+			}
+
+            string toleranceStr = "Tolerance";
+            found = line.find(toleranceStr);
             if(found != string::npos){
-                _tolerance = stod(line.substr(found+tolerance.length()+1));
+                tolerance = stod(line.substr(found+toleranceStr.length()+1));
             }
 
-            string imageSize = "ImageSize";
-            found = line.find(imageSize);
+            string imageSizeStr = "ImageSize";
+            found = line.find(imageSizeStr);
             if(found != string::npos){
-                _imageSize = stod(line.substr(found+imageSize.length()+1));
+                imageSize = stod(line.substr(found+imageSizeStr.length()+1));
             }
 
-            string imageHeight = "ImageHeight";
-            found = line.find(imageHeight);
+            string imageHeightStr = "ImageHeight";
+            found = line.find(imageHeightStr);
             if(found != string::npos){
-                _imageHeight = stod(line.substr(found+imageHeight.length()+1));
+                imageHeight = stod(line.substr(found+imageHeightStr.length()+1));
             }
 
-            string pixelCount = "PixelCount";
-            found = line.find(pixelCount);
+            string pixelCountStr = "PixelCount";
+            found = line.find(pixelCountStr);
             if(found != string::npos){
-                _pixelCount = stoi(line.substr(found+pixelCount.length()+1));
+                pixelCount = stoi(line.substr(found+pixelCountStr.length()+1));
             }
 
-            string detector0x = "Detector0x";
-            string detector0z = "Detector0z";
-            string detectorfp0 = "Detectorfp0";
-            string detector0type = "Detector0type";
+            string detector0xStr = "Detector0x";
+            string detector0zStr = "Detector0z";
+            string detectorfp0Str = "Detectorfp0";
+            string detector0typeStr = "Detector0type";
 
-            for(int i = 0; i < _detectorCount; i++){
+            for(int i = 0; i < detectorCount; i++){
 
-                string thisDetectorx =detector0x.replace(8,1,to_string(i));
-                found = line.find(thisDetectorx);
+                string thisDetectorxStr =detector0xStr.replace(8,1,to_string(i));
+                found = line.find(thisDetectorxStr);
                 if(found != string::npos){
-                    _detectorx.push_back(stod(line.substr(found+thisDetectorx.length()+1)));
+                    _detectorx.push_back(stod(line.substr(found+thisDetectorxStr.length()+1)));
                 }
 
-                string thisDetectorz =detector0z.replace(8,1,to_string(i));
-                found = line.find(thisDetectorz);
+                string thisDetectorzStr =detector0zStr.replace(8,1,to_string(i));
+                found = line.find(thisDetectorzStr);
                 if(found != string::npos){
-                    _detectorz.push_back(stod(line.substr(found+thisDetectorz.length()+1)));
+                    _detectorz.push_back(stod(line.substr(found+thisDetectorzStr.length()+1)));
                 }
 
-                string thisDetectorfp =detectorfp0.replace(10,1,to_string(i));
-                found = line.find(thisDetectorfp);
+                string thisDetectorfpStr =detectorfp0Str.replace(10,1,to_string(i));
+                found = line.find(thisDetectorfpStr);
                 if(found != string::npos){
-                    _detectorPath.push_back(line.substr(found+thisDetectorfp.length()+1));
+                    _detectorPath.push_back(line.substr(found+thisDetectorfpStr.length()+1));
                 }
 
-                string thisDetectorType = detector0type.replace(8,1,to_string(i));
-                found = line.find(thisDetectorType);
+                string thisDetectorTypeStr = detector0typeStr.replace(8,1,to_string(i));
+                found = line.find(thisDetectorTypeStr);
                 if(found != string::npos){
-                    _detectorType.push_back(stoi(line.substr(found+thisDetectorType.length()+1)));
+                    _detectorType.push_back(stoi(line.substr(found+thisDetectorTypeStr.length()+1)));
                 }
 
             }
         }
         myfile.close();
-        _Tolerance = _tolerance;
-        _Energy = _initialEnergy;
-        _ImageSizeWidth = _imageSize;
-        _ImageHeight = _imageHeight;
-        _Pixels = _pixelCount;
+        _Tolerance = tolerance;
+        _Energy = initialEnergy;
+        _ImageSizeWidth = imageSize;
+        _ImageHeight = imageHeight;
+        _Pixels = pixelCount;
+		_IsSimulation = isSimualtionData;
 
-        for(int i = 0; i < _detectorCount; i++){
+        for(int i = 0; i < detectorCount; i++){
             _FilePaths.push_back(_detectorPath.front());
             _detectorPath.erase(_detectorPath.begin());
             DetectorType dec;
