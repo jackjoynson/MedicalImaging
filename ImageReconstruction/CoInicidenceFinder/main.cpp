@@ -12,57 +12,65 @@ using namespace std;
 int main()
 {
 
-	cout << "Conincident pair finder" << endl;
+	cout << "Energy histogram generator" << endl;
 
-    GetUserInputs GUI;
+	GetUserInputs GUI;
 	vector<std::string> files = GUI.getFilePaths();
-	vector<bool> isScatters = GUI.getIsScatters();
 
 
-	cout << "Enter the time tolerance window size:" << endl;
-	double tolerance;
-	cin >> tolerance;
-	tolerance = tolerance / 2.0;
+	cout << "Enter the energy bin size:" << endl;
+	double energyBinSize;
+	cin >> energyBinSize;
 
-	cout << "Enter a time offset to be applied to file 2 (For random event checking):" << endl;
-	double timeOffset;
-	cin >> timeOffset;
+	cout << "Enter the number of bins:" << endl;
+	int numBins;
+	cin >> numBins;
 
-	cout << "Enter 1 if the data files have headers: " << endl;
+	cout << "Enter 1 if the data file has headers: " << endl;
 	int tempHeaders;
 	cin >> tempHeaders;
 	bool lookForHeader = (tempHeaders == 1) ? true : false;
+
+	cout << "Enter 1 if the data file is Tab/space delimited: " << endl;
+	int tempIsTab;
+	cin >> tempIsTab;
+	bool isTab = (tempIsTab == 1) ? true : false;
 
 	cout << "Enter a valid file name to output to:" << endl;
 	string fileName;
 	cin >> fileName;
 
-
 	FileToData FTD;
 
-	vector<vector<EventEntry> > events;
-	for (size_t i = 0; i < files.size(); i++)
+	vector<long> bins;
+	bins.resize(numBins);
+
+	vector<EventEntry> events = FTD.GetData(files, 0, lookForHeader, isTab);
+	cout << "File has " << events.size() << " events. Binning..." << endl;
+
+	for (int i = 0; i < events.size(); i++)
 	{
-		vector<EventEntry> newEvents = FTD.GetData(files, i, lookForHeader);
-		events.push_back(newEvents);
-		cout << "File " << i + 1 << " has " << newEvents.size() << " events" << endl;
+		unsigned int energy = events[i].GetEnergy();
+
+		int binNum = floor((double)energy / energyBinSize);
+		if (binNum >= 0 && binNum < numBins)
+		{
+			bins[binNum]++;
+		}
+		else cout << "Invalid bin: " << binNum << endl;
 	}
 
 
-	GetCoinc GC(events, tolerance, timeOffset, isScatters, fileName);
 
-	for (int outter = 0; outter < files.size(); outter++)
-	{
-		for (int inner = 0; inner < files.size(); inner++)
-			if (inner > outter) GC.Find(outter, inner);
-	}
+	ofstream output(fileName);
+	output << "Bin number,Count," << '\n';
+	for (int i = 0; i < numBins; i++)
+		output << i << ',' << bins[i] << ',' << '\n';
 	
+	output.close();
 
 
 
-
-	cout << "Found " << GC.GetDoubles() << " total coincident pairs." << endl
-		;
 
 
 
