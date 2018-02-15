@@ -24,14 +24,18 @@ int main()
 	cin >> tolerance;
 	tolerance = tolerance / 2.0;
 
-	cout << "Enter a valid file name to output to:" << endl;
-	string fileName;
-	cin >> fileName;
-
-
 	cout << "Enter a time offset to be applied to file 2 (For random event checking):" << endl;
 	double timeOffset;
 	cin >> timeOffset;
+
+	cout << "Enter 1 if the data files have headers: " << endl;
+	int tempHeaders;
+	cin >> tempHeaders;
+	bool lookForHeader = (tempHeaders == 1) ? true : false;
+
+	cout << "Enter a valid file name to output to:" << endl;
+	string fileName;
+	cin >> fileName;
 
 
 	FileToData FTD;
@@ -39,7 +43,7 @@ int main()
 	vector<vector<EventEntry> > events;
 	for (size_t i = 0; i < files.size(); i++)
 	{
-		vector<EventEntry> newEvents = FTD.GetData(files, i);
+		vector<EventEntry> newEvents = FTD.GetData(files, i, lookForHeader);
 		events.push_back(newEvents);
 		cout << "File " << i + 1 << " has " << newEvents.size() << " events" << endl;
 	}
@@ -47,34 +51,12 @@ int main()
 
 	GetCoinc GC(events, tolerance, timeOffset, isScatters, fileName);
 
-	if (files.size() == 2)
+	for (int outter = 0; outter < files.size(); outter++)
 	{
-		//files.push_back("fake");
-		//vector<EventEntry> events;
-		//scatteringEvents.push_back(events);
-
-		//GC.UpdateEvents(scatteringEvents);
-		GC.Find(0, 1);
+		for (int inner = 0; inner < files.size(); inner++)
+			if (inner > outter) GC.Find(outter, inner);
 	}
-	else if(files.size() == 3)
-	{
-		GC.Find(0, 1);
-		GC.Find(0, 2);
-		GC.Find(1, 2);
-
-	}
-	else if (files.size() == 4)
-	{
-		GC.Find(0, 1);
-		GC.Find(0, 2);
-		GC.Find(0, 3);
-		GC.Find(1, 2);
-		GC.Find(1, 3);
-		GC.Find(2, 3);
-	}
-	else {
-		cout << "INVALID NUMBER OF FILES SELECTED..." << endl;
-	}
+	
 
 
 
