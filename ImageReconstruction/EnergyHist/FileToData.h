@@ -11,7 +11,7 @@ class FileToData
 {
 public:
 	FileToData();
-	vector<EventEntry> GetData(vector<string> files, int fileIndex, bool lookForData);
+	vector<EventEntry> GetData(vector<string> files, int fileIndex, bool lookForData, bool tabDelim);
 };
 
 #endif
