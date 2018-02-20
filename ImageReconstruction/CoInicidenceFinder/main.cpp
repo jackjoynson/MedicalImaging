@@ -17,16 +17,13 @@ int main()
     GetUserInputs GUI;
 	vector<std::string> files = GUI.getFilePaths();
 	vector<bool> isScatters = GUI.getIsScatters();
+	vector<double> offsets = GUI.getOffsets();
 
 
 	cout << "Enter the time tolerance window size:" << endl;
 	double tolerance;
 	cin >> tolerance;
 	tolerance = tolerance / 2.0;
-
-	cout << "Enter a time offset to be applied to file 2 (For random event checking):" << endl;
-	double timeOffset;
-	cin >> timeOffset;
 
 	cout << "Enter 1 if the data files have headers: " << endl;
 	int tempHeaders;
@@ -49,7 +46,7 @@ int main()
 	}
 
 
-	GetCoinc GC(events, tolerance, timeOffset, isScatters, fileName);
+	GetCoinc GC(events, tolerance, offsets, isScatters, fileName);
 
 	for (int outter = 0; outter < files.size(); outter++)
 	{
@@ -61,8 +58,7 @@ int main()
 
 
 
-	cout << "Found " << GC.GetDoubles() << " total coincident pairs." << endl
-		;
+	cout << "Found " << GC.GetDoubles() << " total coincident pairs." << endl;
 
 
 

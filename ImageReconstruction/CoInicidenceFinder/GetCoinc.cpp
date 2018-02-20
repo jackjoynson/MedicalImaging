@@ -17,8 +17,9 @@ void GetCoinc::Find(int set1, int set2)
 		//Loop each in set1
 		for (size_t set1Line = 0; set1Line < _Events[set1].size(); set1Line++)
 		{
-			double upperLim = _Events[set1][set1Line].GetTimeStamp() + _Tolerance;
-			double lowerLim = _Events[set1][set1Line].GetTimeStamp() - _Tolerance;
+			double time = _Events[set1][set1Line].GetTimeStamp() + _Offsets[set1];
+			double upperLim = time + _Tolerance;
+			double lowerLim = time - _Tolerance;
 
 			//double breakLim = upperLim + 10000;
 
@@ -26,7 +27,7 @@ void GetCoinc::Find(int set1, int set2)
 			for (size_t set2Line = 0; set2Line < _Events[set2].size(); set2Line++)
 			{
 
-				double set2Time = _Events[set2][set2Line].GetTimeStamp() + _TimeOffset;
+				double set2Time = _Events[set2][set2Line].GetTimeStamp() + _Offsets[set2];
 				if (set2Time > lowerLim)
 				{
 					if (set2Time < upperLim)
@@ -55,13 +56,13 @@ void GetCoinc::Find(int set1, int set2)
 
 
 
-GetCoinc::GetCoinc(vector<vector<EventEntry> > events, double tolerance, double timeOffset, vector<bool> isScatters, string fileName)
+GetCoinc::GetCoinc(vector<vector<EventEntry> > events, double tolerance, vector<double> offsets, vector<bool> isScatters, string fileName)
 {
 	_Doubles = 0;
 	_Triples = 0;
 	_Events = events;
 	_Tolerance = tolerance;
-	_TimeOffset = timeOffset;
+	_Offsets = offsets;
 	_IsScatters = isScatters;
 	_IsOutputting = (fileName.length() > 0) ? true : false;
 	_FileName = fileName;

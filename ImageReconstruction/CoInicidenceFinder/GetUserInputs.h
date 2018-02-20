@@ -32,9 +32,15 @@ public:
 		return _IsScatter;
 	}
     
+	vector<double> getOffsets()
+	{
+		return _Offsets;
+	}
+
 private:
     vector<string> _FilePaths;
 	vector<bool> _IsScatter;
+	vector<double> _Offsets;
 };
 
 

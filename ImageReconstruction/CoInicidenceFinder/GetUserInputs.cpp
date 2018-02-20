@@ -16,7 +16,7 @@ GetUserInputs::GetUserInputs()
 	for (int i = 1; i <= detectorNumber; i++) 
 	{
 		string path;
-		int scatter;
+		double offset;
 
 
 		cout << "Please enter the file path of the detector file. Must be very short (I.e. put on C drive) " << i << endl;
@@ -27,8 +27,12 @@ GetUserInputs::GetUserInputs()
 
 		bool isScatter = (temp == 1) ? true : false;
 
+		cout << "Enter the time offset for this file: " << endl;
+		cin >> offset;
+
 		_FilePaths.push_back(path);
 		_IsScatter.push_back(isScatter);
+		_Offsets.push_back(offset);
 
 	}
 }
