@@ -66,7 +66,7 @@ vector<vector<int> > GenerateMatrix::GetValues(vector<Ellipse> ellipses, double 
 			double a = ellipse.GetMajorRadius();
 			double b = ellipse.GetMinorRadius();
 
-            double radius = a*b/sqrt(pow(a*sin(theta), 2.0) + pow(b*cos(theta), 2.0));      //Took out ab/
+            double radius = a*b/sqrt(pow(b*sin(theta), 2.0) + pow(a*cos(theta), 2.0));      //Flipped these
 
 			double x = center.getX() + sin(theta)*radius;
 			double y = center.getY() + cos(theta)*radius;

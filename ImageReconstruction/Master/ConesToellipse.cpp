@@ -151,25 +151,26 @@ ConesToEllipse::ConesToEllipse(Vector3D plane, vector<Cone> cones):
 
         }
 
-        else if(phi2 < theta)      //Change this later
-        {
-            if(phi2+theta > PI/2 || phi2+theta == PI/2){
-                //rmax = 0;           //Rmax doesn't exist, hyerbola.
-                cout << "Ellipse " << i << " is invalid" << endl;
-            }
-            else{
-                double vPlusT = a*tan(phi2+theta);
-                rmax = vPlusT - v;
+		else if (phi2 < theta)      //Change this later
+		{
+			if (phi2 + theta > PI / 2 || phi2 + theta == PI / 2) {
+				//rmax = 0;           //Rmax doesn't exist, hyerbola.
+				cout << "Ellipse " << i << " is invalid" << endl;
+			}
+			else
+			{
+				double vPlusT = a*tan(phi2 + theta);
+				rmax = vPlusT - v;
 
-            majorRadius = (rmax+rmin)/2.0;           //These are the SEMI major and MINOR axis radiuses;
-            minorRadius = sqrt(rmax*rmin);
-            Ellipse thisEllipse(FindCenter(rmin,majorRadius,coneAxis,thisCone,plane),majorAxis,minorAxis,majorRadius,minorRadius);
-            _ellipses.push_back(thisEllipse);
-        }
+				majorRadius = (rmax + rmin) / 2.0;           //These are the SEMI major and MINOR axis radiuses;
+				minorRadius = sqrt(rmax*rmin);
+				Ellipse thisEllipse(FindCenter(rmin, majorRadius, coneAxis, thisCone, plane), majorAxis, minorAxis, majorRadius, minorRadius);
+				_ellipses.push_back(thisEllipse);
+			}
 
 
 
-    }
+		}
 
 
 }
