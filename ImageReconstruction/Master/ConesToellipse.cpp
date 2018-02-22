@@ -88,107 +88,167 @@ ConesToEllipse::ConesToEllipse()
 
 //}
 
+//ConesToEllipse::ConesToEllipse(Vector3D plane, vector<Cone> cones):
+//    _cones(cones),
+//    _plane(plane)
+//{
+
+//    for(int i = 0; i < _cones.size(); i++){
+//        Cone thisCone = _cones[i];
+//        double theta = thisCone.GetHalfAngle();
+
+//        double omega = atan2(thisCone.GetYImagePlane(),thisCone.GetXImagePlane());
+
+//        if(thisCone.GetXImagePlane() < 0){
+//            omega += PI;
+//        }
+
+//        //omega in 3rd quadrant is negative, but in 0,1,2 are positive.
+
+
+//        double a = plane.getZ();
+//        double phi2 = atan(fabs(thisCone.GetXImagePlane()/a));
+//        double phi1 = theta - phi2;
+//        double u = a*tan(phi1);
+//        double v = a*tan(phi2);
+//        double rmin = u+v;
+//        double rmax;
+//        double majorRadius;
+//        double minorRadius;
+
+
+//        //For calculating the major and minor axis
+//        double coneAxisX = thisCone.GetXImagePlane() - thisCone.GetStartX();
+//        double coneAxisY = thisCone.GetYImagePlane() - thisCone.GetStartY();
+//        Vector3D coneAxis(coneAxisX,coneAxisY,plane.getZ());            //Vector of the cone axis
+
+//        Vector3D majorAxis(1,0,plane.getZ());
+//        Vector3D minorAxis(0,1,plane.getZ());
+
+////        if(fabs(thisCone.GetXImagePlane()) > fabs(thisCone.GetYImagePlane())){
+////            majorAxis()
+////        }
+
+//        if(phi2 > theta || phi2 == theta){
+//            double alpha = phi2-theta;
+//            double extraBit = a*tan(alpha);
+//            rmin = v-extraBit;
+//            rmax = a*tan(phi2+theta) - extraBit-v;
+//            majorRadius = (rmax+rmin)/2.0;           //These are the SEMI major and MINOR axis radiuses;
+//            minorRadius = sqrt(rmax*rmin);
+
+//            Ellipse thisEllipse(FindCenter(rmin,majorRadius,coneAxis,thisCone,plane),majorAxis,minorAxis,majorRadius,minorRadius);
+//            _ellipses.push_back(thisEllipse);
+
+//        }
+
+//		else if (phi2 < theta)      //Change this later
+//		{
+//			if (phi2 + theta > PI / 2 || phi2 + theta == PI / 2) {
+//				//rmax = 0;           //Rmax doesn't exist, hyerbola.
+//				cout << "Ellipse " << i << " is invalid" << endl;
+//			}
+//			else
+//			{
+//				double vPlusT = a*tan(phi2 + theta);
+//				rmax = vPlusT - v;
+
+//				majorRadius = (rmax + rmin) / 2.0;           //These are the SEMI major and MINOR axis radiuses;
+//				minorRadius = sqrt(rmax*rmin);
+//				Ellipse thisEllipse(FindCenter(rmin, majorRadius, coneAxis, thisCone, plane), majorAxis, minorAxis, majorRadius, minorRadius);
+//				_ellipses.push_back(thisEllipse);
+//			}
+
+
+
+//		}
+
+
+//}
+//}
+
 ConesToEllipse::ConesToEllipse(Vector3D plane, vector<Cone> cones):
     _cones(cones),
     _plane(plane)
 {
 
-    Vector3D planeNormal(0,0,1);
-
-
     for(int i = 0; i < _cones.size(); i++){
         Cone thisCone = _cones[i];
         double theta = thisCone.GetHalfAngle();
 
+        double omega = atan2(thisCone.GetYImagePlane(),thisCone.GetXImagePlane());
+
+        if(thisCone.GetXImagePlane() < 0){
+            omega += PI;
+        }
+
+        //omega in 3rd quadrant is negative, but in 0,1,2 are positive.
+
+
         double a = plane.getZ();
         double phi2 = atan(fabs(thisCone.GetXImagePlane()/a));
         double phi1 = theta - phi2;
-        double u = a*tan(phi1);
-        double v = a*tan(phi2);
+        double u = a*tan(phi1)/cos(omega);
+        double v = a*tan(phi2)/cos(omega);
         double rmin = u+v;
         double rmax;
         double majorRadius;
         double minorRadius;
 
 
+        Vector3D majorAxis(cos(omega),sin(omega),0);
+        Vector3D minorAxis(sin(omega),cos(omega),0);
 
-
-        //For calculating the major and minor axis
-        double coneAxisX = thisCone.GetXImagePlane() - thisCone.GetStartX();
-        double coneAxisY = thisCone.GetYImagePlane() - thisCone.GetStartY();
-        Vector3D coneAxis(coneAxisX,coneAxisY,plane.getZ());            //Vector of the cone axis
-
-//        double cosTheta = planeNormal.Dot(coneAxis)/(norm(planeNormal)*norm(coneAxis));
-//        double diffX = coneAxis.getX()-cosTheta*planeNormal.getX();
-//        double diffY = coneAxis.getY()-cosTheta*planeNormal.getY();
-//        double diffZ = coneAxis.getZ()-cosTheta*planeNormal.getZ();
-//        Vector3D diff(diffX,diffY,diffZ);
-
-//        Vector3D ellipseU = diff/norm(diff);
-
-//        Vector3D j(coneAxis.getX()-cosTheta*planeNormal.getX(),
-//                    coneAxis.getY()-cosTheta*planeNormal.getY(),
-//                    coneAxis.getZ()-cosTheta*planeNormal.getZ());
-
-
-//        Vector3D majorAxis = normalize(j);
-//        Vector3D minorAxis = cross(planeNormal,ellipseU);
-
-
-        Vector3D majorAxis(1,0,plane.getZ());
-        Vector3D minorAxis(0,1,plane.getZ());
+//        if(fabs(thisCone.GetXImagePlane()) > fabs(thisCone.GetYImagePlane())){
+//            majorAxis()
+//        }
 
         if(phi2 > theta || phi2 == theta){
             double alpha = phi2-theta;
-            double extraBit = a*tan(alpha);
+            double extraBit = a*tan(alpha)/cos(omega);
             rmin = v-extraBit;
-            rmax = a*tan(phi2+theta) - extraBit-v;
+            rmax = a*tan(phi2+theta)/cos(omega) - extraBit-v;
             majorRadius = (rmax+rmin)/2.0;           //These are the SEMI major and MINOR axis radiuses;
             minorRadius = sqrt(rmax*rmin);
 
-            Ellipse thisEllipse(FindCenter(rmin,majorRadius,coneAxis,thisCone,plane),majorAxis,minorAxis,majorRadius,minorRadius);
+            Ellipse thisEllipse(FindCenter(rmin,majorRadius,omega,thisCone),majorAxis,minorAxis,majorRadius,minorRadius);
             _ellipses.push_back(thisEllipse);
 
         }
 
-		else if (phi2 < theta)      //Change this later
-		{
-			if (phi2 + theta > PI / 2 || phi2 + theta == PI / 2) {
-				//rmax = 0;           //Rmax doesn't exist, hyerbola.
-				cout << "Ellipse " << i << " is invalid" << endl;
-			}
-			else
-			{
-				double vPlusT = a*tan(phi2 + theta);
-				rmax = vPlusT - v;
+        else if (phi2 < theta)      //Change this later
+        {
+            if (phi2 + theta > PI / 2 || phi2 + theta == PI / 2) {
+                //rmax = 0;           //Rmax doesn't exist, hyerbola.
+                cout << "Ellipse " << i << " is invalid" << endl;
+            }
+            else
+            {
+                double vPlusT = a*tan(phi2 + theta)/cos(omega);
+                rmax = vPlusT - v;
 
-				majorRadius = (rmax + rmin) / 2.0;           //These are the SEMI major and MINOR axis radiuses;
-				minorRadius = sqrt(rmax*rmin);
-				Ellipse thisEllipse(FindCenter(rmin, majorRadius, coneAxis, thisCone, plane), majorAxis, minorAxis, majorRadius, minorRadius);
-				_ellipses.push_back(thisEllipse);
-			}
+                majorRadius = (rmax + rmin) / 2.0;           //These are the SEMI major and MINOR axis radiuses;
+                minorRadius = sqrt(rmax*rmin);
+                Ellipse thisEllipse(FindCenter(rmin, majorRadius, omega, thisCone), majorAxis, minorAxis, majorRadius, minorRadius);
+                _ellipses.push_back(thisEllipse);
+            }
+
+        //TODO axis and center. Magnitude should be correct
+        //Center is done
 
 
 
-		}
+        }
 
 
 }
 }
 
-Vector3D ConesToEllipse::FindCenter(double rmin,double majorRadius ,Vector3D coneAxis, Cone thisCone,Vector3D plane){
+Vector3D ConesToEllipse::FindCenter(double rmin,double majorRadius , double omega, Cone thisCone){
 
-    double xPos;
-    if(coneAxis.getX() < 0.0){
-        xPos = thisCone.GetXImagePlane()+rmin-majorRadius;
-    }
-    else if(coneAxis.getX() > 0.0){
-        xPos = thisCone.GetXImagePlane()-rmin+majorRadius;
-    }
-    else{
-        cout << "This case is physically impossible, you've done something wrong" << endl;
-    }
+    double xPos = thisCone.GetXImagePlane() - (rmin+majorRadius)/cos(omega);
+    double yPos = thisCone.GetYImagePlane() - (rmin+majorRadius)/sin(omega);
 
-    return Vector3D(xPos,thisCone.GetYImagePlane(),plane.getZ());
+    return Vector3D(xPos,yPos,0);
 
 }

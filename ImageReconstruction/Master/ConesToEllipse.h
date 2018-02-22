@@ -43,7 +43,7 @@ private:
     Vector3D _plane;        //User inputed plane.
 
     void MakeCones();
-    Vector3D FindCenter(double rmin, double majorRadius, Vector3D coneAxis, Cone thisCone, Vector3D plane);
+    Vector3D FindCenter(double rmin, double majorRadius, double omega, Cone thisCone);
 };
 
 
