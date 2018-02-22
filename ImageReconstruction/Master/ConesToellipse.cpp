@@ -246,8 +246,8 @@ ConesToEllipse::ConesToEllipse(Vector3D plane, vector<Cone> cones):
 
 Vector3D ConesToEllipse::FindCenter(double rmin,double majorRadius , double omega, Cone thisCone){
 
-    double xPos = thisCone.GetXImagePlane() - (rmin+majorRadius)/cos(omega);
-    double yPos = thisCone.GetYImagePlane() - (rmin+majorRadius)/sin(omega);
+    double xPos = thisCone.GetXImagePlane() - (rmin+majorRadius)*cos(omega);
+    double yPos = thisCone.GetYImagePlane() - (rmin+majorRadius)*sin(omega);
 
     return Vector3D(xPos,yPos,0);
 
