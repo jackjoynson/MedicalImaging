@@ -117,8 +117,10 @@ namespace SettingsGUI
             int count = detectors.Count;
             if (NumSlider.Value > count)
             {
-                //Add new
-                FileStack.Children.Add(new DetectorInputs());
+                DetectorInputs DI = new DetectorInputs();
+
+                FileStack.Children.Add(DI);
+                detectors.Add(DI);
             }
             else
             {
@@ -133,7 +135,34 @@ namespace SettingsGUI
 
         private void SaveClicked(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("NOT IMPL");
+            StringBuilder sb = new StringBuilder();
+            sb.Append("DetectorCount ");
+            sb.Append(detectors.Count);
+            sb.Append("InitialEnergy ");
+            sb.Append(InitialEnergy.Text);
+
+            sb.Append("IsSimulationData ");
+            if (Headers.IsChecked == true)
+                sb.Append(1);
+            else sb.Append(0);
+
+            sb.Append("Tolerance ");
+            sb.Append(Tolerance.Text);
+            sb.Append("ImageSize ");
+            sb.Append(ImageSize.Text);
+            sb.Append("ImageHeight ");
+            sb.Append(ImageHeight.Text);
+            sb.Append("PixelCount ");
+            sb.Append(Pixels.Text);
+
+            for (int i = 0; i < detectors.Count; i++)
+            {
+                sb.Append("Detectorfp").Append(i).Append(" ");
+                detectors[i].FilePathTxt.Text;
+            }
+
+
+            File.WriteAllText(sb.ToString(), PathTxt.Text);
         }
     }
 }
