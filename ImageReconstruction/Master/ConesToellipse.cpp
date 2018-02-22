@@ -178,12 +178,11 @@ ConesToEllipse::ConesToEllipse(Vector3D plane, vector<Cone> cones):
 
         double omega = atan2(thisCone.GetYImagePlane(),thisCone.GetXImagePlane());
 
-
         double a = plane.getZ();
         double phi2 = atan(fabs(thisCone.GetXImagePlane()/a));
         double phi1 = theta - phi2;
-        double u = a*tan(phi1)/cos(omega);
-        double v = a*tan(phi2)/cos(omega);
+        double u = fabs(a*tan(phi1)/cos(omega));
+        double v = fabs(a*tan(phi2)/cos(omega));
         double rmin = u+v;
         double rmax;
         double majorRadius;
@@ -193,12 +192,15 @@ ConesToEllipse::ConesToEllipse(Vector3D plane, vector<Cone> cones):
         Vector3D majorAxis(cos(omega),sin(omega),0);
         Vector3D minorAxis(sin(omega),cos(omega),0);
 
+//        if(fabs(thisCone.GetXImagePlane()) > fabs(thisCone.GetYImagePlane())){
+//            majorAxis()
+//        }
 
         if(phi2 > theta || phi2 == theta){
             double alpha = phi2-theta;
-            double extraBit = a*tan(alpha)/cos(omega);
+            double extraBit = fabs(a*tan(alpha)/cos(omega));
             rmin = v-extraBit;
-            rmax = a*tan(phi2+theta)/cos(omega) - extraBit-v;
+            rmax = fabs(a*tan(phi2+theta)/cos(omega)) - extraBit-v;
             majorRadius = (rmax+rmin)/2.0;           //These are the SEMI major and MINOR axis radiuses;
             minorRadius = sqrt(rmax*rmin);
 
@@ -215,7 +217,7 @@ ConesToEllipse::ConesToEllipse(Vector3D plane, vector<Cone> cones):
             }
             else
             {
-                double vPlusT = a*tan(phi2 + theta)/cos(omega);
+                double vPlusT = fabs(a*tan(phi2 + theta)/cos(omega));
                 rmax = vPlusT - v;
 
                 majorRadius = (rmax + rmin) / 2.0;           //These are the SEMI major and MINOR axis radiuses;
