@@ -7,20 +7,20 @@ class EventEntry
 {
 
 private:
-	unsigned int _TimeStamp;
-	unsigned int _Energy;
+	long long _TimeStamp;
+	long long _Energy;
 	int _Detector;
 
 
 public:
-	EventEntry(unsigned int timeStamp, unsigned int energy, int detector);
+	EventEntry(long long timeStamp, long long energy, int detector);
 
-	int GetTimeStamp()
+	long long GetTimeStamp()
 	{
 		return _TimeStamp;
 	}
 
-	int GetEnergy()
+	long long GetEnergy()
 	{
 		return _Energy;
 	}
@@ -30,11 +30,11 @@ public:
 		return _Detector;
 	}
 
-	void SetTimeStamp(unsigned int timeStamp)
+	void SetTimeStamp(long long timeStamp)
 	{
 		_TimeStamp = timeStamp;
 	}
-	void SetEnergy(unsigned int energy)
+	void SetEnergy(long long energy)
 	{
 		_Energy = energy;
 	}

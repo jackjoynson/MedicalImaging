@@ -34,8 +34,8 @@ vector<Cone> GenerateCones::GetCones(vector<EventEntry> scatteringEvents, vector
 		//Find absorpion event timestamp that matches scatter event timestamp.
 		for (int j = 0; j < absorpionEvents.size(); j++)
 		{
-			unsigned int upperLim = scatteringEvents[i].GetTimeStamp() + tolerance;
-			unsigned int lowerLim = scatteringEvents[i].GetTimeStamp() - tolerance;
+			long long upperLim = scatteringEvents[i].GetTimeStamp() + tolerance;
+			long long lowerLim = scatteringEvents[i].GetTimeStamp() - tolerance;
 
 			if (absorpionEvents[j].GetTimeStamp() < upperLim && absorpionEvents[j].GetTimeStamp() > lowerLim)
 			{

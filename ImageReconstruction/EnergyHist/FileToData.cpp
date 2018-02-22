@@ -26,7 +26,7 @@ vector<EventEntry> GetTabData(vector<string> files, int fileIndex, bool lookForH
 		if (passedHeader)
 		{
 			//Not a header so split and create entry.
-			unsigned int time, energy;
+			long long time, energy;
 
 			std::istringstream iss(line);
 			iss >> time >> energy;
