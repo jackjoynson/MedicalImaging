@@ -178,12 +178,6 @@ ConesToEllipse::ConesToEllipse(Vector3D plane, vector<Cone> cones):
 
         double omega = atan2(thisCone.GetYImagePlane(),thisCone.GetXImagePlane());
 
-        if(thisCone.GetXImagePlane() < 0){
-            omega += PI;
-        }
-
-        //omega in 3rd quadrant is negative, but in 0,1,2 are positive.
-
 
         double a = plane.getZ();
         double phi2 = atan(fabs(thisCone.GetXImagePlane()/a));
@@ -199,9 +193,6 @@ ConesToEllipse::ConesToEllipse(Vector3D plane, vector<Cone> cones):
         Vector3D majorAxis(cos(omega),sin(omega),0);
         Vector3D minorAxis(sin(omega),cos(omega),0);
 
-//        if(fabs(thisCone.GetXImagePlane()) > fabs(thisCone.GetYImagePlane())){
-//            majorAxis()
-//        }
 
         if(phi2 > theta || phi2 == theta){
             double alpha = phi2-theta;
