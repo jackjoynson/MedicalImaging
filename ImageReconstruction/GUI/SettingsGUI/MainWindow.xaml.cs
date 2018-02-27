@@ -136,33 +136,37 @@ namespace SettingsGUI
         private void SaveClicked(object sender, RoutedEventArgs e)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("DetectorCount ");
-            sb.Append(detectors.Count);
-            sb.Append("InitialEnergy ");
-            sb.Append(InitialEnergy.Text);
+            sb.Append("DetectorCount ").Append(detectors.Count).AppendLine();
+            sb.Append("InitialEnergy ").Append(InitialEnergy.Text).AppendLine();
 
             sb.Append("IsSimulationData ");
-            if (Headers.IsChecked == true)
-                sb.Append(1);
+            if (Headers.IsChecked == true) sb.Append(1);
             else sb.Append(0);
+            sb.AppendLine();
 
-            sb.Append("Tolerance ");
-            sb.Append(Tolerance.Text);
-            sb.Append("ImageSize ");
-            sb.Append(ImageSize.Text);
-            sb.Append("ImageHeight ");
-            sb.Append(ImageHeight.Text);
-            sb.Append("PixelCount ");
-            sb.Append(Pixels.Text);
+            sb.Append("Tolerance ").Append(Tolerance.Text).AppendLine();
+            sb.Append("ImageSize ").Append(ImageSize.Text).AppendLine();
+            sb.Append("ImageHeight ").Append(ImageHeight.Text).AppendLine();
+            sb.Append("PixelCount ").Append(Pixels.Text).AppendLine();
 
             for (int i = 0; i < detectors.Count; i++)
             {
-                sb.Append("Detectorfp").Append(i).Append(" ");
-                detectors[i].FilePathTxt.Text;
+                sb.Append("Detectorfp").Append(i).Append(" ")
+                    .Append(detectors[i].FilePathTxt.Text).AppendLine();
+
+                sb.Append("Detector").Append(i).Append("x ")
+                    .Append(detectors[i].XPos.Text).AppendLine();
+
+                sb.Append("Detector").Append(i).Append("z ")
+                    .Append(detectors[i].ZPos.Text).AppendLine();
+
+                sb.Append("Detector").Append(i).Append("type ");
+                if (detectors[i].IsScatter.IsChecked == true) sb.Append("1");
+                else sb.Append("0");
+                sb.AppendLine();
             }
 
-
-            File.WriteAllText(sb.ToString(), PathTxt.Text);
+            File.WriteAllText(PathTxt.Text.Trim(), sb.ToString());
         }
     }
 }
