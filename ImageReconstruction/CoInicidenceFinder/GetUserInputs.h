@@ -20,7 +20,7 @@ using namespace std;
 class GetUserInputs
 {
 public:
-    GetUserInputs();
+    GetUserInputs(bool getCalibration);
     
     vector<string> getFilePaths()
 	{

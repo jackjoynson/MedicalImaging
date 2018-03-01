@@ -8,33 +8,6 @@
 using namespace std;
 
 
-void FilterUsingLimits(vector<vector<EventEntry> > events, vector<bool> isScat, double scatLims, double absLims)
-{
-	for (int d = 0; d < events.size(); d++)
-	{
-		if (isScat[d])
-		{
-			for (int i = 0; i < events[d].size(); i++)
-			{
-				if (events[d][i].GetEnergy() > scatLims)
-				{
-					events[d].erase(events[d].begin() + i);
-				}
-			}
-		}
-		else 
-		{
-			for (int i = 0; i < events[d].size(); i++)
-			{
-				if (events[d][i].GetEnergy() < absLims)
-				{
-					events[d].erase(events[d].begin() + i);
-				}
-			}
-		}
-		
-	}
-}
 
 
 
@@ -43,7 +16,12 @@ int main()
 
 	cout << "Conincident pair finder" << endl;
 
-    GetUserInputs GUI;
+	cout << "Enter 1 to apply a calibration" << endl;
+	int tempCal;
+	cin >> tempCal;
+	bool calibrate = (tempCal == 1) ? true : false;
+
+    GetUserInputs GUI(calibrate);
 	vector<std::string> files = GUI.getFilePaths();
 	vector<bool> isScatters = GUI.getIsScatters();
 	vector<double> offsets = GUI.getOffsets();
@@ -70,7 +48,7 @@ int main()
 	cin >> tempOverride;
 	bool overrideType = (tempOverride == 1) ? true : false;
 
-	cout << "Enter 1 to only check for coincidence events in all files:" << endl;
+	cout << "Enter 1 to only check for coincidence events in all files - I.E. ONLY CHECK IF AN EVENT HAPPENS IN EVERY DETECTOR:" << endl;
 	int tempMulti;
 	cin >> tempMulti;
 	bool multi = (tempMulti == 1) ? true : false;
@@ -98,14 +76,10 @@ int main()
 	vector<vector<EventEntry> > events;
 	for (size_t i = 0; i < files.size(); i++)
 	{
-		vector<EventEntry> newEvents = FTD.GetData(files, i, lookForHeader, calConsts[i], calGrads[i]);
+		vector<EventEntry> newEvents = FTD.GetData(files, i, lookForHeader, calConsts[i], calGrads[i], isScatters[i], upperScatLim, lowerAbsLim);
 		events.push_back(newEvents);
 		cout << "File " << i + 1 << " has " << newEvents.size() << " events" << endl;
 	}
-
-
-	if (useLimts) FilterUsingLimits(events, isScatters, upperScatLim, lowerAbsLim);
-
 
 
 

@@ -14,8 +14,10 @@ FileToData::FileToData()
 
 }
 
+
+
 ///The boolean scatter should be set to true if scattering data is required. Otherwise it will return absorbion.
-vector<EventEntry> FileToData::GetData(vector<string> files, int fileIndex, bool lookForHeader, double constant, double gradient)
+vector<EventEntry> FileToData::GetData(vector<string> files, int fileIndex, bool lookForHeader, double constant, double gradient, bool isScat, double scatLim, double absLim)
 {
 	vector<EventEntry> eventList;
 
@@ -37,9 +39,18 @@ vector<EventEntry> FileToData::GetData(vector<string> files, int fileIndex, bool
 			iss >> time >> energy;
 
 			energy = (energy - constant) / gradient;
-
 			EventEntry newEventEntry(time, energy, fileIndex);
-			eventList.push_back(newEventEntry);
+
+
+			if (isScat)
+			{
+				if(energy < scatLim) eventList.push_back(newEventEntry);
+			}
+			else 
+			{
+				if(energy > absLim) eventList.push_back(newEventEntry);
+			}
+			
 		}
 		else
 		{

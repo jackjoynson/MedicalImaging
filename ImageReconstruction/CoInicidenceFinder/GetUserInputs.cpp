@@ -5,7 +5,7 @@
 using namespace std;
 
 
-GetUserInputs::GetUserInputs()
+GetUserInputs::GetUserInputs(bool getCalibrations)
 {
 
 	int detectorNumber;
@@ -30,14 +30,15 @@ GetUserInputs::GetUserInputs()
 		cout << "Enter the time offset for this file: " << endl;
 		cin >> offset;
 
+		double constant = 0.0, gradient = 1.0;
 
-		double gradient;
-		cout << "Enter the calibration gradient: " << endl;
-		cin >> gradient;
-
-		double constant;
-		cout << "Enter the calibration constant: " << endl;
-		cin >> constant;
+		if (getCalibrations) 
+		{
+			cout << "Enter the calibration gradient: " << endl;
+			cin >> gradient;
+			cout << "Enter the calibration constant: " << endl;
+			cin >> constant;
+		}
 
 		_FilePaths.push_back(path);
 		_IsScatter.push_back(isScatter);

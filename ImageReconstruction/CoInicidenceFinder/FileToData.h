@@ -11,7 +11,7 @@ class FileToData
 {
 public:
 	FileToData();
-	vector<EventEntry> GetData(vector<string> files, int fileIndex, bool lookForData, double constant, double gradient);
+	vector<EventEntry> GetData(vector<string> files, int fileIndex, bool lookForData, double constant, double gradient, bool isScat, double scatLim, double absLim);
 };
 
 #endif

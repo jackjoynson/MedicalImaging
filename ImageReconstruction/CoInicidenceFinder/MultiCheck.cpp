@@ -32,8 +32,8 @@ void MultiCheck::Find(double checkTime, int setNum, bool first, ofstream& stream
 		_AllFileCoinc++;
 		stream << checkTime;
 
-		for (int i = 1; i < _Energies.size(); i++)		
-			stream << '\t' << _Energies[i];
+		for (int i = 0; i < _Energies.size(); i++)		
+			stream << ' ' << _Energies[i];
 		
 		stream << '\n';
 		_Energies.clear();
@@ -54,6 +54,8 @@ MultiCheck::MultiCheck(vector<vector<EventEntry> > events, double tolerance, vec
 	_FileName = fileName;
 
 	ofstream saveFile(_FileName, std::ios_base::app);
+
+	saveFile << "Time Energies..." << '\n';
 
 	cout << "Searching..." << endl;
 	Find(0.0, 0, true, saveFile);
