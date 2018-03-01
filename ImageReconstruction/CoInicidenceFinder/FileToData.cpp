@@ -15,7 +15,7 @@ FileToData::FileToData()
 }
 
 ///The boolean scatter should be set to true if scattering data is required. Otherwise it will return absorbion.
-vector<EventEntry> FileToData::GetData(vector<string> files, int fileIndex, bool lookForHeader)
+vector<EventEntry> FileToData::GetData(vector<string> files, int fileIndex, bool lookForHeader, double constant, double gradient)
 {
 	vector<EventEntry> eventList;
 
@@ -30,10 +30,13 @@ vector<EventEntry> FileToData::GetData(vector<string> files, int fileIndex, bool
 		if (passedHeader)
 		{
 			//Not a header so split and create entry.
-			unsigned int time, energy;
+			unsigned int time;
+			double energy;
 
 			std::istringstream iss(line);
 			iss >> time >> energy;
+
+			energy = (energy - constant) / gradient;
 
 			EventEntry newEventEntry(time, energy, fileIndex);
 			eventList.push_back(newEventEntry);

@@ -8,19 +8,19 @@ class EventEntry
 
 private:
 	unsigned int _TimeStamp;
-	unsigned int _Energy;
+	double _Energy;
 	int _Detector;
 
 
 public:
-	EventEntry(unsigned int timeStamp, unsigned int energy, int detector);
+	EventEntry(unsigned int timeStamp, double energy, int detector);
 
 	int GetTimeStamp()
 	{
 		return _TimeStamp;
 	}
 
-	int GetEnergy()
+	double GetEnergy()
 	{
 		return _Energy;
 	}
@@ -34,7 +34,7 @@ public:
 	{
 		_TimeStamp = timeStamp;
 	}
-	void SetEnergy(unsigned int energy)
+	void SetEnergy(double energy)
 	{
 		_Energy = energy;
 	}

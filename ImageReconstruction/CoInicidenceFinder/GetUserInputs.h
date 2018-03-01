@@ -37,10 +37,22 @@ public:
 		return _Offsets;
 	}
 
+	vector<double> getCalGradients()
+	{
+		return _CalGradients;
+	}
+
+	vector<double> getCalConstants()
+	{
+		return _CalConstants;
+	}
+
 private:
     vector<string> _FilePaths;
 	vector<bool> _IsScatter;
 	vector<double> _Offsets;
+	vector<double> _CalGradients;
+	vector<double> _CalConstants;
 };
 
 
