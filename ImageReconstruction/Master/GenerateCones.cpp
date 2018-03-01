@@ -75,7 +75,7 @@ vector<Cone> GenerateCones::GetCones(vector<EventEntry> scatteringEvents, vector
 			int upperLimit = absorpionEvents[j].GetTimeStamp() + tolerance;
 			int lowerLimit = absorpionEvents[j].GetTimeStamp() - tolerance;
 			
-			if (scatteringEvents[i].GetTimeStamp() < upperLimit && scatteringEvents[i].GetTimeStamp() > lowerLimit)
+			if (scatteringEvents[i].GetTimeStamp() <= upperLimit && scatteringEvents[i].GetTimeStamp() >= lowerLimit)
 			{
 				//We have a pair so calculate the cone. 
 				Cone newCone = CalculateCone(scatteringEvents[i], absorpionEvents[j], detectors, sourceEnergy, imageHeight);

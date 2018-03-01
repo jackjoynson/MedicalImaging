@@ -2,6 +2,7 @@
 #include "FileToData.h"
 #include "GenerateCones.h"
 #include "GetCoinc.h"
+#include "MultiCheck.h"
 
 #include <string>
 using namespace std;
@@ -34,6 +35,15 @@ int main()
 	string fileName;
 	cin >> fileName;
 
+	cout << "Enter 1 to override checking only scatter with absorber" << endl;
+	int tempOverride;
+	cin >> tempOverride;
+	bool overrideType = (tempOverride == 1) ? true : false;
+
+	cout << "Enter 1 to only check for coincidence events in all files" << endl;
+	int tempMulti;
+	cin >> tempMulti;
+	bool multi = (tempMulti == 1) ? true : false;
 
 	FileToData FTD;
 
@@ -46,20 +56,20 @@ int main()
 	}
 
 
-	GetCoinc GC(events, tolerance, offsets, isScatters, fileName);
-
-	for (int outter = 0; outter < files.size(); outter++)
+	if (multi)
 	{
-		for (int inner = 0; inner < files.size(); inner++)
-			if (inner > outter) GC.Find(outter, inner);
+		MultiCheck MC(events, tolerance, offsets, fileName);
 	}
-	
-
-
-
-
-	cout << "Found " << GC.GetDoubles() << " total coincident pairs." << endl;
-
+	else 
+	{
+		GetCoinc GC(events, tolerance, offsets, isScatters, fileName);
+		for (int outter = 0; outter < files.size(); outter++)
+		{
+			for (int inner = 0; inner < files.size(); inner++)
+				if (inner > outter) GC.Find(outter, inner, overrideType);
+		}
+		cout << "Found " << GC.GetDoubles() << " total coincident pairs." << endl;
+	}
 
 
 	std::string close;

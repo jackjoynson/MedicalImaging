@@ -50,7 +50,7 @@ int main()
 
 	for (int i = 0; i < events.size(); i++)
 	{
-		int binNum = floor((double)events[i].GetEnergy() / energyBinSize);
+		int binNum = floor((double)events[i].GetEnergy() / (double)energyBinSize);
 		if (binNum >= 0 && binNum < numBins)		
 			bins[binNum]++;
 		else cout << "Invalid bin value '" << binNum << "' from event " << i << " which had energy: " << events[i].GetEnergy() << endl;

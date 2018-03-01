@@ -6,9 +6,9 @@
 using namespace std;
 
 
-void GetCoinc::Find(int set1, int set2)
+void GetCoinc::Find(int set1, int set2, bool overrideType)
 {
-	if (_IsScatters[set1] != _IsScatters[set2])
+	if (_IsScatters[set1] != _IsScatters[set2] || overrideType)
 	{
 		ofstream saveFile(_FileName,std::ios_base::app);
 
