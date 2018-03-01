@@ -196,7 +196,7 @@ ConesToEllipse::ConesToEllipse(Vector3D plane, vector<Cone> cones):
 //            majorAxis()
 //        }
 
-        if(phi2 > theta || phi2 == theta){
+        if(phi2 >= theta){
             double alpha = phi2-theta;
             double extraBit = fabs(a*tan(alpha)/cos(omega));
             rmin = v-extraBit;
@@ -209,11 +209,11 @@ ConesToEllipse::ConesToEllipse(Vector3D plane, vector<Cone> cones):
 
         }
 
-        else if (phi2 < theta)      //Change this later
+        else      //Change this later
         {
-            if (phi2 + theta > PI / 2 || phi2 + theta == PI / 2) {
+            if (phi2 + theta >= PI/2.0) {
                 //rmax = 0;           //Rmax doesn't exist, hyerbola.
-                cout << "Ellipse " << i << " is invalid" << endl;
+                cout << "Ellipse " << i << " is invalid, theta is " << theta << endl;
             }
             else
             {
@@ -239,8 +239,8 @@ ConesToEllipse::ConesToEllipse(Vector3D plane, vector<Cone> cones):
 
 Vector3D ConesToEllipse::FindCenter(double rmin,double majorRadius , double omega, Cone thisCone){
 
-    double xPos = thisCone.GetXImagePlane() - (rmin+majorRadius)*cos(omega);
-    double yPos = thisCone.GetYImagePlane() - (rmin+majorRadius)*sin(omega);
+    double xPos = thisCone.GetXImagePlane() - (rmin-majorRadius)*cos(omega);
+    double yPos = thisCone.GetYImagePlane() - (rmin-majorRadius)*sin(omega);
 
     return Vector3D(xPos,yPos,0);
 
