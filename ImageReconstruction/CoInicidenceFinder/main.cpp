@@ -76,7 +76,7 @@ int main()
 	vector<vector<EventEntry> > events;
 	for (size_t i = 0; i < files.size(); i++)
 	{
-		vector<EventEntry> newEvents = FTD.GetData(files, i, lookForHeader, calConsts[i], calGrads[i], isScatters[i], upperScatLim, lowerAbsLim);
+		vector<EventEntry> newEvents = FTD.GetData(files, i, lookForHeader, calConsts[i], calGrads[i], isScatters[i], upperScatLim, lowerAbsLim, useLimts);
 		events.push_back(newEvents);
 		cout << "File " << i + 1 << " has " << newEvents.size() << " events" << endl;
 	}
