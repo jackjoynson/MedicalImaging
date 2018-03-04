@@ -4,6 +4,7 @@
 #include "GenerateMatrix.h"
 #include "MatrixToFile.h"
 #include "ConesToEllipse.h"
+#include "ReadCCData.h"
 
 #include <string>
 #include <vector>
@@ -27,6 +28,14 @@ int main()
 	{
 		//Use Coinc checker data
 
+		string file;
+		cout << "Please enter the Coinc Checker output file path (Keep short!)" << endl;
+		cin >> file;
+
+		cout << "Running..." << endl;
+
+		ReadCoincData RCD;
+		cones = RCD.GetCones(file, detectors, GUI.GetEnergy(), imageDistanceHeight, GUI.GetTolerance(), GUI.IsSimulation());
 	}
 	else 
 	{
@@ -40,9 +49,9 @@ int main()
 
 		FilterEvents EventFilterer;
 		cones = EventFilterer.GetCones(scatteringEvents, absorbEvents, detectors, GUI.GetEnergy(), imageDistanceHeight, GUI.GetTolerance());
-		cout << "Generated " << cones.size() << " cones." << endl;
 	}
 
+	cout << "Generated " << cones.size() << " cones." << endl;
 
 	Vector3D pointOnPlane(0, 0, imageDistanceHeight);
 
