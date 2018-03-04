@@ -54,7 +54,7 @@ vector<EventEntry> FileToData::GetData(vector<string> files, int fileIndex, bool
 			}
 			else 
 			{
-				eventList.push_back(newEventEntry)
+				eventList.push_back(newEventEntry);
 			}
 			
 		}
