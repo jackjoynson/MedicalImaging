@@ -5,7 +5,7 @@
 using namespace std;
 
 
-GetUserInputs::GetUserInputs()
+GetUserInputs::GetUserInputs(bool useCCData)
 {
 	int x;
 	cout << "Would you like to use the preset file? 1 for yes, 0 for no." << endl;
@@ -35,8 +35,11 @@ GetUserInputs::GetUserInputs()
 		cout << "Enter the number of pixels per side (100?):" << endl;
 		cin >> _Pixels;
 
-		cout << "Enter the tolerance on the time:" << endl;
-		cin >> _Tolerance;
+		if (!useCCData)
+		{
+			cout << "Enter the tolerance on the time:" << endl;
+			cin >> _Tolerance;
+		}
 
 		int detectorNumber;
 		cout << "Please enter the number of detectors:" << endl;
@@ -50,10 +53,13 @@ GetUserInputs::GetUserInputs()
 			double z;
 			int scatter;
 
+			if (!useCCData)
+			{
+				cout << "Please enter the file path of detector " << i << endl;
+				cin >> path;
+				_FilePaths.push_back(path);
+			}
 
-			cout << "Please enter the file path of detector " << i << endl;
-			cin >> path;
-			_FilePaths.push_back(path);
 			cout << "Please enter that detector's x coordinate (see reference) in meters" << endl;
 			cin >> x;
 			detector.setDetectorXCord(x);

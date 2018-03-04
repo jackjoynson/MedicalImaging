@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <iomanip>
 
 using namespace std;
 
@@ -11,6 +12,7 @@ void GetCoinc::Find(int set1, int set2, bool overrideType)
 	if (_IsScatters[set1] != _IsScatters[set2] || overrideType)
 	{
 		ofstream saveFile(_FileName,std::ios_base::app);
+		saveFile << setprecision(12);
 
 		int doubles = 0;
 
@@ -78,8 +80,8 @@ void GetCoinc::Output(int set1, int set2, double energy1, double energy2, double
 {
 	if (_IsOutputting)
 	{
-		stream << set1 + 1 << ' ' 
-			<< set2 + 1 << ' ' 
+		stream << set1 << ' ' 
+			<< set2 << ' ' 
 			<< energy1 << ' ' 
 			<< energy2 << ' '
 			<< time1 << ' '

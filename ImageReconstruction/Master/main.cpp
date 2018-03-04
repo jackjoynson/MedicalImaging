@@ -1,6 +1,6 @@
 #include "GetUserInputs.h"
 #include "FileToData.h"
-#include "GenerateCones.h"
+#include "FilterEvents.h"
 #include "GenerateMatrix.h"
 #include "MatrixToFile.h"
 #include "ConesToEllipse.h"
@@ -10,22 +10,39 @@
 
 int main()
 {
-    GetUserInputs GUI;
+	cout << "Enter 1 to use Coinc Checker calibrated output. Enter 0 to use raw files:" << endl;
+	int tempUseCC;
+	cin >> tempUseCC;
+	bool useCCData = (tempUseCC == 1) ? true : false;
+
+    GetUserInputs GUI(useCCData);
 	vector<std::string> files = GUI.GetFilePaths();
 	vector<DetectorType> detectors = GUI.GetDetectors();
 	double imageDistanceHeight = GUI.GetImageHeight();
 	double imageSizeWidth = GUI.GetImageSizeWidth();
 
-	FileToData FTD(GUI.IsSimulation());
-	vector<EventEntry> scatteringEvents = FTD.GetData(files, detectors, true);
-	cout << "Found " << scatteringEvents.size() << " scatter events.." << endl;
-	vector<EventEntry> absorbEvents = FTD.GetData(files, detectors, false);
-	cout << "Found " << absorbEvents.size() << " absorb events.." << endl;
+
+	vector<Cone> cones;
+	if (useCCData)
+	{
+		//Use Coinc checker data
+
+	}
+	else 
+	{
+		//Or use original method
+		FileToData FTD(GUI.IsSimulation());
+		vector<EventEntry> scatteringEvents = FTD.GetData(files, detectors, true);
+		cout << "Found " << scatteringEvents.size() << " scatter events within limits.." << endl;
+		vector<EventEntry> absorbEvents = FTD.GetData(files, detectors, false);
+		cout << "Found " << absorbEvents.size() << " absorb events within limits.." << endl;
 
 
-	GenerateCones coneGenerator;
-	vector<Cone> cones = coneGenerator.GetCones(scatteringEvents, absorbEvents, detectors, GUI.GetEnergy(), imageDistanceHeight, GUI.GetTolerance());
-	cout << "Generated " << cones.size() << " cones." << endl;
+		FilterEvents EventFilterer;
+		cones = EventFilterer.GetCones(scatteringEvents, absorbEvents, detectors, GUI.GetEnergy(), imageDistanceHeight, GUI.GetTolerance());
+		cout << "Generated " << cones.size() << " cones." << endl;
+	}
+
 
 	Vector3D pointOnPlane(0, 0, imageDistanceHeight);
 
