@@ -1,0 +1,11 @@
+﻿  FilterEvents.cpp
+  GenerateCone.cpp
+  ReadCCData.cpp
+..\..\GitHub\MedicalImaging\ImageReconstruction\Master\ReadCCData.cpp(39): warning C4244: 'argument': conversion from 'double' to 'unsigned int', possible loss of data
+..\..\GitHub\MedicalImaging\ImageReconstruction\Master\ReadCCData.cpp(40): warning C4244: 'argument': conversion from 'double' to 'unsigned int', possible loss of data
+  Generating code
+  66 of 904 functions ( 7.3%) were compiled, the rest were copied from previous compilation.
+    10 functions were new in current compilation
+    114 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  BUILD.vcxproj -> D:\Documents\MedicalImagingBuild\BUILD\x64\Release\BUILD.exe
