@@ -28,7 +28,7 @@ int main()
 	vector<double> calGrads = GUI.getCalGradients();
 	vector<double> calConsts = GUI.getCalConstants();
 
-	double tolerance = GUI.getTolerance / 2.0;
+	double tolerance = GUI.getTolerance() / 2.0;
 	bool lookForHeader = GUI.getHeaders();
 	string fileName = GUI.getOutputFile();
 	bool overrideType = GUI.getOverRide();
