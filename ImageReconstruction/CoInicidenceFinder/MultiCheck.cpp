@@ -23,9 +23,13 @@ void MultiCheck::Find(double checkTime, int setNum, bool first, ofstream& stream
 			{
 				_Energies.push_back(_Events[setNum][line].GetEnergy());
 				Find(time, setNum + 1, false, stream);
-				//break;
 			}
 		}
+		
+		//Did not find so clear
+		_Energies.clear();
+
+
 	}
 	else 
 	{
