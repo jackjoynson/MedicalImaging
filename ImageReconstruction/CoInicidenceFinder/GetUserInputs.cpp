@@ -67,14 +67,7 @@ void GetUserInputs::fromFile(){
     ifstream myfile ("Settings.txt");
     if (myfile.is_open())
     {
-        double tolerance;
         bool isSimualtionData = false;
-        //double _detectorx[100];
-        //double _detectorz[100];
-        //string _detectorPath[100];
-        //int _detectorType[100];
-
-
 
         while ( myfile.good() )
         {
@@ -183,26 +176,7 @@ void GetUserInputs::fromFile(){
             }
         }
         myfile.close();
-        _Tolerance = tolerance;
-        _Energy = initialEnergy;
-        _ImageSizeWidth = imageSize;
-        _ImageHeight = imageHeight;
-        _Pixels = pixelCount;
-        _IsSimulation = isSimualtionData;
 
-        for(int i = 0; i < detectorCount; i++){
-            _FilePaths.push_back(_detectorPath.front());
-            _detectorPath.erase(_detectorPath.begin());
-            DetectorType dec;
-            dec.setDetectorXCord(_detectorx.front());
-            _detectorx.erase(_detectorx.begin());
-            dec.setDetectorZCord(_detectorz.front());
-            _detectorz.erase(_detectorz.begin());
-            dec.setIsScatter(_detectorType.front());
-            _detectorType.erase(_detectorType.begin());
-            _Detectors.push_back(dec);
-
-        }
 
     }
 
