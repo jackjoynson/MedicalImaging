@@ -77,18 +77,12 @@ namespace CCSettingsGUI
                         detectorCounts = int.Parse(splits[1]);
                         for (int i = 0; i < detectorCounts; i++) detectors.Add(new DetectorInputs());
                     }
-                    else if (splits[0] == "InitialEnergy")
-                        InitialEnergy.Text = splits[1];
-                    else if (splits[0] == "IsSimulationData")
+                    else if (splits[0] == "Headers")
                         Headers.IsChecked = (splits[1] == "1") ? true : false;
                     else if (splits[0] == "Tolerance")
                         Tolerance.Text = splits[1];
-                    else if (splits[0] == "ImageSize")
-                        ImageSize.Text = splits[1];
-                    else if (splits[0] == "ImageHeight")
-                        ImageHeight.Text = splits[1];
-                    else if (splits[0] == "PixelCount")
-                        Pixels.Text = splits[1];
+                    else if (splits[0] == "Output")
+                        Output.Text = splits[1];
                     else
                     {
                         for (int i = 0; i < detectorCounts; i++)
