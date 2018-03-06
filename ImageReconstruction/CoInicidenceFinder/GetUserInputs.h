@@ -46,7 +46,40 @@ public:
 	{
 		return _CalConstants;
 	}
-
+    
+    double getTolerance()
+    {
+        return _Tolerance;
+    }
+    
+    bool getHeaders(){
+        return _Headers;
+    }
+    
+    string getOutputFile(){
+        return _OutputFile;
+    }
+    
+    bool getOverRide(){
+        return _OverRide;
+    }
+    
+    bool getEnergyLimits(){
+        return _EnergyLimits;
+    }
+    
+    double getEnergyUpperLimits(){
+        return _EnergyUpperLimit;
+    }
+    
+    double getEnergyLowerLimits(){
+        return _EnergyLowerLimit;
+    }
+    
+    bool getMultiMode(){
+        return _MultiMode;
+    }
+    
 private:
     int _DetectorNumber;
     double _Tolerance;
