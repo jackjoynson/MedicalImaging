@@ -29,13 +29,13 @@ int main()
 		//Use Coinc checker data
 
 		string file;
-		cout << "Please enter the Coinc Checker output file path (Keep short!)" << endl;
+		cout << "Please enter the Coinc Checker output file - i.e the input file (Keep short!)" << endl;
 		cin >> file;
 
 		cout << "Running..." << endl;
 
 		ReadCoincData RCD;
-		cones = RCD.GetCones(file, detectors, GUI.GetEnergy(), imageDistanceHeight, GUI.GetTolerance(), GUI.HasHeaders());
+		cones = RCD.GetCones(file, detectors, GUI.GetEnergy(), imageDistanceHeight, GUI.HasHeaders());
 	}
 	else 
 	{

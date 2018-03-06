@@ -14,7 +14,7 @@ ReadCoincData::ReadCoincData(){}
 
 
 
-vector<Cone> ReadCoincData::GetCones(string file, vector<DetectorType> detectors, double sourceEnergy, double imageHeight, int tolerance, bool isSimulation)
+vector<Cone> ReadCoincData::GetCones(string file, vector<DetectorType> detectors, double sourceEnergy, double imageHeight, bool hasHeaders)
 {
 	//READ EACH LINE. Create scatter and absorb event
 
@@ -22,7 +22,7 @@ vector<Cone> ReadCoincData::GetCones(string file, vector<DetectorType> detectors
 	ifstream infile(file);
 
 	//Set false if experimental and waits till finds header. True just gets data.
-	bool passedHeader = isSimulation;
+	bool passedHeader = !hasHeaders;
 
 	std::string line;
 	while (std::getline(infile, line))

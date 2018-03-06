@@ -25,12 +25,18 @@ GetUserInputs::GetUserInputs(bool useCCData)
 
 void GetUserInputs::fromConsole(bool useCCData)
 {
-
-	cout << "Enter 1 if the data has headers, enter 0 if not:" << endl;
-	int tempHasHeaders;
-	cin >> tempHasHeaders;
-	if (tempHasHeaders > 0) _DoesHaveHeaders = true;
-	else _DoesHaveHeaders = false;
+	if (useCCData)
+	{
+		_DoesHaveHeaders = false;
+	}
+	else 
+	{
+		cout << "Enter 1 if the data has headers, enter 0 if not:" << endl;
+		int tempHasHeaders;
+		cin >> tempHasHeaders;
+		if (tempHasHeaders > 0) _DoesHaveHeaders = true;
+		else _DoesHaveHeaders = false;
+	}
 
 	cout << "Please enter the gamma ray energy in keV:" << endl;
 	cin >> _Energy;

@@ -12,7 +12,7 @@ class ReadCoincData
 {
 public:
 	ReadCoincData();
-	vector<Cone> GetCones(string file, vector<DetectorType> detectors, double sourceEnergy, double imageHeight, int tolerance, bool isSimulation);
+	vector<Cone> GetCones(string file, vector<DetectorType> detectors, double sourceEnergy, double imageHeight, bool hasHeaders);
 
 };
 

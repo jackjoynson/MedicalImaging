@@ -7,54 +7,56 @@ using namespace std;
 
 GetUserInputs::GetUserInputs(bool isFromFile)
 {
-    if (isFromFile){
-        fromFile();
-    }
-    else{
-    cout << "Enter 1 to apply a calibration" << endl;
-    int tempCal;
-    cin >> tempCal;
-    bool calibrate = (tempCal == 1) ? true : false;
-
-	int detectorNumber;
-	cout << "Please enter the number of detectors" << endl;
-	cin >> detectorNumber;
-
-
-	for (int i = 1; i <= detectorNumber; i++) 
+	if (isFromFile)
 	{
-		string path;
-		double offset;
-
-
-		cout << "Please enter the file path of the detector file. Must be very short (I.e. put on C drive) " << i << endl;
-		cin >> path;
-		cout << "Enter 1 if scatter, 0 if absorber:" << endl;
-		int temp;
-		cin >> temp;
-
-		bool isScatter = (temp == 1) ? true : false;
-
-		cout << "Enter the time offset for this file: " << endl;
-		cin >> offset;
-
-		double constant = 0.0, gradient = 1.0;
-
-        if (calibrate)
-		{
-			cout << "Enter the calibration gradient: " << endl;
-			cin >> gradient;
-			cout << "Enter the calibration constant: " << endl;
-			cin >> constant;
-		}
-
-		_FilePaths.push_back(path);
-		_IsScatter.push_back(isScatter);
-		_Offsets.push_back(offset);
-		_CalConstants.push_back(constant);
-		_CalGradients.push_back(gradient);
+		fromFile();
 	}
-    }
+	else
+	{
+		cout << "Enter 1 to apply a calibration" << endl;
+		int tempCal;
+		cin >> tempCal;
+		bool calibrate = (tempCal == 1) ? true : false;
+
+		int detectorNumber;
+		cout << "Please enter the number of detectors" << endl;
+		cin >> detectorNumber;
+
+
+		for (int i = 1; i <= detectorNumber; i++)
+		{
+			string path;
+			double offset;
+
+
+			cout << "Please enter the file path of the detector file. Must be very short (I.e. put on C drive) " << i << endl;
+			cin >> path;
+			cout << "Enter 1 if scatter, 0 if absorber:" << endl;
+			int temp;
+			cin >> temp;
+
+			bool isScatter = (temp == 1) ? true : false;
+
+			cout << "Enter the time offset for this file: " << endl;
+			cin >> offset;
+
+			double constant = 0.0, gradient = 1.0;
+
+			if (calibrate)
+			{
+				cout << "Enter the calibration gradient: " << endl;
+				cin >> gradient;
+				cout << "Enter the calibration constant: " << endl;
+				cin >> constant;
+			}
+
+			_FilePaths.push_back(path);
+			_IsScatter.push_back(isScatter);
+			_Offsets.push_back(offset);
+			_CalConstants.push_back(constant);
+			_CalGradients.push_back(gradient);
+		}
+	}
 }
 
 
@@ -145,7 +147,8 @@ void GetUserInputs::fromFile(){
             string detectorfp0Str = "Detectorfp0";
             string detector0typeStr = "Detector0type";
 
-            for(int i = 0; i < detectorCount; i++){
+            for(int i = 0; i < _DetectorNumber; i++)
+			{
 
                 string thisDetectorcalMStr = detector0calMStr.replace(8,1,to_string(i));
                 found = line.find(thisDetectorcalMStr);
