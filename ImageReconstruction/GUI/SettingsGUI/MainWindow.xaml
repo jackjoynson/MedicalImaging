@@ -27,8 +27,10 @@
         <ScrollViewer  Margin="10,154,9.667,32.667">
             <StackPanel Name="FileStack"/>
         </ScrollViewer>
-        <Slider Name="NumSlider" ValueChanged="Slider_ValueChanged" Value="0" TickFrequency="1" Maximum="10" Minimum="1" Margin="10,0,10,10" VerticalAlignment="Bottom"/>
+        <Slider Name="NumSlider" ValueChanged="Slider_ValueChanged" Value="0" TickFrequency="1" IsSnapToTickEnabled="True" TickPlacement="Both" Maximum="10" Minimum="1" Margin="10,0,100
+                ,9.667" VerticalAlignment="Bottom"/>
         <Button Content="Save" Height="23" Margin="0,13,9.667,0" Click="SaveClicked"  VerticalAlignment="Top" HorizontalAlignment="Right" Width="75"/>
+        <TextBlock HorizontalAlignment="Right" Margin="0,0,35.667,16.667" TextWrapping="Wrap" Text="{Binding Path=Value, ElementName=NumSlider}" Height="16" VerticalAlignment="Bottom"/>
 
 
     </Grid>

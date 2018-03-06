@@ -60,56 +60,63 @@ namespace SettingsGUI
 
         private void LoadFile()
         {
-            FileStack.Children.Clear();
-            detectors.Clear();
-
-            string path = PathTxt.Text;
-            int detectorCounts = 0;
-
-            string[] lines = File.ReadAllLines(path);
-            foreach(string line in lines)
+            try
             {
-                string[] splits = line.Split(' ');
-                if (splits[0] == "DetectorCount")
+                FileStack.Children.Clear();
+                detectors.Clear();
+
+                string path = PathTxt.Text;
+                int detectorCounts = 0;
+
+                string[] lines = File.ReadAllLines(path);
+                foreach (string line in lines)
                 {
-                    detectorCounts = int.Parse(splits[1]);
-                    for (int i = 0; i < detectorCounts; i++) detectors.Add(new DetectorInputs());
-                }
-                else if (splits[0] == "InitialEnergy")
-                    InitialEnergy.Text = splits[1];
-                else if (splits[0] == "IsSimulationData")
-                    Headers.IsChecked = (splits[1] == "1") ? true : false;
-                else if (splits[0] == "Tolerance")
-                    Tolerance.Text = splits[1];
-                else if (splits[0] == "ImageSize")
-                    ImageSize.Text = splits[1];
-                else if (splits[0] == "ImageHeight")
-                    ImageHeight.Text = splits[1];
-                else if (splits[0] == "PixelCount")
-                    Pixels.Text = splits[1];
-                else
-                {
-                    for (int i = 0; i < detectorCounts; i++)
+                    string[] splits = line.Split(' ');
+                    if (splits[0] == "DetectorCount")
                     {
-                        if (splits[0] == "Detector" + i + "x")
-                            detectors[i].XPos.Text = splits[1];
-                        else if (splits[0] == "Detector" + i + "z")
-                            detectors[i].ZPos.Text = splits[1];
-                        else if (splits[0] == "Detector" + i + "type")
-                            detectors[i].IsScatter.IsChecked = (splits[1] == "1") ? true : false;
-                        else if (splits[0] == "Detectorfp" + i)
-                            detectors[i].FilePathTxt.Text = splits[1];
+                        detectorCounts = int.Parse(splits[1]);
+                        for (int i = 0; i < detectorCounts; i++) detectors.Add(new DetectorInputs());
+                    }
+                    else if (splits[0] == "InitialEnergy")
+                        InitialEnergy.Text = splits[1];
+                    else if (splits[0] == "IsSimulationData")
+                        Headers.IsChecked = (splits[1] == "1") ? true : false;
+                    else if (splits[0] == "Tolerance")
+                        Tolerance.Text = splits[1];
+                    else if (splits[0] == "ImageSize")
+                        ImageSize.Text = splits[1];
+                    else if (splits[0] == "ImageHeight")
+                        ImageHeight.Text = splits[1];
+                    else if (splits[0] == "PixelCount")
+                        Pixels.Text = splits[1];
+                    else
+                    {
+                        for (int i = 0; i < detectorCounts; i++)
+                        {
+                            if (splits[0] == "Detector" + i + "x")
+                                detectors[i].XPos.Text = splits[1];
+                            else if (splits[0] == "Detector" + i + "z")
+                                detectors[i].ZPos.Text = splits[1];
+                            else if (splits[0] == "Detector" + i + "type")
+                                detectors[i].IsScatter.IsChecked = (splits[1] == "1") ? true : false;
+                            else if (splits[0] == "Detectorfp" + i)
+                                detectors[i].FilePathTxt.Text = splits[1];
+                        }
                     }
                 }
+
+
+
+                for (int i = 0; i < detectorCounts; i++)
+                {
+                    FileStack.Children.Add(detectors[i]);
+                }
+                NumSlider.Value = detectorCounts;
             }
-
-
-
-            for (int i = 0; i < detectorCounts; i++)
+            catch (Exception err)
             {
-                FileStack.Children.Add(detectors[i]);
+                MessageBox.Show("Error reading file: " + err.ToString());
             }
-            NumSlider.Value = detectorCounts;
         }
 
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -122,10 +129,10 @@ namespace SettingsGUI
                 FileStack.Children.Add(DI);
                 detectors.Add(DI);
             }
-            else
+            else if(NumSlider.Value < count)
             {
 
-                for (int i = 0; i < count - NumSlider.Value; i++)
+                for (int i = 1; i < count - NumSlider.Value; i++)
                 {
                     detectors.RemoveAt(count - i);
                     FileStack.Children.RemoveAt(count - i);
