@@ -35,12 +35,12 @@ int main()
 		cout << "Running..." << endl;
 
 		ReadCoincData RCD;
-		cones = RCD.GetCones(file, detectors, GUI.GetEnergy(), imageDistanceHeight, GUI.GetTolerance(), GUI.IsSimulation());
+		cones = RCD.GetCones(file, detectors, GUI.GetEnergy(), imageDistanceHeight, GUI.GetTolerance(), GUI.HasHeaders());
 	}
 	else 
 	{
 		//Or use original method
-		FileToData FTD(GUI.IsSimulation());
+		FileToData FTD(GUI.HasHeaders());
 		vector<EventEntry> scatteringEvents = FTD.GetData(files, detectors, true);
 		cout << "Found " << scatteringEvents.size() << " scatter events within limits.." << endl;
 		vector<EventEntry> absorbEvents = FTD.GetData(files, detectors, false);

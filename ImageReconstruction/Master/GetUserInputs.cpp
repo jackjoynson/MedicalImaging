@@ -26,11 +26,11 @@ GetUserInputs::GetUserInputs(bool useCCData)
 void GetUserInputs::fromConsole(bool useCCData)
 {
 
-	cout << "Enter 1 if the data is simulation, enter 0 if its real:" << endl;
-	int tempIsSim;
-	cin >> tempIsSim;
-	if (tempIsSim > 0) _IsSimulation = true;
-	else _IsSimulation = false;
+	cout << "Enter 1 if the data has headers, enter 0 if not:" << endl;
+	int tempHasHeaders;
+	cin >> tempHasHeaders;
+	if (tempHasHeaders > 0) _DoesHaveHeaders = true;
+	else _DoesHaveHeaders = false;
 
 	cout << "Please enter the gamma ray energy in keV:" << endl;
 	cin >> _Energy;
@@ -204,7 +204,7 @@ void GetUserInputs::fromFile(){
         _ImageSizeWidth = imageSize;
         _ImageHeight = imageHeight;
         _Pixels = pixelCount;
-		_IsSimulation = isSimualtionData;
+		_DoesHaveHeaders = isSimualtionData;
 
         for(int i = 0; i < detectorCount; i++){
             _FilePaths.push_back(_detectorPath.front());
