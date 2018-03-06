@@ -1,5 +1,5 @@
 //Gets the user inputs of the file and detector e.t.c.
-
+#include <sstream>
 
 #include "GetUserInputs.h"
 using namespace std;
@@ -100,7 +100,7 @@ void GetUserInputs::fromFile(){
             string OverRidestr = "OverRide";
             found = line.find(OverRidestr);
             if (found != string::npos) {
-                string OverRideResult = line.substr(found + OverRideResult.length() + 1);
+                string OverRideResult = line.substr(found + OverRidestr.length() + 1);
                 _OverRide = (OverRideResult == "True" || OverRideResult == "true") ? true : false;
             }
 
@@ -132,45 +132,45 @@ void GetUserInputs::fromFile(){
 
 
 
-
-
-            string detector0calMStr = "Detector0calM";
-            string detector0calKStr = "Detector0calK";
             string detector0offset = "Detector0offset";
             string detectorfp0Str = "Detectorfp0";
             string detector0typeStr = "Detector0type";
 
             for(int i = 0; i < _DetectorNumber; i++)
 			{
-
-                string thisDetectorcalMStr = detector0calMStr.replace(8,1,to_string(i));
-                found = line.find(thisDetectorcalMStr);
+				stringstream thisDetectorCalMStr;
+				thisDetectorCalMStr << "Detector" << i << "calM";
+                found = line.find(thisDetectorCalMStr.str());
                 if(found != string::npos){
-                    _CalGradients.push_back(stod(line.substr(found+thisDetectorcalMStr.length()+1)));
+                    _CalGradients.push_back(stod(line.substr(found+thisDetectorCalMStr.str().length()+1)));
                 }
 
-                string thisDetectorcalKstr = detector0calKStr.replace(8,1,to_string(i));
-                found = line.find(thisDetectorcalKstr);
+				stringstream thisDetectorCalKStr;
+				thisDetectorCalKStr << "Detector" << i << "calK";
+                found = line.find(thisDetectorCalKStr.str());
                 if(found != string::npos){
-                    _CalConstants.push_back(stod(line.substr(found+thisDetectorcalKstr.length()+1)));
+                    _CalConstants.push_back(stod(line.substr(found+thisDetectorCalKStr.str().length()+1)));
                 }
 
-                string thisDetectorOffset = detector0offset.replace(8,1,to_string(i));
-                found = line.find(thisDetectorOffset);
+				stringstream offset;
+				offset << "Detector" << i << "offset";
+                found = line.find(offset.str());
                 if(found != string::npos){
-                    _Offsets.push_back(stod(line.substr(found+thisDetectorOffset.length()+1)));
+                    _Offsets.push_back(stod(line.substr(found+offset.str().length()+1)));
                 }
 
-                string thisDetectorfpStr = detectorfp0Str.replace(10,1,to_string(i));
-                found = line.find(thisDetectorfpStr);
+				stringstream fp;
+				fp << "Detectorfp" << i;
+                found = line.find(fp.str());
                 if(found != string::npos){
-                    _FilePaths.push_back(line.substr(found+thisDetectorfpStr.length()+1));
+                    _FilePaths.push_back(line.substr(found+fp.str().length()+1));
                 }
 
-                string thisDetectorTypeStr = detector0typeStr.replace(8,1,to_string(i));
-                found = line.find(thisDetectorTypeStr);
+				stringstream type;
+				type << "Detector" << i << "type";
+                found = line.find(type.str());
                 if(found != string::npos){
-                    _IsScatter.push_back(stoi(line.substr(found+thisDetectorTypeStr.length()+1)));
+                    _IsScatter.push_back(stoi(line.substr(found+type.str().length()+1)));
                 }
 
             }
