@@ -68,6 +68,7 @@ private:
 	int _Pixels, _Tolerance;
     bool _IsSimulation;
     void fromFile();
+	void fromConsole(bool useCCData);
 };
 
 
