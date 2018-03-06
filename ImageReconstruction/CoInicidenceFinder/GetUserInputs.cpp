@@ -5,8 +5,16 @@
 using namespace std;
 
 
-GetUserInputs::GetUserInputs(bool getCalibrations)
+GetUserInputs::GetUserInputs(bool isFromFile)
 {
+    if (isFromFile){
+        fromFile();
+    }
+    else{
+    cout << "Enter 1 to apply a calibration" << endl;
+    int tempCal;
+    cin >> tempCal;
+    bool calibrate = (tempCal == 1) ? true : false;
 
 	int detectorNumber;
 	cout << "Please enter the number of detectors" << endl;
@@ -32,7 +40,7 @@ GetUserInputs::GetUserInputs(bool getCalibrations)
 
 		double constant = 0.0, gradient = 1.0;
 
-		if (getCalibrations) 
+        if (calibrate)
 		{
 			cout << "Enter the calibration gradient: " << endl;
 			cin >> gradient;
@@ -46,6 +54,160 @@ GetUserInputs::GetUserInputs(bool getCalibrations)
 		_CalConstants.push_back(constant);
 		_CalGradients.push_back(gradient);
 	}
+    }
 }
+
+
+
+void GetUserInputs::fromFile(){
+    string line;
+
+    ifstream myfile ("Settings.txt");
+    if (myfile.is_open())
+    {
+        double tolerance;
+        bool isSimualtionData = false;
+        //double _detectorx[100];
+        //double _detectorz[100];
+        //string _detectorPath[100];
+        //int _detectorType[100];
+
+
+
+        while ( myfile.good() )
+        {
+            getline (myfile,line);
+            string detectorCountStr = "DetectorCount";
+            size_t found = line.find(detectorCountStr);
+            if (found != string::npos ){
+                _DetectorNumber = stoi(line.substr(found+detectorCountStr.length() + 1));
+            }
+
+            string isSimStr = "Headers";
+            found = line.find(isSimStr);
+            if (found != string::npos) {
+                string isSimResult = line.substr(found + isSimStr.length() + 1);
+                _Headers = (isSimResult == "True" || isSimResult == "true") ? true : false;
+            }
+
+            string toleranceStr = "Tolerance";
+            found = line.find(toleranceStr);
+            if(found != string::npos){
+                _Tolerance = stod(line.substr(found+toleranceStr.length()+1));
+            }
+
+            string Outputstr = "Output";
+            found = line.find(Outputstr);
+            if(found != string::npos){
+                _OutputFile = line.substr(found+Outputstr.length()+1);
+            }
+
+            string OverRidestr = "OverRide";
+            found = line.find(OverRidestr);
+            if (found != string::npos) {
+                string OverRideResult = line.substr(found + OverRideResult.length() + 1);
+                _OverRide = (OverRideResult == "True" || OverRideResult == "true") ? true : false;
+            }
+
+            string EnergyLimitsStr = "EnergyLimits";
+            found = line.find(EnergyLimitsStr);
+            if (found != string::npos) {
+                string EnergyLimitsResult = line.substr(found + EnergyLimitsStr.length() + 1);
+                _EnergyLimits = (EnergyLimitsResult == "True" || EnergyLimitsResult == "true") ? true : false;
+            }
+
+            string UpperEnergystr = "EnergyUpperLimit";
+            found = line.find(UpperEnergystr);
+            if(found != string::npos){
+                _EnergyUpperLimit = stod(line.substr(found+UpperEnergystr.length()+1));
+            }
+
+            string LowerEnergystr = "EnergyLowerLimit";
+            found = line.find(LowerEnergystr);
+            if(found != string::npos){
+                _EnergyLowerLimit = stod(line.substr(found+LowerEnergystr.length()+1));
+            }
+
+            string MultiModeStr = "MultiMode";
+            found = line.find(MultiModeStr);
+            if (found != string::npos) {
+                string MultiModeResult = line.substr(found + MultiModeStr.length() + 1);
+                _MultiMode = (MultiModeResult == "True" || MultiModeResult == "true") ? true : false;
+            }
+
+
+
+
+
+            string detector0calMStr = "Detector0calM";
+            string detector0calKStr = "Detector0calK";
+            string detector0offset = "Detector0offset";
+            string detectorfp0Str = "Detectorfp0";
+            string detector0typeStr = "Detector0type";
+
+            for(int i = 0; i < detectorCount; i++){
+
+                string thisDetectorcalMStr = detector0calMStr.replace(8,1,to_string(i));
+                found = line.find(thisDetectorcalMStr);
+                if(found != string::npos){
+                    _CalGradients.push_back(stod(line.substr(found+thisDetectorcalMStr.length()+1)));
+                }
+
+                string thisDetectorcalKstr = detector0calKStr.replace(8,1,to_string(i));
+                found = line.find(thisDetectorcalKstr);
+                if(found != string::npos){
+                    _CalConstants.push_back(stod(line.substr(found+thisDetectorcalKstr.length()+1)));
+                }
+
+                string thisDetectorOffset = detector0offset.replace(8,1,to_string(i));
+                found = line.find(thisDetectorOffset);
+                if(found != string::npos){
+                    _Offsets.push_back(stod(line.substr(found+thisDetectorOffset.length()+1)));
+                }
+
+                string thisDetectorfpStr = detectorfp0Str.replace(10,1,to_string(i));
+                found = line.find(thisDetectorfpStr);
+                if(found != string::npos){
+                    _FilePaths.push_back(line.substr(found+thisDetectorfpStr.length()+1));
+                }
+
+                string thisDetectorTypeStr = detector0typeStr.replace(8,1,to_string(i));
+                found = line.find(thisDetectorTypeStr);
+                if(found != string::npos){
+                    _IsScatter.push_back(stoi(line.substr(found+thisDetectorTypeStr.length()+1)));
+                }
+
+            }
+        }
+        myfile.close();
+        _Tolerance = tolerance;
+        _Energy = initialEnergy;
+        _ImageSizeWidth = imageSize;
+        _ImageHeight = imageHeight;
+        _Pixels = pixelCount;
+        _IsSimulation = isSimualtionData;
+
+        for(int i = 0; i < detectorCount; i++){
+            _FilePaths.push_back(_detectorPath.front());
+            _detectorPath.erase(_detectorPath.begin());
+            DetectorType dec;
+            dec.setDetectorXCord(_detectorx.front());
+            _detectorx.erase(_detectorx.begin());
+            dec.setDetectorZCord(_detectorz.front());
+            _detectorz.erase(_detectorz.begin());
+            dec.setIsScatter(_detectorType.front());
+            _detectorType.erase(_detectorType.begin());
+            _Detectors.push_back(dec);
+
+        }
+
+    }
+
+    else cout << "Unable to open file";
+
+
+}
+
+
 
 

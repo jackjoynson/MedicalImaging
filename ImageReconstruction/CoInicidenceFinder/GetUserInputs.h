@@ -20,7 +20,7 @@ using namespace std;
 class GetUserInputs
 {
 public:
-    GetUserInputs(bool getCalibration);
+    GetUserInputs();
     
     vector<string> getFilePaths()
 	{
@@ -48,11 +48,24 @@ public:
 	}
 
 private:
+    int _DetectorNumber;
+    double _Tolerance;
+    bool _Headers;
+    string _OutputFile;
+    bool _OverRide;
+    bool _EnergyLimits;
+    double _EnergyUpperLimit;
+    double _EnergyLowerLimit;
+    bool _MultiMode;
+
+
+
     vector<string> _FilePaths;
 	vector<bool> _IsScatter;
 	vector<double> _Offsets;
 	vector<double> _CalGradients;
-	vector<double> _CalConstants;
+    vector<double> _CalConstants;
+    void fromFile();
 };
 
 
