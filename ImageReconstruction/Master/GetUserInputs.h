@@ -54,9 +54,9 @@ public:
 		return _Tolerance;
 	}
 
-	bool IsSimulation()
+	bool HasHeaders()
 	{
-		return _IsSimulation;
+		return _DoesHaveHeaders;
 	}
 
 private:
@@ -66,8 +66,9 @@ private:
 	double _ImageHeight;
 	double _ImageSizeWidth;
 	int _Pixels, _Tolerance;
-    bool _IsSimulation;
+    bool _DoesHaveHeaders;
     void fromFile();
+	void fromConsole(bool useCCData);
 };
 
 

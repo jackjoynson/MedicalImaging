@@ -4,11 +4,16 @@
 #include "GetCoinc.h"
 #include "MultiCheck.h"
 
+#include <fstream>
 #include <string>
 using namespace std;
 
 
-
+bool SettingsFileExists()
+{
+	ifstream ifile("Settings.txt");
+	return (bool)ifile;
+}
 
 
 int main()
@@ -16,18 +21,12 @@ int main()
 
 	cout << "Conincident pair finder" << endl;
 
-	cout << "Enter 1 to apply a calibration" << endl;
-	int tempCal;
-	cin >> tempCal;
-	bool calibrate = (tempCal == 1) ? true : false;
-
-    GetUserInputs GUI(calibrate);
+	GetUserInputs GUI(SettingsFileExists());
 	vector<std::string> files = GUI.getFilePaths();
 	vector<bool> isScatters = GUI.getIsScatters();
 	vector<double> offsets = GUI.getOffsets();
 	vector<double> calGrads = GUI.getCalGradients();
 	vector<double> calConsts = GUI.getCalConstants();
-
 
 	cout << "Enter the time tolerance window size:" << endl;
 	double tolerance;

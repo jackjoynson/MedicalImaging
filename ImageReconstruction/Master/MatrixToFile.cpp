@@ -19,7 +19,7 @@ string MatrixToFile::Save(vector<vector<int> > matrix)
 	strftime(buffer, sizeof(buffer), "%d%m%Y_%I%M%S", timeinfo);
 
 	stringstream fileNameSS;
-	fileNameSS << string(buffer) << ".txt";
+	fileNameSS << string(buffer) << ".csv";
 
 	string fileName = fileNameSS.str();
 
