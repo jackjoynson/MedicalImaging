@@ -21,6 +21,44 @@ GetUserInputs::GetUserInputs(bool isFromFile)
 		int detectorNumber;
 		cout << "Please enter the number of detectors" << endl;
 		cin >> detectorNumber;
+        
+        cout << "Enter the time tolerance window size:" << endl;
+        cin >> _Tolerance;
+        _Tolerance = _Tolerance / 2.0;
+        
+        cout << "Enter 1 if the data files have headers: " << endl;
+        int tempHeaders;
+        cin >> tempHeaders;
+        _Headers = (tempHeaders == 1) ? true : false;
+        
+        cout << "Enter a valid file name to output to:" << endl;
+        string fileName;
+        cin >> _OutputFile;
+        
+        cout << "Enter 1 to override checking only scatter with absorber" << endl;
+        int tempOverride;
+        cin >> tempOverride;
+        _OverRide = (tempOverride == 1) ? true : false;
+        
+        cout << "Enter 1 to only check for coincidence events in all files - I.E. ONLY CHECK IF AN EVENT HAPPENS IN EVERY DETECTOR:" << endl;
+        int tempMulti;
+        cin >> tempMulti;
+        _MultiMode = (tempMulti == 1) ? true : false;
+        
+        cout << "Enter 1 to add limits to scatter and absorption energy:" << endl;
+        int tempLimits;
+        cin >> tempLimits;
+        bool _EnergyLimits = (tempLimits == 1) ? true : false;
+        
+        double upperScatLim = 0.0;
+        double lowerAbsLim = 0.0;
+        if (useLimts)
+        {
+            cout << "Enter the upper scattering energy limit:" << endl;
+            cin >> _EnergyUpperLimit;
+            cout << "Enter the lower absorption energy limit:" << endl;
+            cin >> _EnergyLowerLimit;
+        }
 
 
 		for (int i = 1; i <= detectorNumber; i++)
