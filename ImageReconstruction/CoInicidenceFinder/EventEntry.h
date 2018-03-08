@@ -7,15 +7,15 @@ class EventEntry
 {
 
 private:
-	unsigned int _TimeStamp;
+	double _TimeStamp;
 	double _Energy;
 	int _Detector;
 
 
 public:
-	EventEntry(unsigned int timeStamp, double energy, int detector);
+	EventEntry(double timeStamp, double energy, int detector);
 
-	int GetTimeStamp()
+	double GetTimeStamp()
 	{
 		return _TimeStamp;
 	}
@@ -30,7 +30,7 @@ public:
 		return _Detector;
 	}
 
-	void SetTimeStamp(unsigned int timeStamp)
+	void SetTimeStamp(double timeStamp)
 	{
 		_TimeStamp = timeStamp;
 	}

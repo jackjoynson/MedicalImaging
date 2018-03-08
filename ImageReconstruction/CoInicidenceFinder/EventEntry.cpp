@@ -1,6 +1,6 @@
 #include "EventEntry.h"
 
-EventEntry::EventEntry(unsigned int timeStamp, double energy, int detector)
+EventEntry::EventEntry(double timeStamp, double energy, int detector)
 {
 	_TimeStamp = timeStamp;
 

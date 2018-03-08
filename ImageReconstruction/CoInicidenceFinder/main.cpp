@@ -53,7 +53,10 @@ int main()
 
 	if (multiMode)
 	{
-		MultiCheck MC(events, tolerance, offsets, fileName);
+		cout << "Enter the number of zeros before an event set is ignored:" << endl;
+		int numZeros;
+		cin >> numZeros;
+		MultiCheck MC(events, tolerance, offsets, fileName, numZeros);
 	}
 	else 
 	{

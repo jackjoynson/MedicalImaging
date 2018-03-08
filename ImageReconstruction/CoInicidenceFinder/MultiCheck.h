@@ -12,13 +12,13 @@
 class MultiCheck
 {
 public:
-	MultiCheck(vector<vector<EventEntry> > events, double tolerance, vector<double> offset, string fileName);
+	MultiCheck(vector<vector<EventEntry> > events, double tolerance, vector<double> offset, string fileName, int numZeros);
 	~MultiCheck();
 	void Find(double checkTime, int setNum, bool first, ofstream& stream);
 
 private:
 
-	int _AllFileCoinc;
+	int _AllFileCoinc, _NumZeros;
 	vector<int> _Energies;
 	vector<vector<EventEntry> > _Events;
 	double _Tolerance;

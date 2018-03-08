@@ -33,17 +33,16 @@ void MultiCheck::Find(double checkTime, int setNum, bool first, ofstream& stream
 	}
 	else 
 	{
-		bool anyZero = false;
+		int zerosFound = 0; 
 		for (int i = 0; i < _Energies.size(); i++)
 		{
 			if (_Energies[i] == 0)
 			{
-				anyZero = true;
-				break;
+				zerosFound++;
 			}
 		}
 
-		if (!anyZero)
+		if (zerosFound < _NumZeros)
 		{
 			_AllFileCoinc++;
 			stream << checkTime;
@@ -62,13 +61,14 @@ void MultiCheck::Find(double checkTime, int setNum, bool first, ofstream& stream
 
 
 
-MultiCheck::MultiCheck(vector<vector<EventEntry> > events, double tolerance, vector<double> offsets, string fileName)
+MultiCheck::MultiCheck(vector<vector<EventEntry> > events, double tolerance, vector<double> offsets, string fileName, int numZeros)
 {
 
 	_Events = events;
 	_Tolerance = tolerance;
 	_Offsets = offsets;
 	_FileName = fileName;
+	_NumZeros = numZeros;
 
 	ofstream saveFile(_FileName, std::ios_base::app);
 
