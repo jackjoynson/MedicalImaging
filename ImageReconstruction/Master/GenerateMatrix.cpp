@@ -71,8 +71,8 @@ vector<vector<int> > GenerateMatrix::GetValues(vector<Ellipse> ellipses, double 
 			double x = center.getX() + sin(theta)*radius;
 			double y = center.getY() + cos(theta)*radius;
 
-			int xIndex = round((x + xOffset)*matrixIntervals);
-			int yIndex = round((y + yOffset)*matrixIntervals);
+			int xIndex = round((x + xOffset)*matrixIntervals / width);
+			int yIndex = round((y + yOffset)*matrixIntervals / height);
 
 			//Check within image plane
 			if (xIndex > 0 && xIndex < matrixIntervals && yIndex > 0 && yIndex < matrixIntervals)
