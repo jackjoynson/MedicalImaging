@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\Documents\GitHub\MedicalImaging\ImageReconstruction\GUI\CCSettingGUI\obj\Debug\
+D:\Documents\GitHub\MedicalImaging\ImageReconstruction\GUI\CCSettingGUI\obj\Release\
 SettingsGUI
 none
 false
-DEBUG;TRACE
+TRACE
 D:\Documents\GitHub\MedicalImaging\ImageReconstruction\GUI\CCSettingGUI\App.xaml
 2-544849946
 
-6-2027938230
+10-710143907
 14-55049388
 DetectorInputs.xaml;MainWindow.xaml;
 
-False
+True
 

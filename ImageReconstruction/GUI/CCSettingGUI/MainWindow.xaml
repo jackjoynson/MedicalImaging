@@ -13,7 +13,7 @@
         <Button Content="Load" Height="23" Margin="0,41,10,0" Click="LoadClick" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75"/>
 
         <TextBlock HorizontalAlignment="Left" Margin="28,105,0,0" TextWrapping="Wrap" Text="Headers:" VerticalAlignment="Top"/>
-        <CheckBox Name="Headers" Margin="78,106,420.667,194.667" Height="20" Width="20" IsChecked="True"></CheckBox>
+        <CheckBox Name="Headers" Margin="78,106,0,0" Height="20" Width="20" IsChecked="True" HorizontalAlignment="Left" VerticalAlignment="Top"></CheckBox>
         <TextBox HorizontalAlignment="Left" x:Name="Tolerance" Height="23" Margin="260,75,0,0" TextWrapping="Wrap" Text="20" VerticalAlignment="Top" Width="50"/>
         <TextBlock HorizontalAlignment="Left" Margin="173,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Time Tolerance:"/>
         <ScrollViewer  Margin="10,154,9.667,32.667">
@@ -27,11 +27,11 @@
         <TextBox HorizontalAlignment="Left" x:Name="Output" Height="23" Margin="78,74,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="87"/>
         <TextBlock HorizontalAlignment="Left" Margin="28,75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Output:"/>
         <TextBlock HorizontalAlignment="Left" Margin="108,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Override checking abs with scat"/><Run Text=":"/></TextBlock>
-        <CheckBox x:Name="Override" Margin="283,106,215.667,194.667" Height="20" Width="20" IsChecked="False"/>
+        <CheckBox x:Name="Override" Margin="283,106,0,0" Height="20" Width="20" IsChecked="False" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="321,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Only check all with all"/><Run Text=":"/></TextBlock>
-        <CheckBox x:Name="MultiMode" Margin="443,106,55.667,194.667" Height="20" Width="20" IsChecked="False"/>
+        <CheckBox x:Name="MultiMode" Margin="443,106,0,0" Height="20" Width="20" IsChecked="False" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="29,131,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Apply energy li"/><Run Text="mi"/><Run Text="t"/><Run Text="s:"/></TextBlock>
-        <CheckBox x:Name="EnergyLimits" Margin="138,131,360.667,169.667" Height="20" Width="20" IsChecked="True"/>
+        <CheckBox x:Name="EnergyLimits" Margin="138,131,0,0" Height="20" Width="20" IsChecked="True" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <TextBox HorizontalAlignment="Left" x:Name="LowerLim" Height="23" Margin="253,128,0,0" TextWrapping="Wrap" Text="150" VerticalAlignment="Top" Width="50"/>
         <TextBox HorizontalAlignment="Left" x:Name="UpperLim" Height="23" Margin="413,128,0,0" TextWrapping="Wrap" Text="500" VerticalAlignment="Top" Width="50"/>
         <TextBlock HorizontalAlignment="Left" Margin="191,129,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Lower Lim:"/>

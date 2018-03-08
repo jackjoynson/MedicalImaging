@@ -52,7 +52,7 @@ GetUserInputs::GetUserInputs(bool isFromFile)
         
         double upperScatLim = 0.0;
         double lowerAbsLim = 0.0;
-        if (useLimts)
+        if (_EnergyLimits)
         {
             cout << "Enter the upper scattering energy limit:" << endl;
             cin >> _EnergyUpperLimit;

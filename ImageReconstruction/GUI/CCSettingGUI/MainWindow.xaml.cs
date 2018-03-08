@@ -83,17 +83,27 @@ namespace CCSettingsGUI
                         Tolerance.Text = splits[1];
                     else if (splits[0] == "Output")
                         Output.Text = splits[1];
+                    else if (splits[0] == "OverRide")
+                        Override.IsChecked = (splits[1] == "1") ? true : false;
+                    else if (splits[0] == "EnergyLimits")
+                        EnergyLimits.IsChecked = (splits[1] == "1") ? true : false;
+                    else if (splits[0] == "EnergyUpperLimit")
+                        UpperLim.Text = splits[1];
+                    else if (splits[0] == "EnergyLowerLimit")
+                        LowerLim.Text = splits[1];
+                    else if (splits[0] == "MultiMode")
+                        MultiMode.IsChecked = (splits[1] == "1") ? true : false;
                     else
                     {
                         for (int i = 0; i < detectorCounts; i++)
                         {
-                            if (splits[0] == "Detector" + i + "x")
-                                detectors[i].XPos.Text = splits[1];
-                            else if (splits[0] == "Detector" + i + "z")
-                                detectors[i].ZPos.Text = splits[1];
-                            else if (splits[0] == "Detector" + i + "type")
-                                detectors[i].IsScatter.IsChecked = (splits[1] == "1") ? true : false;
-                            else if (splits[0] == "Detectorfp" + i)
+                            if (splits[0] == "Detector" + i + "calM")
+                                detectors[i].CalGrad.Text = splits[1];
+                            else if (splits[0] == "Detector" + i + "calK")
+                                detectors[i].CalConst.Text = splits[1];
+                            else if (splits[0] == "Detector" + i + "offset")
+                                detectors[i].TimeOffset.Text = splits[1];
+                            else if (splits[0] == "Detector" + i + "fp")
                                 detectors[i].FilePathTxt.Text = splits[1];
                         }
                     }
@@ -138,33 +148,48 @@ namespace CCSettingsGUI
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("DetectorCount ").Append(detectors.Count).AppendLine();
-            sb.Append("InitialEnergy ").Append(InitialEnergy.Text).AppendLine();
 
-            sb.Append("IsSimulationData ");
-            if (Headers.IsChecked == true) sb.Append(1);
-            else sb.Append(0);
+            sb.Append("Headers ");
+            if(Headers.IsChecked == true) sb.Append("1");
+            else sb.Append("0");
             sb.AppendLine();
 
             sb.Append("Tolerance ").Append(Tolerance.Text).AppendLine();
-            sb.Append("ImageSize ").Append(ImageSize.Text).AppendLine();
-            sb.Append("ImageHeight ").Append(ImageHeight.Text).AppendLine();
-            sb.Append("PixelCount ").Append(Pixels.Text).AppendLine();
+            sb.Append("Output ").Append(Output.Text).AppendLine();
+
+            sb.Append("OverRide ");
+            if (Override.IsChecked == true) sb.Append("1");
+            else sb.Append("0");
+            sb.AppendLine();
+
+            sb.Append("EnergyLimits ");
+            if (EnergyLimits.IsChecked == true) sb.Append("1");
+            else sb.Append("0");
+            sb.AppendLine();
+
+            sb.Append("EnergyUpperLimit ").Append(UpperLim.Text).AppendLine();
+            sb.Append("EnergyLowerLimit ").Append(LowerLim.Text).AppendLine();
+
+            sb.Append("MultiMode ");
+            if (MultiMode.IsChecked == true) sb.Append("1");
+            else sb.Append("0");
+            sb.AppendLine();
+
 
             for (int i = 0; i < detectors.Count; i++)
             {
-                sb.Append("Detectorfp").Append(i).Append(" ")
+                sb.Append("Detector").Append(i).Append("fp ")
                     .Append(detectors[i].FilePathTxt.Text).AppendLine();
 
-                sb.Append("Detector").Append(i).Append("x ")
-                    .Append(detectors[i].XPos.Text).AppendLine();
+                sb.Append("Detector").Append(i).Append("calM ")
+                    .Append(detectors[i].CalGrad.Text).AppendLine();
 
-                sb.Append("Detector").Append(i).Append("z ")
-                    .Append(detectors[i].ZPos.Text).AppendLine();
+                sb.Append("Detector").Append(i).Append("calC ")
+                    .Append(detectors[i].CalConst.Text).AppendLine();
 
-                sb.Append("Detector").Append(i).Append("type ");
-                if (detectors[i].IsScatter.IsChecked == true) sb.Append("1");
-                else sb.Append("0");
-                sb.AppendLine();
+                sb.Append("Detector").Append(i).Append("offset ")
+                    .Append(detectors[i].TimeOffset.Text).AppendLine();           
+
             }
 
             File.WriteAllText(PathTxt.Text.Trim(), sb.ToString());
