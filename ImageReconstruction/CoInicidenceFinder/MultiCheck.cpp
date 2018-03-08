@@ -42,7 +42,7 @@ void MultiCheck::Find(double checkTime, int setNum, bool first, ofstream& stream
 			}
 		}
 
-		if (zerosFound < _NumZeros)
+		if (zerosFound <= _NumZeros)
 		{
 			_AllFileCoinc++;
 			stream << checkTime;
@@ -75,7 +75,6 @@ MultiCheck::MultiCheck(vector<vector<EventEntry> > events, double tolerance, vec
 	saveFile << "Time Energies..." << '\n';
 
 	cout << "Searching..." << endl;
-	cout << "NOTE IF ANY ENERGIES ARE 0 FOR A COINCIDENCE THEN THAT SET WILL BE IGNORED." << endl;
 	Find(0.0, 0, true, saveFile);
 
 	cout << "Found " << _AllFileCoinc << " events which occured in all detectors..." << endl;
