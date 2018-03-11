@@ -15,8 +15,13 @@ public:
         return _Thetas;
     }
 
+    int getInvalidThetaCount(){
+        return _invalidThetaCount;
+    }
+
 private:
     vector<double> _Thetas;
+    int _invalidThetaCount;
 
 };
 

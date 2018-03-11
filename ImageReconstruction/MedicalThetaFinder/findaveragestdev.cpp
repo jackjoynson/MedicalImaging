@@ -16,6 +16,6 @@ FindAverageStdev::FindAverageStdev(vector<double> Thetas)
         TotalDiffTheta += fabs(Thetas[i] - _averageTheta);
     }
 
-    _stdevTheta = sqrt(TotalDiffTheta/(Thetas.size() - 1))
+    _stdevTheta = sqrt(TotalDiffTheta/(Thetas.size() - 1));
 
 }

@@ -8,8 +8,17 @@ CalculateTheta::CalculateTheta(vector<EventEntry> Events)
         double Energy = thisEvent.GetEnergy();
         double TotalEnergy = thisEvent.GetTotalEnergy();
 
-        _Thetas[i] = acos((Energy*511)/(TotalEnergy*TotalEnergy-TotalEnergy*Energy));
 
+        double Theta;
+        double cosTheta = fabs((Energy*0.511)/(TotalEnergy*TotalEnergy-TotalEnergy*Energy));
+
+        if(cosTheta <= 1.0){
+            Theta = acos((Energy*0.511)/(TotalEnergy*TotalEnergy-TotalEnergy*Energy));
+            _Thetas.push_back(Theta);
+        }
+        else{
+            _invalidThetaCount++;
+        }
 
     }
 

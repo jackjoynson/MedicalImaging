@@ -22,17 +22,20 @@ int main()
 
     for(int i = 0; i < detectorNumber; i++){
         int type;
-        cout << "Please enter the 1 if detector " << i << "is scatter, 0 if not." << endl;
+        cout << "Please enter the 1 if detector " << i << " is scatter, 0 if not." << endl;
         cin >> type;
+
+        DetectorType detector;
         if(type == 1){
-            detectors[i].setIsScatter(true);
+            detector.setIsScatter(true);
         }
         else if(type == 0){
-            detectors[i].setIsScatter(false);
+            detector.setIsScatter(false);
         }
         else{
             cout << "Please enter a valid input" << endl;
         }
+        detectors.push_back(detector);
     }
 
 
@@ -48,6 +51,7 @@ int main()
     double AvgTheta = FAS.getAvg();
     double AvgStdev = FAS.getStdev();
 
+    cout << "Number of invalid events is " << CT.getInvalidThetaCount() << endl;
     cout << "The average theta is " << AvgTheta << "and the average standard deviation is " << AvgStdev << endl;
 
 
