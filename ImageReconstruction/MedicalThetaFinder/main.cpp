@@ -51,7 +51,10 @@ int main()
     double AvgTheta = FAS.getAvg();
     double AvgStdev = FAS.getStdev();
 
-    cout << "Number of invalid events is " << CT.getInvalidThetaCount() << endl;
+
+    cout << "Number of invalid events from summing energies is " << RCD.getInvalidEnergyCounter() << endl;
+    cout << "Number of invalid events from theta is " << CT.getInvalidThetaCount() << endl;
+    cout << "Number of valid thetas & events is " << CT.getValidThetaCount() << endl;
     cout << "The average theta is " << AvgTheta << "and the average standard deviation is " << AvgStdev << endl;
 
 

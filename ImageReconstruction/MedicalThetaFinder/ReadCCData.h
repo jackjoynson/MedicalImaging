@@ -14,6 +14,12 @@ public:
 	ReadCoincData();
     vector<EventEntry> GetEvents(string file, vector<DetectorType> detectors);
 
+    int getInvalidEnergyCounter(){
+        return _InvalidEnergyCounter;
+    }
+
+private:
+    int _InvalidEnergyCounter;
 
 
 };

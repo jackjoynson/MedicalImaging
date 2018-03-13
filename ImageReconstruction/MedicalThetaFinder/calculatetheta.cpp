@@ -10,11 +10,19 @@ CalculateTheta::CalculateTheta(vector<EventEntry> Events)
 
 
         double Theta;
-        double cosTheta = fabs((Energy*0.511)/(TotalEnergy*TotalEnergy-TotalEnergy*Energy));
+        double cosTheta = 1.0 - (Energy*0.511)/(TotalEnergy*TotalEnergy-TotalEnergy*Energy);
 
-        if(cosTheta <= 1.0){
-            Theta = acos((Energy*0.511)/(TotalEnergy*TotalEnergy-TotalEnergy*Energy));
-            _Thetas.push_back(Theta);
+        if(fabs(cosTheta) <= 1.0){
+
+            Theta = acos(cosTheta);
+
+            if(Theta <= 1.57 && Theta >= 0){
+                 _Thetas.push_back(Theta);
+                 _validThetaCount++;
+            }
+            else{
+
+            }
         }
         else{
             _invalidThetaCount++;
