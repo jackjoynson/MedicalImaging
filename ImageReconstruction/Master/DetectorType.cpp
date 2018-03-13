@@ -11,8 +11,9 @@ DetectorType::DetectorType(){
     
 }
 
-DetectorType::DetectorType(double x, double z, bool scatter){
+DetectorType::DetectorType(double x, double y, double z, bool scatter){
     detectorXCord = x;
+    detectorYCord = y;
     detectorZCord = z;
     isScatter = scatter;
 }

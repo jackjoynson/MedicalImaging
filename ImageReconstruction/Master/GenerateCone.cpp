@@ -24,24 +24,30 @@ Cone GenerateCone::CalculateCone(EventEntry scatterEvent, EventEntry absorbEvent
 	DetectorType absorbDetector = detectors[absorbEvent.GetDetector()];
 	double startX = scatterDetector.getDetectorXCord();
 	double startZ = scatterDetector.getDetectorZCord();
+    double startY = scatterDetector.getDetectorYCord();
 
 
 
 
 	double dx = absorbDetector.getDetectorXCord() - scatterDetector.getDetectorXCord();
+    double dy = absorbDetector.getDetectorYCord() - scatterDetector.getDetectorYCord();
 	double dz = absorbDetector.getDetectorZCord() - scatterDetector.getDetectorZCord();
-	double detectorAngle = atan2(dx, dz);
+    double detectorAngleX = atan2(dx, dz);
+    double detectorAngleY = atan2(dy, dz);
 
 
 
 	//double xzAngle = (scatterAngle / 2.0) - detectorAngle;
 	double zDist = imageHeight + scatterDetector.getDetectorZCord();
 
-	double xPointImagePlane = startX + (zDist*tan(-detectorAngle));
+    double xPointImagePlane = startX + (zDist*tan(-detectorAngleX));
 
+    double yPointImagePlane = startY + (zDist*tan(-detectorAngleY));
 
 	//THIS WILL ALWAYS BE ZERO IF DETECTORS HAVE NO Y.
-	double yImagePlane = 0;
-	Cone newCone(startX, startZ, -xPointImagePlane, yImagePlane, scatterAngle);
+    //double yImagePlane = 0;
+
+
+    Cone newCone(startX, startY ,startZ, -xPointImagePlane, -yPointImagePlane, scatterAngle);
 	return newCone;
 }

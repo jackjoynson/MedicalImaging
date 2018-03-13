@@ -65,6 +65,7 @@ void GetUserInputs::fromConsole(bool useCCData)
 		string path;
 		DetectorType detector;
 		double x;
+        double y;
 		double z;
 		int scatter;
 
@@ -78,6 +79,9 @@ void GetUserInputs::fromConsole(bool useCCData)
 		cout << "Please enter that detector's x coordinate (see reference) in meters" << endl;
 		cin >> x;
 		detector.setDetectorXCord(x);
+        cout << "Please enter that detector's y coordinate (see reference) in meters" << endl;
+        cin >> y;
+        detector.setDetectorYCord(y);
 		cout << "Please enter that detector's z coordinate (see reference) in meters" << endl;
 		cin >> z;
 		detector.setDetectorZCord(z);
@@ -121,6 +125,7 @@ void GetUserInputs::fromFile(){
 
         vector<double> _detectorx;
         vector<double> _detectorz;
+        vector<double> _detectory;
         vector<string> _detectorPath;
         vector<int> _detectorType;
         
@@ -172,6 +177,7 @@ void GetUserInputs::fromFile(){
             }
 
             string detector0xStr = "Detector0x";
+            string detector0yStr = "Detector0y";
             string detector0zStr = "Detector0z";
             string detectorfp0Str = "Detectorfp0";
             string detector0typeStr = "Detector0type";
@@ -182,6 +188,12 @@ void GetUserInputs::fromFile(){
                 found = line.find(thisDetectorxStr);
                 if(found != string::npos){
                     _detectorx.push_back(stod(line.substr(found+thisDetectorxStr.length()+1)));
+                }
+
+                string thisDetectoryStr =detector0yStr.replace(8,1,to_string(i));
+                found = line.find(thisDetectoryStr);
+                if(found != string::npos){
+                    _detectory.push_back(stod(line.substr(found+thisDetectoryStr.length()+1)));
                 }
 
                 string thisDetectorzStr =detector0zStr.replace(8,1,to_string(i));
@@ -218,6 +230,8 @@ void GetUserInputs::fromFile(){
             DetectorType dec;
             dec.setDetectorXCord(_detectorx.front());
             _detectorx.erase(_detectorx.begin());
+            dec.setDetectorYCord(_detectory.front());
+            _detectory.erase(_detectory.begin());
             dec.setDetectorZCord(_detectorz.front());
             _detectorz.erase(_detectorz.begin());
             dec.setIsScatter(_detectorType.front());

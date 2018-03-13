@@ -192,6 +192,10 @@ ConesToEllipse::ConesToEllipse(Vector3D plane, vector<Cone> cones):
         Vector3D majorAxis(cos(omega),sin(omega),0);
         Vector3D minorAxis(sin(omega),cos(omega),0);
 
+
+        Vector3D intersectRay1(0,0,a);
+        Vector3D intersectRay2(0,0,a);
+
 //        if(fabs(thisCone.GetXImagePlane()) > fabs(thisCone.GetYImagePlane())){
 //            majorAxis()
 //        }
@@ -207,6 +211,7 @@ ConesToEllipse::ConesToEllipse(Vector3D plane, vector<Cone> cones):
             Ellipse thisEllipse(FindCenter(rmin,majorRadius,omega,thisCone),majorAxis,minorAxis,majorRadius,minorRadius);
             _ellipses.push_back(thisEllipse);
 
+
         }
 
         else      //Change this later
@@ -218,12 +223,14 @@ ConesToEllipse::ConesToEllipse(Vector3D plane, vector<Cone> cones):
             else
             {
                 double vPlusT = fabs(a*tan(phi2 + theta)/cos(omega));
+                double T = vPlusT - v;
                 rmax = vPlusT - v;
 
                 majorRadius = (rmax + rmin) / 2.0;           //These are the SEMI major and MINOR axis radiuses;
                 minorRadius = sqrt(rmax*rmin);
                 Ellipse thisEllipse(FindCenter(rmin, majorRadius, omega, thisCone), majorAxis, minorAxis, majorRadius, minorRadius);
                 _ellipses.push_back(thisEllipse);
+
             }
 
         //TODO axis and center. Magnitude should be correct
