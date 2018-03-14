@@ -14,7 +14,7 @@ class GetCoinc
 public:
 	GetCoinc(vector<vector<EventEntry> > events, double tolerance, vector<double> offset, vector<bool> isScatter, string fileName);
 	~GetCoinc();
-	void Output(int set1, int set2, double energy1, double energy2, double time1, double time2, ofstream& stream);
+	void Output(int set1, int set2, double energy1, double energy2, double time1, double time2, double posX1, double posX2, double posY1, double posY2, ofstream& stream);
 	void Find(int set1, int set2, bool overrideType);
 	void UpdateEvents(vector<vector<EventEntry> > events)
 	{

@@ -35,7 +35,13 @@ void GetCoinc::Find(int set1, int set2, bool overrideType)
 					if (set2Time < upperLim)
 					{
 						doubles++;
-						Output(set1, set2, _Events[set1][set1Line].GetEnergy(), _Events[set2][set2Line].GetEnergy(), time, set2Time, saveFile);
+
+						double posX1 = _Events[set1][set1Line].GetPosX();
+						double posX2 = _Events[set2][set2Line].GetPosX();
+						double posY1 = _Events[set1][set1Line].GetPosY();
+						double posY2 = _Events[set2][set2Line].GetPosY();
+
+						Output(set1, set2, _Events[set1][set1Line].GetEnergy(), _Events[set2][set2Line].GetEnergy(), time, set2Time, posX1, posX2, posY1, posY2, saveFile);
 						break;
 					}
 					//else if (set2Time > breakLim)
@@ -76,16 +82,21 @@ GetCoinc::~GetCoinc()
 }
 
 
-void GetCoinc::Output(int set1, int set2, double energy1, double energy2, double time1, double time2, ofstream& stream)
+void GetCoinc::Output(int set1, int set2, double energy1, double energy2, double time1, double time2, double posX1, double posX2, double posY1, double posY2, ofstream& stream)
 {
 	if (_IsOutputting)
 	{
-		stream << set1 << ' ' 
-			<< set2 << ' ' 
-			<< energy1 << ' ' 
+		stream << set1 << ' '
+			<< set2 << ' '
+			<< energy1 << ' '
 			<< energy2 << ' '
 			<< time1 << ' '
-			<< time2 << ' '	<< '\n';
+			<< time2 << ' '
+			<< posX1 << ' '
+			<< posX2 << ' '
+			<< posY1 << ' '
+			<< posY2 << ' '
+			<< '\n';
 	}
 }
 

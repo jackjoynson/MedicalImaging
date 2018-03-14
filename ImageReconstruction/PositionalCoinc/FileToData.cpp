@@ -32,14 +32,14 @@ vector<EventEntry> FileToData::GetData(vector<string> files, int fileIndex, bool
 		if (passedHeader)
 		{
 			//Not a header so split and create entry.
-			unsigned int time;
-			double energy;
+			double energy, time;
+			double posX, posY;
 
 			std::istringstream iss(line);
-			iss >> time >> energy;
+			iss >> time >> energy >> posX >> posY;
 
 			energy = (energy - constant) / gradient;
-			EventEntry newEventEntry(time, energy, fileIndex);
+			EventEntry newEventEntry(time, energy, fileIndex, posX, posY);
 
 			if (useLims)
 			{

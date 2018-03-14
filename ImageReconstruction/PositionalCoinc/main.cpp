@@ -19,7 +19,7 @@ bool SettingsFileExists()
 int main()
 {
 
-	cout << "Conincident pair finder" << endl;
+	cout << "Conincident pair finder **FOR POSITIONAL DATA**" << endl;
 
 	GetUserInputs GUI(SettingsFileExists());
 	vector<string> files = GUI.getFilePaths();

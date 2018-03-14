@@ -9,11 +9,12 @@ class EventEntry
 private:
 	double _TimeStamp;
 	double _Energy;
+	double _PosX, _PosY;
 	int _Detector;
 
 
 public:
-	EventEntry(double timeStamp, double energy, int detector);
+	EventEntry(double timeStamp, double energy, int detector, double posX, double posY);
 
 	double GetTimeStamp()
 	{
@@ -29,6 +30,16 @@ public:
 	{
 		return _Detector;
 	}
+
+	double GetPosX()
+	{
+		return _PosX;
+	}
+	double GetPosY()
+	{
+		return _PosY;
+	}
+
 
 	void SetTimeStamp(double timeStamp)
 	{
