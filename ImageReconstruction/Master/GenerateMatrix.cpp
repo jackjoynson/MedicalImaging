@@ -29,7 +29,7 @@ vector<vector<int> > GenerateMatrix::GetValues(vector<Ellipse> ellipses, double 
 	double yOffset = height / 2.0;
 
 
-	int thetaIntervals = 1000;
+	int thetaIntervals = 50000;
 	double thetaH = 2 * M_PI / thetaIntervals;
 
 	//first index is x. Second is y.
