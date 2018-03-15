@@ -12,7 +12,9 @@ void GetCoinc::Find(int set1, int set2, bool overrideType)
 	if (_IsScatters[set1] != _IsScatters[set2] || overrideType)
 	{
 		ofstream saveFile(_FileName,std::ios_base::app);
-		saveFile << setprecision(12);
+		saveFile << "Det1Num Det2Num SftTime1 SftTime2 Enrgy1 Enrgy2 X1 X2 Y1 Y2 Z1 Z2" 
+			<< endl
+			<< setprecision(12);
 
 		int doubles = 0;
 
@@ -36,12 +38,7 @@ void GetCoinc::Find(int set1, int set2, bool overrideType)
 					{
 						doubles++;
 
-						double posX1 = _Events[set1][set1Line].GetPosX();
-						double posX2 = _Events[set2][set2Line].GetPosX();
-						double posY1 = _Events[set1][set1Line].GetPosY();
-						double posY2 = _Events[set2][set2Line].GetPosY();
-
-						Output(set1, set2, _Events[set1][set1Line].GetEnergy(), _Events[set2][set2Line].GetEnergy(), time, set2Time, posX1, posX2, posY1, posY2, saveFile);
+						Output(set1, set2, set1Line, set2Line, time, set2Time, saveFile);
 						break;
 					}
 					//else if (set2Time > breakLim)
@@ -82,20 +79,29 @@ GetCoinc::~GetCoinc()
 }
 
 
-void GetCoinc::Output(int set1, int set2, double energy1, double energy2, double time1, double time2, double posX1, double posX2, double posY1, double posY2, ofstream& stream)
+void GetCoinc::Output(int set1, int set2, int set1Line, int set2Line, double time1, double time2, ofstream& stream)
 {
 	if (_IsOutputting)
 	{
+		double posX1 = _Events[set1][set1Line].GetPosX();
+		double posX2 = _Events[set2][set2Line].GetPosX();
+		double posY1 = _Events[set1][set1Line].GetPosY();
+		double posY2 = _Events[set2][set2Line].GetPosY();
+		double posZ1 = _Events[set1][set1Line].GetPosZ();
+		double posZ2 = _Events[set2][set2Line].GetPosZ();
+
 		stream << set1 << ' '
 			<< set2 << ' '
-			<< energy1 << ' '
-			<< energy2 << ' '
 			<< time1 << ' '
 			<< time2 << ' '
+			<< _Events[set1][set1Line].GetEnergy() << ' '
+			<< _Events[set2][set2Line].GetEnergy() << ' '
 			<< posX1 << ' '
 			<< posX2 << ' '
 			<< posY1 << ' '
 			<< posY2 << ' '
+			<< posZ1 << ' '
+			<< posZ2 << ' '
 			<< '\n';
 	}
 }

@@ -33,13 +33,13 @@ vector<EventEntry> FileToData::GetData(vector<string> files, int fileIndex, bool
 		{
 			//Not a header so split and create entry.
 			double energy, time;
-			double posX, posY;
+			double posX, posY, posZ;
 
 			std::istringstream iss(line);
-			iss >> time >> energy >> posX >> posY;
+			iss >> time >> energy >> posX >> posY >> posZ;
 
 			energy = (energy - constant) / gradient;
-			EventEntry newEventEntry(time, energy, fileIndex, posX, posY);
+			EventEntry newEventEntry(time, energy, fileIndex, posX, posY, posZ);
 
 			if (useLims)
 			{

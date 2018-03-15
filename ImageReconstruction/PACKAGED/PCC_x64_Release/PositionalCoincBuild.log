@@ -1,0 +1,17 @@
+﻿  Cone.cpp
+  ConesToellipse.cpp
+  DetectorType.cpp
+  Ellipse.cpp
+  EventEntry.cpp
+  FileToData.cpp
+  GetCoinc.cpp
+..\..\GitHub\MedicalImaging\ImageReconstruction\PositionalCoinc\GetCoinc.cpp(41): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  GetUserInputs.cpp
+  main.cpp
+..\..\GitHub\MedicalImaging\ImageReconstruction\PositionalCoinc\main.cpp(47): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  MultiCheck.cpp
+..\..\GitHub\MedicalImaging\ImageReconstruction\PositionalCoinc\MultiCheck.cpp(24): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+  Generating code
+  All 791 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  PositionalCoincBuild.vcxproj -> D:\Documents\MedicalImagingBuild\PositionalCoincBuild\x64\Release\PositionalCoincBuild.exe

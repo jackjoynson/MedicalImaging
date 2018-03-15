@@ -1,6 +1,6 @@
 #include "EventEntry.h"
 
-EventEntry::EventEntry(double timeStamp, double energy, int detector, double posX, double posY)
+EventEntry::EventEntry(double timeStamp, double energy, int detector, double posX, double posY, double posZ)
 {
 	_TimeStamp = timeStamp;
 
@@ -10,5 +10,6 @@ EventEntry::EventEntry(double timeStamp, double energy, int detector, double pos
 
 	_PosX = posX;
 	_PosY = posY;
+	_PosZ = posZ;
 }
 	
