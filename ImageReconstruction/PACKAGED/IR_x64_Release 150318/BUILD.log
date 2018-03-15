@@ -1,0 +1,21 @@
+﻿  Cone.cpp
+  ConesToellipse.cpp
+  DetectorType.cpp
+  FileToData.cpp
+  FilterEvents.cpp
+  GenerateCone.cpp
+  GenerateMatrix.cpp
+..\..\GitHub\MedicalImaging\ImageReconstruction\Master\GenerateMatrix.cpp(74): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+..\..\GitHub\MedicalImaging\ImageReconstruction\Master\GenerateMatrix.cpp(75): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+  GetUserInputs.cpp
+..\..\GitHub\MedicalImaging\ImageReconstruction\Master\GetUserInputs.cpp(220): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+  ReadCCData.cpp
+..\..\GitHub\MedicalImaging\ImageReconstruction\Master\ReadCCData.cpp(39): warning C4244: 'argument': conversion from 'double' to 'unsigned int', possible loss of data
+..\..\GitHub\MedicalImaging\ImageReconstruction\Master\ReadCCData.cpp(40): warning C4244: 'argument': conversion from 'double' to 'unsigned int', possible loss of data
+  main.cpp
+  Generating code
+  78 of 910 functions ( 8.6%) were compiled, the rest were copied from previous compilation.
+    4 functions were new in current compilation
+    64 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  BUILD.vcxproj -> D:\Documents\MedicalImagingBuild\BUILD\x64\Release\BUILD.exe
