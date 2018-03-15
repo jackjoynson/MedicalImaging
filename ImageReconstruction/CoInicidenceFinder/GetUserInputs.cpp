@@ -18,6 +18,11 @@ GetUserInputs::GetUserInputs(bool isFromFile)
 		cin >> tempCal;
 		bool calibrate = (tempCal == 1) ? true : false;
 
+		cout << "Enter 1 if using compass" << endl;
+		int tempCompass;
+		cin >> tempCompass;
+		_UsingCompass = (tempCompass == 1) ? true : false;
+
 		int detectorNumber;
 		cout << "Please enter the number of detectors" << endl;
 		cin >> detectorNumber;

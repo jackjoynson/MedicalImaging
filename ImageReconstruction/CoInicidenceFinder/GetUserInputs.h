@@ -80,6 +80,11 @@ public:
         return _MultiMode;
     }
     
+	bool getUsingCompass()
+	{
+		return _UsingCompass;
+	}
+
 private:
     int _DetectorNumber;
     double _Tolerance;
@@ -89,7 +94,7 @@ private:
     bool _EnergyLimits;
     double _EnergyUpperLimit;
     double _EnergyLowerLimit;
-    bool _MultiMode;
+    bool _MultiMode, _UsingCompass;
 
 
 

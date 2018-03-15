@@ -34,13 +34,13 @@ int main()
 	bool overrideType = GUI.getOverRide();
 	bool multiMode = GUI.getMultiMode();
 	bool useLimits = GUI.getEnergyLimits();
-
+	bool usingCompass = GUI.getUsingCompass();
 
 	double upperScatLim = GUI.getEnergyUpperLimits();
 	double lowerAbsLim = GUI.getEnergyLowerLimits();
 
 
-	FileToData FTD;
+	FileToData FTD(usingCompass);
 	vector<vector<EventEntry> > events;
 	for (size_t i = 0; i < files.size(); i++)
 	{

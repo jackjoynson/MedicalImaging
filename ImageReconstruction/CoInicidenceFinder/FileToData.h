@@ -10,8 +10,10 @@
 class FileToData
 {
 public:
-	FileToData();
+	FileToData(bool usingCompass);
 	vector<EventEntry> GetData(vector<string> files, int fileIndex, bool lookForData, double constant, double gradient, bool isScat, double scatLim, double absLim, bool useLims);
+private:
+	bool _UsingCompass;
 };
 
 #endif
