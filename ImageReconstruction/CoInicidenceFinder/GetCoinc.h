@@ -12,7 +12,7 @@
 class GetCoinc
 {
 public:
-	GetCoinc(vector<vector<EventEntry> > events, double tolerance, vector<double> offset, vector<bool> isScatter, string fileName);
+	GetCoinc(vector<vector<EventEntry> > events, double tolerance, vector<double> offset, vector<bool> isScatter, string fileName, bool useUpperCutOff, bool useSmartStart);
 	~GetCoinc();
 	void Output(int set1, int set2, double energy1, double energy2, double time1, double time2, ofstream& stream);
 	void Find(int set1, int set2, bool overrideType);
@@ -39,7 +39,7 @@ private:
 	vector<double> _Offsets;
 	vector<bool> _IsScatters;
 	string _FileName;
-	bool _IsOutputting;
+	bool _IsOutputting, _UseUpperCutOff, _UseSmartStart;
 };
 
 #endif

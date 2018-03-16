@@ -15,6 +15,7 @@ void GetCoinc::Find(int set1, int set2, bool overrideType)
 		saveFile << setprecision(12);
 
 		int doubles = 0;
+		size_t startPoint = 0;
 
 		//Loop each in set1
 		for (size_t set1Line = 0; set1Line < _Events[set1].size(); set1Line++)
@@ -23,10 +24,9 @@ void GetCoinc::Find(int set1, int set2, bool overrideType)
 			double upperLim = time + _Tolerance;
 			double lowerLim = time - _Tolerance;
 
-			//double breakLim = upperLim + 10000;
 
 			//Loop set2
-			for (size_t set2Line = 0; set2Line < _Events[set2].size(); set2Line++)
+			for (size_t set2Line = startPoint; set2Line < _Events[set2].size(); set2Line++)
 			{
 
 				double set2Time = _Events[set2][set2Line].GetTimeStamp() + _Offsets[set2];
@@ -35,14 +35,14 @@ void GetCoinc::Find(int set1, int set2, bool overrideType)
 					if (set2Time < upperLim)
 					{
 						doubles++;
+						if(_UseSmartStart) startPoint = set2Line;
 						Output(set1, set2, _Events[set1][set1Line].GetEnergy(), _Events[set2][set2Line].GetEnergy(), time, set2Time, saveFile);
 						break;
 					}
-					//else if (set2Time > breakLim)
-					//{
-					//	//above the limit
-					//	break;
-					//}
+					else if (_UseUpperCutOff && set2Time > upperLim)
+					{
+						break;
+					}
 				}
 			}
 		}
@@ -58,7 +58,7 @@ void GetCoinc::Find(int set1, int set2, bool overrideType)
 
 
 
-GetCoinc::GetCoinc(vector<vector<EventEntry> > events, double tolerance, vector<double> offsets, vector<bool> isScatters, string fileName)
+GetCoinc::GetCoinc(vector<vector<EventEntry> > events, double tolerance, vector<double> offsets, vector<bool> isScatters, string fileName, bool useUpperCutOff, bool useSmartStart)
 {
 	_Doubles = 0;
 	_Triples = 0;
@@ -68,6 +68,8 @@ GetCoinc::GetCoinc(vector<vector<EventEntry> > events, double tolerance, vector<
 	_IsScatters = isScatters;
 	_IsOutputting = (fileName.length() > 0) ? true : false;
 	_FileName = fileName;
+	_UseUpperCutOff = useUpperCutOff;
+	_UseSmartStart = useSmartStart;
 }
 
 

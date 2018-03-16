@@ -23,6 +23,16 @@ GetUserInputs::GetUserInputs(bool isFromFile)
 		cin >> tempCompass;
 		_UsingCompass = (tempCompass == 1) ? true : false;
 
+		if (_UsingCompass)
+		{
+			cout << "Enter 1 to use smart start optimisation - experimental!" << endl;
+			int tempSS;
+			cin >> tempSS;
+			_UseSmartStart = (tempSS == 1) ? true : false;
+		}
+		else _UseSmartStart = false;
+
+
 		int detectorNumber;
 		cout << "Please enter the number of detectors" << endl;
 		cin >> detectorNumber;
@@ -127,6 +137,13 @@ void GetUserInputs::fromFile(){
                 string isSimResult = line.substr(found + isSimStr.length() + 1);
                 _Headers = (isSimResult == "True" || isSimResult == "true") ? true : false;
             }
+
+			string useSSStr = "SmartStart";
+			found = line.find(useSSStr);
+			if (found != string::npos) {
+				string useSSResult = line.substr(found + useSSStr.length() + 1);
+				_UseSmartStart = (useSSResult == "True" || useSSResult == "true") ? true : false;
+			}
 
             string toleranceStr = "Tolerance";
             found = line.find(toleranceStr);

@@ -60,7 +60,7 @@ int main()
 	}
 	else 
 	{
-		GetCoinc GC(events, tolerance, offsets, isScatters, fileName);
+		GetCoinc GC(events, tolerance, offsets, isScatters, fileName, usingCompass, GUI.getUseSmartStart());
 		for (int outter = 0; outter < files.size(); outter++)
 		{
 			for (int inner = 0; inner < files.size(); inner++)

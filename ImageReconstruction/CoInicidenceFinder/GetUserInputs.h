@@ -85,6 +85,11 @@ public:
 		return _UsingCompass;
 	}
 
+	bool getUseSmartStart()
+	{
+		return _UseSmartStart;
+	}
+
 private:
     int _DetectorNumber;
     double _Tolerance;
@@ -94,7 +99,7 @@ private:
     bool _EnergyLimits;
     double _EnergyUpperLimit;
     double _EnergyLowerLimit;
-    bool _MultiMode, _UsingCompass;
+    bool _MultiMode, _UsingCompass, _UseSmartStart;
 
 
 
