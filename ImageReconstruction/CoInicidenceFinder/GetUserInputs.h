@@ -90,6 +90,19 @@ public:
 		return _UseSmartStart;
 	}
 
+	double getInitEnergy()
+	{
+		return _InitEnergy;
+	}
+	double getCheckTolerance()
+	{
+		return _CheckTolerance;
+	}
+	bool getUseESC()
+	{
+		return _CheckSum;
+	}
+
 private:
     int _DetectorNumber;
     double _Tolerance;
@@ -99,8 +112,8 @@ private:
     bool _EnergyLimits;
     double _EnergyUpperLimit;
     double _EnergyLowerLimit;
-    bool _MultiMode, _UsingCompass, _UseSmartStart;
-
+    bool _MultiMode, _UsingCompass, _UseSmartStart, _CheckSum;
+	double _InitEnergy, _CheckTolerance;
 
 
     vector<string> _FilePaths;

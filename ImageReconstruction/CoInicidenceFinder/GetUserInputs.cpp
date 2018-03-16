@@ -33,6 +33,21 @@ GetUserInputs::GetUserInputs(bool isFromFile)
 		else _UseSmartStart = false;
 
 
+		cout << "Enter 1 to use energy sum check" << endl;
+		int tempUseESC;
+		cin >> tempUseESC;
+		_CheckSum = (tempUseESC == 1) ? true : false;
+
+		if (_CheckSum)
+		{
+			cout << "Enter the intial energy" << endl;
+			cin >> _InitEnergy;
+
+			cout << "Enter the tolerance on the check energy (added to initial energy to check)" << endl;
+			cin >> _CheckTolerance;
+		}
+
+
 		int detectorNumber;
 		cout << "Please enter the number of detectors" << endl;
 		cin >> detectorNumber;

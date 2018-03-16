@@ -34,9 +34,15 @@ void GetCoinc::Find(int set1, int set2, bool overrideType)
 				{
 					if (set2Time < upperLim)
 					{
-						doubles++;
-						if(_UseSmartStart) startPoint = set2Line;
-						Output(set1, set2, _Events[set1][set1Line].GetEnergy(), _Events[set2][set2Line].GetEnergy(), time, set2Time, saveFile);
+
+						if (EnergiesValid(set1, set1Line, set2, set2Line))
+						{
+							
+							doubles++;
+							Output(set1, set2, _Events[set1][set1Line].GetEnergy(), _Events[set2][set2Line].GetEnergy(), time, set2Time, saveFile);
+						}
+
+						if (_UseSmartStart) startPoint = set2Line;
 						break;
 					}
 					else if (_UseUpperCutOff && set2Time > upperLim)
@@ -57,8 +63,18 @@ void GetCoinc::Find(int set1, int set2, bool overrideType)
 }
 
 
+bool GetCoinc::EnergiesValid(int set1, size_t set1Line, int set2, size_t set2Line)
+{
+	if (_UseCheckSum)
+	{
+		double energySum = _Events[set1][set1Line].GetEnergy() + _Events[set2][set2Line].GetEnergy();
 
-GetCoinc::GetCoinc(vector<vector<EventEntry> > events, double tolerance, vector<double> offsets, vector<bool> isScatters, string fileName, bool useUpperCutOff, bool useSmartStart)
+		return (energySum > _InitialEnergy + _CheckSumTolerance || energySum < _InitialEnergy - _CheckSumTolerance);
+	}
+	return true;
+}
+
+GetCoinc::GetCoinc(vector<vector<EventEntry> > events, double tolerance, vector<double> offsets, vector<bool> isScatters, string fileName, bool useUpperCutOff, bool useSmartStart, double initialEnergy, double checkTolerance, bool useCheckSum)
 {
 	_Doubles = 0;
 	_Triples = 0;
