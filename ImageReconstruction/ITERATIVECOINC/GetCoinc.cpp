@@ -69,7 +69,7 @@ bool GetCoinc::EnergiesValid(int set1, size_t set1Line, int set2, size_t set2Lin
 	{
 		double energySum = _Events[set1][set1Line].GetEnergy() + _Events[set2][set2Line].GetEnergy();
 
-		return (energySum < _InitialEnergy + _CheckSumTolerance || energySum > _InitialEnergy - _CheckSumTolerance);
+		return (energySum < _InitialEnergy + _CheckSumTolerance && energySum > _InitialEnergy - _CheckSumTolerance);
 	}
 	return true;
 }
